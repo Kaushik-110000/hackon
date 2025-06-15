@@ -66,7 +66,7 @@ const ImageCarousel = () => {
                     <div className="flex flex-col items-center">
                         <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
-                    </div>
+                    </div> 
                     <div className="flex flex-col items-center">
                         <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
