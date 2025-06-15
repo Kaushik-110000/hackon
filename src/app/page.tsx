@@ -1,10 +1,26 @@
 import Image from "next/image";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ImageCarousel from "./components/ImageCarousel";
 
 export default function Home() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="bg-[#E3E6E6] bg-cover bg-center bg-no-repeat">
       {/* Header - Pixel-perfect Amazon style */}
-      <header className="w-full bg-[#131921] flex items-center px-4 py-2">
+      <header className="w-full bg-[#131921] flex items-center px-4 py-3">
         {/* Logo and Location */}
         <div className="flex items-center min-w-[270px]">
           <Image src="/logo-light.png" alt="logo" width={98} height={30} className="object-contain" />
@@ -56,9 +72,9 @@ export default function Home() {
       </header>
 
       {/* Navigation Bar */}
-      <nav className="w-full bg-[#232f3e] text-white text-sm">
+      <nav className="w-full bg-[#232f3e] text-white text-sm opacity-80">
         <ul className="flex flex-wrap items-center px-6 py-2 space-x-4 overflow-x-auto">
-          <li className="font-semibold">All</li>
+          <li className="font-semibold">☰ All</li>
           <li>MX Player</li>
           <li>Sell</li>
           <li>Bestsellers</li>
@@ -78,27 +94,14 @@ export default function Home() {
       </nav>
 
       {/* Main Banner */}
-      <section className="w-full bg-white flex flex-col items-center py-8 shadow-md">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-2">Smartphones</h1>
-          <p className="text-xl text-gray-700 mb-4">Starting ₹6,499</p>
-          <div className="flex justify-center space-x-4">
-            {/* Smartphone images from Unsplash */}
-            gfgf
-            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=200&q=80" alt="Smartphone 1" className="w-28 h-48 object-cover rounded-lg" />
-            <img src="https://images.unsplash.com/photo-1510557880182-3a935d07a5b1?auto=format&fit=crop&w=200&q=80" alt="Smartphone 2" className="w-28 h-48 object-cover rounded-lg" />
-            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=80" alt="Smartphone 3" className="w-28 h-48 object-cover rounded-lg" />
-          </div>
-        </div>
-      </section>
+      <ImageCarousel />
 
       {/* Banner and Cards Section */}
-      <section className="relative w-full min-h-[420px] bg-gradient-to-b from-[#f7d7d0] to-[#f7f7f7] flex flex-col justify-end pb-8 overflow-visible">
-        {/* Banner Content */}
+      {/* <section className="relative w-full min-h-[420px] bg-gradient-to-b from-[#f7d7d0] to-[#f7f7f7] flex flex-col justify-end pb-8 overflow-visible">
+
         <div className="absolute inset-0 flex flex-row items-start justify-between px-8 pt-8 pointer-events-none">
-          {/* Left Arrow */}
+
           <button className="pointer-events-auto bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center shadow-md mt-32 ml-[-20px] border border-gray-200"><svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg></button>
-          {/* Center Banner Text */}
           <div className="flex-1 flex flex-col items-center">
             <h1 className="text-4xl font-bold text-[#131921] mt-4">Under ₹1,499</h1>
             <p className="text-2xl text-[#131921] font-normal mt-2">Budget friendly headphones</p>
@@ -107,17 +110,13 @@ export default function Home() {
               <span className="text-3xl font-serif text-[#131921] tracking-widest">BOULT</span>
             </div>
           </div>
-          {/* Right Banner Images */}
           <div className="flex items-end h-full pr-8">
             <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=180&q=80" alt="Earbuds" className="w-32 h-32 object-contain -mb-8" />
             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" alt="Headphones" className="w-28 h-28 object-contain -mb-4 ml-[-30px]" />
           </div>
-          {/* Right Arrow */}
           <button className="pointer-events-auto bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center shadow-md mt-32 mr-[-20px] border border-gray-200"><svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg></button>
         </div>
-        {/* Cards Grid */}
         <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4 mt-56">
-          {/* Card 1 */}
           <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px]">
             <h2 className="text-lg font-bold mb-3">Appliances for your home | Up to 55% off</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
@@ -140,7 +139,6 @@ export default function Home() {
             </div>
             <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">See more</a>
           </div>
-          {/* Card 2 */}
           <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px]">
             <h2 className="text-lg font-bold mb-3">Revamp your home in style</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
@@ -163,7 +161,6 @@ export default function Home() {
             </div>
             <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">Explore all</a>
           </div>
-          {/* Card 3 */}
           <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px]">
             <h2 className="text-lg font-bold mb-3">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
@@ -186,16 +183,15 @@ export default function Home() {
             </div>
             <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">See all deals</a>
           </div>
-          {/* Card 4: Sign in */}
           <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px] justify-center items-center">
             <h2 className="text-lg font-bold mb-3 text-left w-full">Sign in for your best experience</h2>
             <button className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-2 px-6 rounded w-full mt-2 mb-4">Sign in securely</button>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Product Grids */}
-      <main className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-8 px-4">
+      {/* <main className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-8 px-4">
         <section className="bg-white rounded-lg shadow p-4 flex flex-col">
           <h2 className="text-lg font-bold mb-3">Appliances for your home | Up to 55% off</h2>
           <div className="grid grid-cols-2 gap-2 flex-1">
@@ -280,7 +276,36 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
+      </main> */}
     </div>
+  );
+}
+
+// Custom arrow components
+function CustomNextArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <button
+      className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-opacity-100 transition-all duration-200"
+      onClick={onClick}
+    >
+      <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  );
+}
+
+function CustomPrevArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <button
+      className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center shadow-md hover:bg-opacity-100 transition-all duration-200"
+      onClick={onClick}
+    >
+      <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
   );
 }
