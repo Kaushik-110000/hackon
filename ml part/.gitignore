@@ -1,0 +1,32 @@
+# Node.js dependencies
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Build files
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# IDE settings
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
+
+# Bun or other lock files if not used
+bun.lock
+pnpm-lock.yaml
