@@ -176,7 +176,7 @@ export default function page({ }: Props) {
             </div>
             <div className="mx-auto flex pt-5 bg-white">
                 {/* Left Panel Filters */}
-                <aside className="bg-white p-4 h-fit w-[20vw]">
+                <aside className="bg-white p-4 h-fit w-[20vw] text-black">
                     <div className="mb-6">
                         <h3 className="font-semibold mb-2">Delivery Day</h3>
                         <label className="flex items-center gap-2 text-sm">
@@ -226,7 +226,7 @@ export default function page({ }: Props) {
                                 className="w-16 border rounded px-1 py-0.5 text-sm"
                             />
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">₹125 – ₹8,400+</div>
+                        <div className="text-xs mt-1">₹125 – ₹8,400+</div>
                     </div>
                     <div className="mb-6">
                         <h3 className="font-semibold mb-2">Deals & Discounts</h3>
@@ -273,7 +273,7 @@ export default function page({ }: Props) {
                 </aside>
                 <main className="flex flex-col w-full">
                     {/* Sponsored Section */}
-                    <section className="relative w-full flex">
+                    <section className="relative w-full flex text-black">
                         <div className="bg-white rounded-lg p-8 max-w-3xl w-full flex flex-col items-center">
                             <div className="flex items-center w-full mb-6">
                                 <img src={"https://m.media-amazon.com/images/S/al-eu-726f4d26-7fdb/742c2e36-7974-4287-821a-754324756621._CR0,0,512,512_AC_SX260_SY120_CB1169409_QL70_.jpeg"} alt="brand logo" className="w-16 h-16 object-contain rounded mr-6" />
@@ -286,11 +286,11 @@ export default function page({ }: Props) {
                                 {sponsored.products.map((prod, idx) => (
                                     <div key={idx} className="flex flex-col flex-1">
                                         <img src={prod.image} alt={prod.caption} className="w-40 h-40 object-contain bg-gray-50 rounded" />
-                                        <span className="text-sm mt-2 text-gray-700">{prod.caption}</span>
+                                        <span className="text-sm mt-2">{prod.caption}</span>
                                     </div>
                                 ))}
                             </div>
-                            <span className="absolute bottom-2 right-4 text-xs text-gray-500 flex items-center gap-1">
+                            <span className="absolute bottom-2 right-4 text-xs flex items-center gap-1">
                                 Sponsored
                                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="10" stroke="#888" strokeWidth="2" />
