@@ -30,3 +30,6 @@ Thumbs.db
 # Bun or other lock files if not used
 bun.lock
 pnpm-lock.yaml
+
+
+.env 
