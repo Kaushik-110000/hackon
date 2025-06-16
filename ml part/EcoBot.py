@@ -11,8 +11,8 @@ MONGO_URI = os.getenv("MONGO_URI")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # MongoDB setup
-DB_NAME = 'project'
-PRODUCT_COLLECTION = "products"
+DB_NAME = ''
+PRODUCT_COLLECTION = ""
 
 # Configure Gemini API
 genai.configure(api_key=GOOGLE_API_KEY)
