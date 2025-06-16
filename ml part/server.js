@@ -1,4 +1,4 @@
-// server.js or app.js
+
 const express = require('express');
 const app = express();
 const footprintRoutes = require('./routes/footprintRoute');
