@@ -2,8 +2,8 @@ import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ImageCarousel from "./components/ImageCarousel";
-import Nav from "./components/Nav";
+import ImageCarousel from "../components/ImageCarousel";
+import Nav from "../components/Nav";
 
 export default function Home() {
   const settings = {
