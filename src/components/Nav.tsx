@@ -57,7 +57,7 @@ export default function Nav() {
             </header>
 
             {/* Navigation Bar */}
-            <nav className="w-full bg-[#232f3e] text-white text-sm opacity-80">
+            <nav className="w-full bg-[#232f3e] text-white text-sm">
                 <ul className="flex flex-wrap items-center px-6 py-2 space-x-4 overflow-x-auto">
                     <li className="font-semibold">☰ All</li>
                     <li>MX Player</li>
