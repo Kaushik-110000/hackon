@@ -37,23 +37,23 @@ const ImageCarousel = () => {
             <div className="relative -mt-[40vh] grid grid-cols-4 grid-rows-2 gap-4 p-2 w-full bg-gradient-to-b from-transparent via-[#E3E6E6] via-20% to-[#E3E6E6] to-100%">
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">Get your desired TV screen size | Starting ₹6,999</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/xPC_QC_186x116_1._SY116_CB792574578_.jpg" alt="Budget TVs | Save extra with No Cost EMI" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Budget TVs | Save extra with No Cost EMI</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/xPC_QC_186x116_2._SY116_CB792574578_.jpg" alt="4K TVs | Up to 24 months No Cost EMI" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">4K TVs | Up to 24 months No Cost EMI</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/big_screens.jpg" alt="Big Screens | Free installation" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Big Screens | Free installation</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/ultra_premium_tvs.jpg" alt="Ultra Premium TVs | Up to 50% off" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Ultra Premium TVs | Up to 50% off</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
@@ -85,23 +85,23 @@ const ImageCarousel = () => {
                 </div>
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">Revamp your home in style</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/cushion_cover.jpg" alt="Cushion covers, bedsheets & more" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Cushion covers, bedsheets & more</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/vases.jpg" alt="Figurines, vases & more" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Figurines, vases & more</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/home storage.jpg" alt="Home storage" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Home storage</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/lighting_solutions.jpg" alt="Lighting solutions" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Lighting solutions</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
@@ -109,23 +109,23 @@ const ImageCarousel = () => {
                 </div>
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/ps5.jpg" alt="PS5 Slim digital edition" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">PS5 Slim digital edition</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/ps5_disc.jpg" alt="PS5 Slim disc edition" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">PS5 Slim disc edition</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/ps5_fortnite.jpg" alt="PS5 Slim Fortnite digital edition" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">PS5 Slim Fortnite digital edition</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/ps5_dualsense.jpg" alt="PS5 DualSense Wireless Controller" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">PS5 DualSense Wireless Controller</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
@@ -133,23 +133,23 @@ const ImageCarousel = () => {
                 </div>
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">Under ₹499 | Deals on home improvement essentials</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/cleaning_supplies.jpg" alt="Cleaning" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Under ₹199 | Cleaning supplies</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/bathroom_accessories.jpg" alt="Bathroom accessories" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Under ₹399 | Bathroom accessories</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/home_tools.jpg" alt="Home tools" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Under ₹499 | Home tools</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/wallpapers.jpg" alt="Wallpapers" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Under ₹299 | Wallpapers</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
@@ -157,23 +157,23 @@ const ImageCarousel = () => {
                 </div>
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">Starting ₹149 | Headphones</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/boat.jpg" alt="boAt" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Starting ₹249 | boAt</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/boult.jpg" alt="boult" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Starting ₹349 | boult</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/noise.jpg" alt="Noise" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Starting ₹649 | Noise</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/zebronics.jpg" alt="Zebronics" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Starting ₹149 | Zebronics</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
@@ -181,23 +181,23 @@ const ImageCarousel = () => {
                 </div>
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">Automotive essentials | Up to 60% off</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/cleaning_accessories.jpg" alt="Cleaning accessories" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Cleaning accessories</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/tyre.jpg" alt="Tyre & rim care" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Tyre & rim care</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/helmets.jpg" alt="Helmets" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Helmets</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/vaccum_cleaner.jpg" alt="Vacuum cleaner" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Vacuum cleaner</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
@@ -205,23 +205,23 @@ const ImageCarousel = () => {
                 </div>
                 <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
-                        <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
+                        <h2 className="text-xl font-bold leading-tight text-black">Starting ₹199 | Amazon Brands & more</h2>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
+                        <img src="/assests/bedsheets.jpg" alt="Starting ₹199 | Bedsheets" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Starting ₹199 | Bedsheets</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
+                        <img src="/assests/curtains.jpg" alt="Starting ₹199 | Curtains" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Starting ₹199 | Curtains</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B07G5J5FYP._SY116_CB667322346_.jpg" alt="Microwaves" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Microwaves</span>
+                        <img src="/assests/ironing_board.jpg" alt="Minimum 40% off | Ironing board & more" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Minimum 40% off | Ironing board & more</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/186x116---wm._SY116_CB667322346_.jpg" alt="Washing machines" className="w-32 h-20 object-cover rounded mb-1" />
-                        <span className="text-xs text-gray-800 text-left w-32">Washing machines</span>
+                        <img src="/assests/homw_decor.jpg" alt="Up to 60% off | Home decor" className="w-32 h-20 object-cover rounded mb-1" />
+                        <span className="text-xs text-gray-800 text-left w-32">Up to 60% off | Home decor</span>
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>

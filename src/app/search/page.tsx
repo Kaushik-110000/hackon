@@ -54,8 +54,8 @@ const brands = ['MILTON', 'CELLO', 'SOLARA', 'Boldfit', 'Pigeon', 'Borosil'];
 const mockProducts = [
   {
     id: 1,
-    image: 'https://m.media-amazon.com/images/I/71i--IbCPdL._AC_UL480_FMwebp_QL65_.jpg',
-    title: 'Pexpo Bravo 1000 ISI Certified Stainless Steel Water Bottle 1 LTR, 24 Hr Hot & Cold, Leak Proof, Vacuum Insulated Flask',
+    image: '/assests/mockProducts_images/copper_bottle.webp',
+    title: 'The Better Home Copper Water Bottle 950ml | BPA Free Leak Proof Bottle with .....',
     sponsored: true,
     bestSeller: false,
     deal: 'Limited time deal',
@@ -71,8 +71,8 @@ const mockProducts = [
   },
   {
     id: 2,
-    image: 'https://m.media-amazon.com/images/I/51CNOb65PpL._AC_UL320_.jpg',
-    title: 'Pexpo Electro Pro 1000 Hot & Cold ISI Certified | Stainless Steel Water Bottle - 980ml, Military Green | Thermoflask',
+    image: '/assests/mockProducts_images/milton_super.webp',
+    title: 'MILTON Super 500 Stainless Steel Water Bottle, 475 ml water bottles, Single walled, Leak-Proof, Rust-free Steel',
     sponsored: true,
     bestSeller: false,
     deal: 'Limited time deal',
@@ -88,8 +88,8 @@ const mockProducts = [
   },
   {
     id: 3,
-    image: 'https://m.media-amazon.com/images/I/716AbJ0UvJL._AC_UL320_.jpg',
-    title: 'Pexpo Oslo Pro Hot & Cold Stainless Steel Water Bottle |Thermosteel Flask|Vacuum Insulated |ISI Certified |750ml',
+    image: '/assests/mockProducts_images/pigeon.webp',
+    title: 'Pigeon by stovekraft Inox Hydra Duo, Dual Cap, Flipper and Fridge in one bottle,....',
     sponsored: true,
     bestSeller: false,
     deal: 'Limited time deal',
@@ -105,8 +105,8 @@ const mockProducts = [
   },
   {
     id: 4,
-    image: 'https://m.media-amazon.com/images/I/51H2B9OcK5L._AC_UL320_.jpg',
-    title: 'PEXPO Chromo Pro 1000 ISI Certified Stainless Steel Sports/Fridge Sipper Water Bottle, 950ml, Black',
+    image: '/assests/mockProducts_images/hyv.webp',
+    title: 'HYV HydroFlow 1.2L Insulated Tumbler with Straw | Sipper Bottle for Adults and Kids',
     sponsored: true,
     bestSeller: true,
     deal: '',
@@ -122,8 +122,8 @@ const mockProducts = [
   },
   {
     id: 5,
-    image: 'https://m.media-amazon.com/images/I/61v2yQ+QkGL._AC_UL320_.jpg',
-    title: 'VISBY INDIA TER 2 L Capacity Belt Straw Transparent Motivational Water Bottles|Time Marker Leak...',
+    image: '/assests/mockProducts_images/borosil.jpg',
+    title: 'BOROSIL Colour Copper bottle 1 Litre, Brown 100% Pure Copper, BPA Free &...',
     sponsored: false,
     bestSeller: false,
     deal: '',
@@ -301,7 +301,7 @@ export default function page({ }: Props) {
                     </section>
                     {/* Product Feed */}
                     <div className="mt-8">
-                        <h2 className="text-xl font-bold mb-2">Results</h2>
+                        <h2 className="text-xl text-black font-bold mb-2">Results</h2>
                         <div className="text-sm text-gray-600 mb-4">Check each product page for other buying options. Price and other details may vary based on product size and colour.</div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
                             {mockProducts.map(product => (
@@ -347,7 +347,7 @@ export default function page({ }: Props) {
                         </div>
                     </div>
                     <div className="mt-8">
-                        <h2 className="text-xl font-bold mb-2">Results</h2>
+                        <h2 className="text-xl text-black font-bold mb-2">Trending Now</h2>
                         <div className="text-sm text-gray-600 mb-4">Check each product page for other buying options. Price and other details may vary based on product size and colour.</div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
                             {mockProducts.map(product => (
@@ -393,7 +393,7 @@ export default function page({ }: Props) {
                         </div>
                     </div>
                     <div className="mt-8">
-                        <h2 className="text-xl font-bold mb-2">Results</h2>
+                        <h2 className="text-xl text-black font-bold mb-2">More Results</h2>
                         <div className="text-sm text-gray-600 mb-4">Check each product page for other buying options. Price and other details may vary based on product size and colour.</div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
                             {mockProducts.map(product => (
