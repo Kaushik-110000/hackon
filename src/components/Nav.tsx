@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import GreenCoin from './GreenCoin'
 
 export default function Nav() {
     return (
@@ -36,6 +37,10 @@ export default function Nav() {
                         <Image src="https://flagcdn.com/in.svg" alt="IN" width={20} height={14} className="mr-1 rounded-sm" />
                         <span className="text-xs font-bold">EN</span>
                         <svg className="w-3 h-3 ml-1 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" /></svg>
+                    </div>
+                    {/* Green Coins */}
+                    <div className="flex items-center cursor-pointer">
+                        <GreenCoin coins={1250} size="sm" />
                     </div>
                     {/* Account & Lists */}
                     <div className="flex flex-col cursor-pointer">
@@ -75,6 +80,9 @@ export default function Nav() {
                     <li>Computers</li>
                     <li>Car & Motorbike</li>
                     <li>Books</li>
+                    <li className="text-green-400 font-semibold">🌱 Green Store</li>
+                    <li className="text-green-400">📊 Eco Dashboard</li>
+                    <li className="text-green-400">🪙 Rewards</li>
                 </ul>
             </nav>
         </>

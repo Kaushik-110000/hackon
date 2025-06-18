@@ -1,106 +1,215 @@
 import React from 'react'
+import Nav from '../../components/Nav'
+import GreenScore from '../../components/GreenScore'
+import EcoBadge from '../../components/EcoBadge'
+import GreenCoin from '../../components/GreenCoin'
 
 export default function CheckoutPage() {
+  // Mock cart items with eco-friendly features
+  const cartItems = [
+    {
+      id: 1,
+      name: "Bamboo Water Bottle - 1L Capacity, BPA Free, Sustainable & Eco-Friendly",
+      price: 899,
+      originalPrice: 1299,
+      quantity: 1,
+      image: "/assests/mockProducts_images/copper_bottle.webp",
+      greenScore: 95,
+      carbonFootprint: 0.8,
+      isEcoFriendly: true,
+      badges: ['recycled', 'biodegradable', 'sustainable-packaging'] as const,
+      savings: "Saves 2.1kg CO₂",
+      greenCoins: 95
+    },
+    {
+      id: 2,
+      name: "Organic Cotton T-Shirt - 100% Natural, Fair Trade Certified",
+      price: 599,
+      originalPrice: 899,
+      quantity: 2,
+      image: "/assests/mockProducts_images/hyv.webp",
+      greenScore: 88,
+      carbonFootprint: 1.2,
+      isEcoFriendly: true,
+      badges: ['organic', 'sustainable-packaging'] as const,
+      savings: "Saves 1.8kg CO₂",
+      greenCoins: 88
+    }
+  ];
+
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const totalSavings = cartItems.reduce((sum, item) => sum + ((item.originalPrice - item.price) * item.quantity), 0);
+  const totalGreenCoins = cartItems.reduce((sum, item) => sum + (item.greenCoins * item.quantity), 0);
+  const totalCarbonSaved = cartItems.reduce((sum, item) => sum + (parseFloat(item.savings.match(/\d+\.?\d*/)?.[0] || '0') * item.quantity), 0);
+
   return (
-    <>
-      <div style={{ background: '#f5f6f6', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
-        {/* Header */}
-        <div style={{ background: '#131921', color: 'white', padding: '16px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ fontSize: 28, fontWeight: 'bold', letterSpacing: 1 }}>
-            <span style={{ color: '#ff9900' }}>amazon</span>.in
-          </div>
-          <div style={{ fontSize: 28, fontWeight: 500 }}>Secure checkout <span style={{ fontSize: 18 }}>▼</span></div>
-          <div style={{ fontSize: 18, display: 'flex', alignItems: 'center' }}>
-            <span style={{ marginRight: 8 }}>🛒</span>Cart
-          </div>
-        </div>
+    <div className="bg-[#E3E6E6] min-h-screen">
+      <Nav />
+      
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">Checkout</h1>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Checkout Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Cart Items */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold mb-4">Items in your cart</h2>
+              <div className="space-y-4">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex gap-4 p-4 border border-gray-200 rounded-lg">
+                    <div className="w-24 h-24 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                      <img 
+                        src={item.image} 
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-medium text-gray-900 text-sm line-clamp-2 mb-2">{item.name}</h3>
+                      
+                      {/* Eco indicators */}
+                      <div className="flex items-center gap-2 mb-2">
+                        <GreenScore 
+                          score={item.greenScore} 
+                          carbonFootprint={item.carbonFootprint}
+                          isEcoFriendly={item.isEcoFriendly}
+                        />
+                        <span className="text-xs text-green-600 font-medium">Climate Pledge Friendly</span>
+                      </div>
+                      
+                      {/* Eco Badges */}
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {item.badges.map((badge) => (
+                          <EcoBadge key={badge} type={badge} showLabel={false} />
+                        ))}
+                      </div>
 
-        {/* Main Content */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
-          {/* Left Side */}
-          <div style={{ width: 700, marginRight: 32 }}>
-            {/* Delivery Address */}
-            <div style={{ background: 'white', borderRadius: 8, padding: 24, marginBottom: 24 }}>
-              <div style={{ fontWeight: 700, fontSize: 18 }}>Delivering to Ayush Kumar Singh</div>
-              <div style={{ margin: '8px 0 0 0', color: '#222' }}>
-                Hostel E, NIT Jamshedpur, Adityapur, JAMSHEDPUR, JHARKHAND, 831014, India
+                      {/* Carbon Savings */}
+                      <div className="text-xs text-green-600 mb-2">{item.savings}</div>
+
+                      {/* Price and Quantity */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-sm font-bold text-gray-900">₹{item.price}</span>
+                          <span className="text-xs text-gray-500 line-through ml-1">₹{item.originalPrice}</span>
+                          <span className="text-xs text-green-600 ml-2">+{item.greenCoins} coins</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-gray-600">Qty: {item.quantity}</span>
+                          <button className="text-blue-600 text-sm hover:underline">Edit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div style={{ color: '#007185', marginTop: 8, cursor: 'pointer', fontSize: 15 }}>Add delivery instructions</div>
-              <div style={{ color: '#007185', position: 'absolute', right: 40, top: 40, cursor: 'pointer', fontSize: 15 }}>Change</div>
             </div>
 
-            {/* Payment Method */}
-            <div style={{ background: 'white', borderRadius: 8, padding: 24, marginBottom: 24 }}>
-              <div style={{ fontWeight: 700, fontSize: 18 }}>Pay on delivery (Cash/Card)</div>
-              <div style={{ color: '#007185', marginTop: 8, cursor: 'pointer', fontSize: 15 }}>Use a gift card, voucher or promo code</div>
-              <div style={{ color: '#007185', position: 'absolute', right: 40, top: 140, cursor: 'pointer', fontSize: 15 }}>Change</div>
-            </div>
-
-            {/* Offers */}
-            <div style={{ background: 'white', borderRadius: 8, padding: 24, marginBottom: 24 }}>
-              <div style={{ fontWeight: 700, fontSize: 18 }}>Offers</div>
-              <div style={{ textAlign: 'center', margin: '24px 0', color: '#555' }}>No offers available at this time</div>
-              <button style={{ background: '#ffd814', border: 'none', borderRadius: 20, padding: '8px 24px', fontWeight: 600, cursor: 'pointer' }}>Next step</button>
-            </div>
-
-            {/* Product Summary */}
-            <div style={{ background: 'white', borderRadius: 8, padding: 24, marginBottom: 24 }}>
-              <div style={{ fontWeight: 700, fontSize: 18, marginBottom: 8 }}>Arriving 26 Jun 2025</div>
-              <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                <img src={"/assests/mockProducts_images/copper_bottle.webp"} alt="product" style={{ width: 60, height: 120, objectFit: 'contain', marginRight: 16, borderRadius: 4, border: '1px solid #eee' }} />
-                <div>
-                  <div style={{ fontWeight: 500, fontSize: 16 }}>Pexpo Bravo 1000 ISI Certified Stainless Steel Water Bottle 1 LTR, 24 Hr Hot & Cold, Leak Proof, Vacuum Insulated Flask Bottle, Ideal for Home, Office, Gym, Outings, and School- Military Green</div>
-                  <div style={{ color: '#007185', marginTop: 8, fontSize: 15, cursor: 'pointer' }}>Review Order</div>
+            {/* Shipping Address */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold mb-4">Shipping address</h2>
+              <div className="border border-gray-300 rounded-lg p-4">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-medium text-gray-900">John Doe</p>
+                    <p className="text-sm text-gray-600">123 Main Street</p>
+                    <p className="text-sm text-gray-600">Apartment 4B</p>
+                    <p className="text-sm text-gray-600">New York, NY 10001</p>
+                    <p className="text-sm text-gray-600">United States</p>
+                    <p className="text-sm text-gray-600">Phone: +1 (555) 123-4567</p>
+                  </div>
+                  <button className="text-blue-600 text-sm hover:underline">Change</button>
                 </div>
               </div>
             </div>
 
-            {/* Help & Policy */}
-            <div style={{ background: 'white', borderRadius: 8, padding: 16, fontSize: 13, color: '#222' }}>
-              Need help? Check our help <span style={{ color: '#007185', cursor: 'pointer' }}>pages</span> or <span style={{ color: '#007185', cursor: 'pointer' }}>contact us 24x7</span><br /><br />
-              When your order is placed, we'll send you an e-mail message acknowledging receipt of your order. If you choose to pay using an electronic payment method (credit card, debit card or net banking), you will be directed to your bank's website to complete your payment. Your contract to purchase an item will not be complete until we receive your electronic payment and dispatch your item. If you choose to pay using Pay on Delivery (POD), you can pay using cash/card/net banking when you receive your item.<br /><br />
-              See Amazon.in's <span style={{ color: '#007185', cursor: 'pointer' }}>Return Policy</span>.
+            {/* Payment Method */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h2 className="text-lg font-semibold mb-4">Payment method</h2>
+              <div className="space-y-3">
+                <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer">
+                  <input type="radio" name="payment" className="text-blue-600" defaultChecked />
+                  <span className="ml-3 text-sm">Credit or debit card</span>
+                </label>
+                <label className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer">
+                  <input type="radio" name="payment" className="text-blue-600" />
+                  <span className="ml-3 text-sm">Amazon Pay</span>
+                </label>
+              </div>
             </div>
           </div>
 
-          {/* Right Side - Order Summary */}
-          <div style={{ width: 350 }}>
-            <div style={{ background: 'white', borderRadius: 8, padding: 24, marginBottom: 24, position: 'sticky', top: 32 }}>
-              <button style={{ width: '100%', background: '#ffd814', border: 'none', borderRadius: 20, padding: '10px 0', fontWeight: 600, fontSize: 16, marginBottom: 16, cursor: 'pointer' }}>Next step</button>
-              <div style={{ color: '#555', fontSize: 14, marginBottom: 16 }}>
-                Sign up for Prime or select "Not right now" to continue checking out. You'll still have a chance to review and edit your order before it's final.
+          {/* Order Summary */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-6">
+              <h2 className="text-lg font-semibold mb-4">Order summary</h2>
+              
+              {/* Eco-friendly Impact Summary */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                <h3 className="font-medium text-green-900 mb-2">🌱 Environmental Impact</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-green-700">Total CO₂ Saved:</span>
+                    <span className="font-medium text-green-900">{totalCarbonSaved.toFixed(1)}kg</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-green-700">Green Coins Earned:</span>
+                    <span className="font-medium text-green-900">{totalGreenCoins}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-green-700">Eco-friendly Items:</span>
+                    <span className="font-medium text-green-900">{cartItems.length}</span>
+                  </div>
+                </div>
               </div>
-              <div style={{ fontSize: 15, marginBottom: 8 }}>Items: <span style={{ float: 'right' }}>₹699.00</span></div>
-              <div style={{ fontSize: 15, marginBottom: 8 }}>Delivery: <span style={{ float: 'right' }}>₹40.00</span></div>
-              <div style={{ fontSize: 15, marginBottom: 8, color: '#007185', cursor: 'pointer' }}>Cash/Pay on Delivery fee <span style={{ float: 'right', color: '#222' }}>₹7.00</span></div>
-              <div style={{ fontSize: 15, marginBottom: 8 }}>Total: <span style={{ float: 'right' }}>₹746.00</span></div>
-              <div style={{ fontSize: 15, marginBottom: 8 }}>Promotion Applied: <span style={{ float: 'right', color: '#B12704' }}>-₹40.00</span></div>
-              <div style={{ fontWeight: 700, fontSize: 20, marginTop: 16 }}>Order Total: <span style={{ float: 'right', color: '#111' }}>₹706.00</span></div>
+
+              {/* Price Breakdown */}
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Items ({cartItems.reduce((sum, item) => sum + item.quantity, 0)}):</span>
+                  <span className="text-gray-900">₹{subtotal.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Shipping & handling:</span>
+                  <span className="text-gray-900">₹0.00</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Total before tax:</span>
+                  <span className="text-gray-900">₹{subtotal.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Estimated tax:</span>
+                  <span className="text-gray-900">₹{(subtotal * 0.18).toFixed(0)}</span>
+                </div>
+                <div className="flex justify-between text-green-600">
+                  <span>Total savings:</span>
+                  <span>-₹{totalSavings.toLocaleString()}</span>
+                </div>
+                <hr className="my-2" />
+                <div className="flex justify-between font-semibold text-lg">
+                  <span>Order total:</span>
+                  <span>₹{(subtotal + (subtotal * 0.18)).toFixed(0)}</span>
+                </div>
+              </div>
+
+              {/* Place Order Button */}
+              <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-3 px-4 rounded-lg mt-4">
+                Place your order
+              </button>
+
+              {/* Green Coins Info */}
+              <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-green-700">Earn Green Coins:</span>
+                  <GreenCoin coins={totalGreenCoins} showIcon={false} size="sm" />
+                </div>
+                <p className="text-xs text-green-600 mt-1">Redeem for discounts on future eco-friendly purchases</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Footer */}
-      <div style={{ background: '#404c5a', color: 'white', textAlign: 'center', padding: '16px 0', fontSize: 16 }}>
-        Back to top
-      </div>
-      <div style={{ background: '#232f3e', color: 'white', textAlign: 'center', padding: '40px 0 24px 0' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: 1, marginBottom: 8 }}>
-            <span style={{ color: '#ff9900' }}>amazon</span>
-          </div>
-          <div style={{ fontSize: 18, marginBottom: 16 }}>Help</div>
-        </div>
-      </div>
-      <div style={{ background: '#131a22', color: 'white', textAlign: 'center', padding: '16px 0', fontSize: 15 }}>
-        <span style={{ margin: '0 12px', cursor: 'pointer', color: '#d7d7d7' }}>Conditions of Use & Sale</span>
-        <span style={{ margin: '0 12px', cursor: 'pointer', color: '#d7d7d7' }}>Privacy Notice</span>
-        <span style={{ margin: '0 12px', cursor: 'pointer', color: '#d7d7d7' }}>Interest-Based Ads</span>
-        <br />
-        <span style={{ color: '#d7d7d7' }}>
-          © 1996-2025, Amazon.com, Inc. or its affiliates
-        </span>
-      </div>
-    </>
+    </div>
   );
 }
