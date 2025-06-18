@@ -1,20 +1,17 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const page: React.FC = () => {
   const router = useRouter();
+  const [number, setNumber] = useState(0);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // empty onSubmit logic
-    const formData = new FormData(e.currentTarget);
-    const identifier = formData.get("identifier");
-    //here is my form data
-    console.log({ identifier });
-
-    router.push("/"); // route to home
+    const encoded = btoa(String(number)).replace(/=/g, "");
+    router.push(`/dp/pass/${encoded}`);
+    // router.push("/");
   };
 
   return (
@@ -27,14 +24,31 @@ const page: React.FC = () => {
 
         <form onSubmit={handleSubmit} className="flex flex-col">
           <label htmlFor="identifier" className="text-sm mb-2 font-bold">
-            Enter mobile number or email
+            Enter your mobile number
           </label>
-          <input
+          {/* <input
             id="identifier"
             name="identifier"
             type="text"
             className="h-10 px-3 text-base border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            onChange={(e) => {
+              setNumber(Number(e.target.value));
+            }}
+          /> */}
+
+          <input
+            id="identifier"
+            type="tel"
+            inputMode="numeric"
+            maxLength={10}
+            minLength={10}
+            className="w-full px-3 py-2 mb-5 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            placeholder="Enter 10‑digit number"
+            onChange={(e) => {
+              setNumber(Number(e.target.value));
+            }}
           />
+
           <button
             type="submit"
             className="h-10 bg-yellow-400 border border-yellow-500 rounded text-base font-medium hover:bg-yellow-500"
