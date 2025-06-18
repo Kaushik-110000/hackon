@@ -134,15 +134,15 @@ export default function GroupBuy() {
         </div>
 
         {/* Group Buy Banner */}
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 mb-6 text-white">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 mb-6 text-white">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold mb-1">Reduce packaging together</h2>
-              <p className="text-xs text-blue-100">Join group orders to minimize shipping emissions and get better prices</p>
+              <p className="text-xs text-green-100">Join group orders to minimize shipping emissions and get better prices</p>
             </div>
             <div className="text-right">
               <div className="text-3xl mb-1">📦</div>
-              <p className="text-xs text-blue-100">Eco-friendly shipping</p>
+              <p className="text-xs text-green-100">Eco-friendly shipping</p>
             </div>
           </div>
         </div>
@@ -251,7 +251,7 @@ export default function GroupBuy() {
                 </div>
 
                 {/* Action Button */}
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-sm">
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm">
                   Join Group Order
                 </button>
               </div>
@@ -290,7 +290,7 @@ export default function GroupBuy() {
               <p className="text-xs text-gray-600">Less packaging waste</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">45%</div>
+              <div className="text-2xl font-bold text-green-600">45%</div>
               <p className="text-xs text-gray-600">Reduced shipping emissions</p>
             </div>
             <div className="text-center">

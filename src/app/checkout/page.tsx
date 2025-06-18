@@ -256,8 +256,8 @@ export default function CheckoutPage() {
 
               {/* Green Coins Info */}
               <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-700">Earn Green Coins:</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-green-700">Place your order to earn : </span>
                   <GreenCoin coins={totalGreenCoins} showIcon={false} size="sm" />
                 </div>
                 <p className="text-xs text-green-600 mt-1">Redeem for discounts on future eco-friendly purchases</p>

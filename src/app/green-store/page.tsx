@@ -180,7 +180,7 @@ export default function GreenStore() {
                   <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 px-3 rounded text-xs">
                     Add to Cart
                   </button>
-                  <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-1.5 px-3 rounded text-xs">
+                  <button className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-1.5 px-3 rounded text-xs">
                     Buy Now
                   </button>
                 </div>
