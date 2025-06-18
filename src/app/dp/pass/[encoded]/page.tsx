@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/context/UserContext";
 
 export default function Page() {
   const params = useParams<{ encoded: string }>();
   const encoded = params.encoded;
   const router = useRouter();
+  const { setUserData } = useContext(UserContext);
   // decode number once
   let decodedNumber: number | null = null;
   try {
@@ -63,6 +65,10 @@ export default function Page() {
         mobile: decodedNumber,
         OTP: finalOTP,
       });
+      const response = await axios.get("/api/auth/getUser");
+      if (response.data.status === 200) {
+        setUserData(response.data.data);
+      }
       router.push("/");
     } catch (error) {
       alert("An error occured");
