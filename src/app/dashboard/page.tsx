@@ -22,87 +22,87 @@ export default function EcoDashboard() {
   const progressPercentage = (userStats.currentMonth / userStats.monthlyGoal) * 100;
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-[#E3E6E6] min-h-screen">
       <Nav />
       
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">🌱 Eco Dashboard</h1>
-          <p className="text-gray-600">Track your environmental impact and sustainability journey</p>
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Your environmental impact</h1>
+          <p className="text-sm text-gray-600">Track your sustainability journey and carbon footprint reduction</p>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Green Coins</p>
-                <p className="text-2xl font-bold text-green-600">{userStats.greenCoins}</p>
+                <p className="text-xs font-medium text-gray-600">Green Coins</p>
+                <p className="text-xl font-bold text-green-600">{userStats.greenCoins}</p>
               </div>
-              <div className="text-3xl">🪙</div>
+              <div className="text-2xl">🪙</div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">CO₂ Reduced</p>
-                <p className="text-2xl font-bold text-blue-600">{userStats.carbonFootprintReduced} kg</p>
+                <p className="text-xs font-medium text-gray-600">CO₂ Reduced</p>
+                <p className="text-xl font-bold text-blue-600">{userStats.carbonFootprintReduced} kg</p>
               </div>
-              <div className="text-3xl">🌍</div>
+              <div className="text-2xl">🌍</div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Eco Products</p>
-                <p className="text-2xl font-bold text-purple-600">{userStats.ecoProductsPurchased}</p>
+                <p className="text-xs font-medium text-gray-600">Eco Products</p>
+                <p className="text-xl font-bold text-purple-600">{userStats.ecoProductsPurchased}</p>
               </div>
-              <div className="text-3xl">♻️</div>
+              <div className="text-2xl">♻️</div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Money Saved</p>
-                <p className="text-2xl font-bold text-green-600">₹{userStats.totalSavings}</p>
+                <p className="text-xs font-medium text-gray-600">Money Saved</p>
+                <p className="text-xl font-bold text-green-600">₹{userStats.totalSavings}</p>
               </div>
-              <div className="text-3xl">💰</div>
+              <div className="text-2xl">💰</div>
             </div>
           </div>
         </div>
 
         {/* Monthly Progress */}
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Monthly Carbon Reduction Goal</h2>
-          <div className="mb-4">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
-              <span>Progress: {userStats.currentMonth}kg / {userStats.monthlyGoal}kg</span>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+          <h2 className="text-lg font-semibold mb-3">Monthly carbon reduction goal</h2>
+          <div className="mb-3">
+            <div className="flex justify-between text-xs text-gray-600 mb-2">
+              <span>{userStats.currentMonth}kg / {userStats.monthlyGoal}kg</span>
               <span>{Math.round(progressPercentage)}%</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
-                className="bg-green-500 h-3 rounded-full transition-all duration-300"
+                className="bg-green-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(progressPercentage, 100)}%` }}
               ></div>
             </div>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-xs text-gray-600">
             {progressPercentage >= 100 
-              ? "🎉 You've exceeded your monthly goal! Keep up the great work!"
+              ? "You've exceeded your monthly goal! Keep up the great work!"
               : `${userStats.monthlyGoal - userStats.currentMonth}kg more to reach your goal`
             }
           </p>
         </div>
 
         {/* Badges and Achievements */}
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">🏆 Achievements & Badges</h2>
-          <div className="flex flex-wrap gap-3">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+          <h2 className="text-lg font-semibold mb-3">Achievements & badges</h2>
+          <div className="flex flex-wrap gap-2">
             {userStats.badges.map((badge, index) => (
-              <div key={index} className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+              <div key={index} className="bg-green-100 text-green-700 px-3 py-1 rounded text-xs font-medium border border-green-200">
                 {badge}
               </div>
             ))}
@@ -110,23 +110,23 @@ export default function EcoDashboard() {
         </div>
 
         {/* Recent Eco Purchases */}
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">Recent Eco-Friendly Purchases</h2>
-          <div className="space-y-4">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+          <h2 className="text-lg font-semibold mb-3">Recent eco-friendly purchases</h2>
+          <div className="space-y-3">
             {userStats.recentPurchases.map((purchase, index) => (
-              <div key={index} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+              <div key={index} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
                 <div className="flex-1">
-                  <h3 className="font-medium text-gray-900">{purchase.name}</h3>
-                  <p className="text-sm text-gray-600">Purchased on {purchase.date}</p>
+                  <h3 className="font-medium text-gray-900 text-sm">{purchase.name}</h3>
+                  <p className="text-xs text-gray-600">Purchased on {purchase.date}</p>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <div className="text-center">
-                    <div className="text-sm font-medium text-green-600">Green Score</div>
-                    <div className="text-lg font-bold">{purchase.greenScore}/100</div>
+                    <div className="text-xs font-medium text-green-600">Green Score</div>
+                    <div className="text-sm font-bold">{purchase.greenScore}/100</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-sm font-medium text-blue-600">CO₂ Saved</div>
-                    <div className="text-lg font-bold">{purchase.carbonSaved}kg</div>
+                    <div className="text-xs font-medium text-blue-600">CO₂ Saved</div>
+                    <div className="text-sm font-bold">{purchase.carbonSaved}kg</div>
                   </div>
                 </div>
               </div>
@@ -135,24 +135,24 @@ export default function EcoDashboard() {
         </div>
 
         {/* Tips and Recommendations */}
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mt-8">
-          <h2 className="text-xl font-semibold mb-4">💡 Tips to Increase Your Green Impact</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-medium text-green-700 mb-2">🌱 Choose Eco-Friendly Products</h3>
-              <p className="text-sm text-gray-600">Look for products with high green scores (80+) to maximize your environmental impact.</p>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+          <h2 className="text-lg font-semibold mb-3">Tips to increase your green impact</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <h3 className="font-medium text-green-700 mb-1 text-sm">Choose eco-friendly products</h3>
+              <p className="text-xs text-gray-600">Look for products with high green scores (80+) to maximize your environmental impact.</p>
             </div>
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-medium text-green-700 mb-2">📦 Opt for Sustainable Packaging</h3>
-              <p className="text-sm text-gray-600">Select products with minimal or recyclable packaging to reduce waste.</p>
+            <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <h3 className="font-medium text-green-700 mb-1 text-sm">Opt for sustainable packaging</h3>
+              <p className="text-xs text-gray-600">Select products with minimal or recyclable packaging to reduce waste.</p>
             </div>
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-medium text-green-700 mb-2">👥 Join Group Buying</h3>
-              <p className="text-sm text-gray-600">Participate in group purchases to reduce shipping emissions and save money.</p>
+            <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <h3 className="font-medium text-green-700 mb-1 text-sm">Join group buying</h3>
+              <p className="text-xs text-gray-600">Participate in group purchases to reduce shipping emissions and save money.</p>
             </div>
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-medium text-green-700 mb-2">🪙 Use Green Coins</h3>
-              <p className="text-sm text-gray-600">Redeem your green coins for exclusive eco-friendly products and discounts.</p>
+            <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <h3 className="font-medium text-green-700 mb-1 text-sm">Use green coins</h3>
+              <p className="text-xs text-gray-600">Redeem your green coins for exclusive eco-friendly products and discounts.</p>
             </div>
           </div>
         </div>
