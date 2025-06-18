@@ -1,7 +1,30 @@
 import React from 'react'
 import Nav from '../../components/Nav'
+import GreenScore from '../../components/GreenScore'
+import EcoBadge from '../../components/EcoBadge'
+import GreenCoin from '../../components/GreenCoin'
 
 export default function page() {
+    // Mock product data with eco-friendly features
+    const product = {
+        name: "Pexpo Bravo 1000 ISI Certified Stainless Steel Water Bottle 1 LTR, 24 Hr Hot & Cold, Leak Proof, Vacuum Insulated Flask Bottle, Ideal for Home, Office, Gym, Outings, and School- Military Green",
+        price: 699,
+        originalPrice: 1199,
+        greenScore: 85,
+        carbonFootprint: 1.2,
+        isEcoFriendly: true,
+        ecoBadges: ['recycled', 'sustainable-packaging'] as const,
+        greenCoinsEarned: 85,
+        carbonSaved: "Saves 2.1kg CO₂ vs single-use plastic bottles",
+        sustainabilityFeatures: [
+            "Made from 100% recyclable stainless steel",
+            "Reduces single-use plastic waste",
+            "Long-lasting design reduces replacement frequency",
+            "Energy-efficient manufacturing process",
+            "Sustainable packaging materials"
+        ]
+    };
+
     return (
         <div>
             <Nav />
@@ -39,7 +62,7 @@ export default function page() {
 
                 {/* Product Info */}
                 <div className="flex-1 max-w-2xl">
-                    <h1 className="text-2xl font-medium mb-2 text-black">Pexpo Bravo 1000 ISI Certified Stainless Steel Water Bottle 1 LTR, 24 Hr Hot & Cold, Leak Proof, Vacuum Insulated Flask Bottle, Ideal for Home, Office, Gym, Outings, and School- Military Green</h1>
+                    <h1 className="text-2xl font-medium mb-2 text-black">{product.name}</h1>
                     <div className='-mb-1 text-[#2162A1]'>Visit the PEXPO Store</div>
                     <div className="flex items-center gap-2 -mb-1">
                         <span className="text-yellow-500">★★★★☆</span>
@@ -47,14 +70,43 @@ export default function page() {
                     </div>
                     <span className="text-xs text-gray-500">1K+ bought in past month</span>
                     <hr className='my-2' />
+
+                    {/* Green Score and Eco Features */}
+                    <div className="mb-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="flex items-center justify-between mb-3">
+                            <GreenScore 
+                                score={product.greenScore} 
+                                carbonFootprint={product.carbonFootprint}
+                                isEcoFriendly={product.isEcoFriendly}
+                                showDetails={true}
+                            />
+                            <div className="text-right">
+                                <div className="text-sm font-medium text-green-700">Earn Green Coins</div>
+                                <GreenCoin coins={product.greenCoinsEarned} showIcon={false} />
+                            </div>
+                        </div>
+                        
+                        {/* Eco Badges */}
+                        <div className="flex flex-wrap gap-2 mb-3">
+                            {product.ecoBadges.map((badge) => (
+                                <EcoBadge key={badge} type={badge} />
+                            ))}
+                        </div>
+                        
+                        {/* Carbon Savings */}
+                        <div className="bg-white p-3 rounded border">
+                            <p className="text-sm text-green-700 font-medium">{product.carbonSaved}</p>
+                        </div>
+                    </div>
+
                     <div className="mb-2">
                         <span className="bg-[#CC0C39] text-white px-2 py-2 rounded text-xs font-semibold mr-2">Limited time deal</span>
                     </div>
                     <div className="">
                         <span className="text-red-600 text-lg">-42%</span>
-                        <span className="text-gray-800 font-bold text-2xl ml-2">₹699</span>
+                        <span className="text-gray-800 font-bold text-2xl ml-2">₹{product.price}</span>
                     </div>
-                    <span className="text-gray-400 text-xs">M.R.P.: <span className='line-through'>₹1,199</span></span>
+                    <span className="text-gray-400 text-xs">M.R.P.: <span className='line-through'>₹{product.originalPrice}</span></span>
                     <div className="text-xs text-black mb-2">Inclusive of all taxes</div>
                     <img src="/offers.png" alt="" />
                     <div className="flex gap-2 mb-4 text-black">
@@ -77,6 +129,17 @@ export default function page() {
                         <span className="flex flex-col items-center text-xs"><img src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-amazon-delivered._CB562550117_.png" className="w-8 h-8 mb-1" />Amazon Delivered</span>
                         <span className="flex flex-col items-center text-xs"><img src="https://m.media-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-warranty._CB485935626_.png" className="w-8 h-8 mb-1" />1 Year Warranty</span>
                     </div>
+
+                    {/* Sustainability Features */}
+                    <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 className="font-semibold text-blue-900 mb-2">🌱 Sustainability Features</h3>
+                        <ul className="list-disc pl-6 space-y-1 text-sm text-blue-800">
+                            {product.sustainabilityFeatures.map((feature, index) => (
+                                <li key={index}>{feature}</li>
+                            ))}
+                        </ul>
+                    </div>
+
                     {/* Size Section */}
                     <div className="mb-4">
                         <div className="font-semibold text-sm mb-1 text-black">Size:</div>
@@ -94,7 +157,7 @@ export default function page() {
                                 <span className="text-xs font-normal text-black">See available options</span>
                             </button>
                             <button className="border-2 border-blue-700 px-4 py-2 rounded flex flex-col items-center font-bold bg-blue-50 text-blue-700">1000 ml
-                                <span className="text-xs font-normal text-black">₹699.00<br /><span className='line-through text-gray-400'>₹1,199.00</span></span>
+                                <span className="text-xs font-normal text-black">₹{product.price}.00<br /><span className='line-through text-gray-400'>₹{product.originalPrice}.00</span></span>
                             </button>
                         </div>
                     </div>
@@ -151,6 +214,14 @@ export default function page() {
                                     <td className="font-bold align-top text-black">Age Range (Description)</td>
                                     <td className="text-black">Any Age Group People can Use this</td>
                                 </tr>
+                                <tr>
+                                    <td className="font-bold align-top text-black">Green Score</td>
+                                    <td className="text-black">{product.greenScore}/100 - Excellent</td>
+                                </tr>
+                                <tr>
+                                    <td className="font-bold align-top text-black">Carbon Footprint</td>
+                                    <td className="text-black">{product.carbonFootprint}kg CO₂</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -170,7 +241,7 @@ export default function page() {
 
                 {/* Purchase Panel */}
                 <div className="w-full lg:w-1/6 border rounded p-4 flex flex-col gap-3 bg-gray-50 h-fit">
-                    <div className="text-2xl font-bold text-gray-800">₹699<sup className="text-xs font-normal">00</sup></div>
+                    <div className="text-2xl font-bold text-gray-800">₹{product.price}<sup className="text-xs font-normal">00</sup></div>
                     <div className="text-xs text-blue-700">FREE delivery Wednesday, 25 June. <span className="underline cursor-pointer">Details</span></div>
                     <div className="text-xs text-gray-700">Delivering to Varanasi 221011 - <span className="underline cursor-pointer">Update location</span></div>
                     <div className="text-green-600 font-semibold text-sm">In stock</div>
@@ -178,6 +249,16 @@ export default function page() {
                     <div className="text-xs text-gray-700">Sold by <span className="font-bold">PLACERO INTERNATIONAL PRIVATE LIMITED</span></div>
                     <div className="text-xs text-blue-700 underline cursor-pointer">Secure transaction</div>
                     <div className="text-xs text-gray-700">Ships in product packaging</div>
+                    
+                    {/* Green Coins Earned */}
+                    <div className="bg-green-100 p-3 rounded border border-green-200">
+                        <div className="text-center">
+                            <div className="text-sm font-medium text-green-700">Earn Green Coins</div>
+                            <GreenCoin coins={product.greenCoinsEarned} showIcon={false} />
+                            <div className="text-xs text-green-600 mt-1">for this purchase</div>
+                        </div>
+                    </div>
+
                     <div className="flex items-center gap-2">
                         <label htmlFor="quantity" className="text-xs">Quantity:</label>
                         <select id="quantity" className="border rounded px-2 py-1 text-xs">
