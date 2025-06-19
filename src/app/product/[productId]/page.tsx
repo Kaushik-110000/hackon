@@ -18,7 +18,7 @@ export default function page() {
     originalPrice: 1199,
     greenScore: 85,
     carbonFootprint: {
-      value: 0.02,
+      total: 0.02,
       offset: true,
     },
     isEcoFriendly: true,
@@ -157,7 +157,7 @@ export default function page() {
             <div className="flex items-center justify-between mb-3">
               <GreenScore
                 score={product.greenScore}
-                carbonFootprint={product.carbonFootprint.value}
+                carbonFootprint={product.carbonFootprint.total}
                 isEcoFriendly={product.isEcoFriendly}
                 showDetails={true}
               />
@@ -405,7 +405,7 @@ export default function page() {
                     Carbon Footprint
                   </td>
                   <td className="text-black">
-                    {product.carbonFootprint.value}
+                    {product.carbonFootprint.total}
                   </td>
                 </tr>
               </tbody>
@@ -492,7 +492,7 @@ export default function page() {
         <div className="w-full lg:w-1/6 border rounded p-4 flex flex-col gap-3 bg-gray-50 h-fit">
           <div className="text-2xl font-bold text-gray-800">
             ₹{product.price}
-            <sup className="text-xs font-normal">00</sup>
+            <sup className="text-xs font-normal">.00</sup>
           </div>
           <div className="text-xs text-blue-700">
             FREE delivery Wednesday, 25 June.{" "}
