@@ -18,12 +18,12 @@ export default function page() {
     originalPrice: 1199,
     greenScore: 85,
     carbonFootprint: {
-      value: "0.02 kg CO₂e",
+      value: 0.02,
       offset: true,
     },
     isEcoFriendly: true,
     ecoBadges: ["recycled", "sustainable-packaging"] as const,
-    greenCoinsEarned: 85,
+    greenCoins: 85,
     carbonSaved: "Saves 2.1kg CO₂ vs single-use plastic bottles",
     sustainabilityFeatures: [
       "Made from 100% recyclable stainless steel",
@@ -155,19 +155,17 @@ export default function page() {
           {/* Green Score and Eco Features */}
           <div className="mb-4 p-4 bg-green-50 rounded-lg border border-green-200">
             <div className="flex items-center justify-between mb-3">
-
-              {/* <GreenScore
+              <GreenScore
                 score={product.greenScore}
-                carbonFootprint={}
+                carbonFootprint={product.carbonFootprint.value}
                 isEcoFriendly={product.isEcoFriendly}
                 showDetails={true}
-              /> */}
-              
+              />
               <div className="text-right">
                 <div className="text-sm font-medium text-green-700">
                   Earn Green Coins
                 </div>
-                <GreenCoin coins={product.greenCoinsEarned} showIcon={false} />
+                <GreenCoin coins={product.greenCoins} showIcon={false} />
               </div>
             </div>
 
@@ -527,7 +525,7 @@ export default function page() {
               <div className="text-sm font-medium text-green-700">
                 Earn Green Coins
               </div>
-              <GreenCoin coins={product.greenCoinsEarned} showIcon={false} />
+              <GreenCoin coins={product.greenCoins} showIcon={false} />
               <div className="text-xs text-green-600 mt-1">
                 for this purchase
               </div>
