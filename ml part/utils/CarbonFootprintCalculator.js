@@ -116,7 +116,7 @@ class CarbonFootprintCalculator {
     };
   }
 
-  calculateEcoScore(carbonFootprint, sustainabilityFeatures = {}) {
+  calculategreenScore(carbonFootprint, sustainabilityFeatures = {}) {
     let score = 50; // Base score
 
     const totalFootprint = carbonFootprint.total;
@@ -155,9 +155,9 @@ class CarbonFootprintCalculator {
     return Math.min(Math.max(Math.round(score), 0), 100);
   }
 
-  calculateGreenCoinsReward(ecoScore, purchaseAmount) {
-    const baseCoins = Math.floor(ecoScore / 10);
-    const bonusCoins = Math.floor(purchaseAmount / 10) * (ecoScore > 80 ? 2 : 1);
+  calculateGreenCoinsReward(greenScore, purchaseAmount) {
+    const baseCoins = Math.floor(greenScore / 10);
+    const bonusCoins = Math.floor(purchaseAmount / 10) * (greenScore > 80 ? 2 : 1);
     return baseCoins + bonusCoins;
   }
 }

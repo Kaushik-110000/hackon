@@ -8,12 +8,12 @@ exports.calculateFootprint = (req, res) => {
     const { productData, sustainabilityFeatures, purchaseAmount } = req.body;
 
     const carbonFootprint = calculator.calculateProductFootprint(productData);
-    const ecoScore = calculator.calculateEcoScore(carbonFootprint, sustainabilityFeatures || {});
-    const greenCoins = calculator.calculateGreenCoinsReward(ecoScore, purchaseAmount || 0);
+    const greenScore = calculator.calculategreenScore(carbonFootprint, sustainabilityFeatures || {});
+    const greenCoins = calculator.calculateGreenCoinsReward(greenScore, purchaseAmount || 0);
 
     return res.status(200).json({
       carbonFootprint,
-      ecoScore,
+      greenScore,
       greenCoins
     });
   } catch (err) {
