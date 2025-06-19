@@ -1,3 +1,5 @@
+"use client";
+import { useContext } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,6 +9,8 @@ import Nav from "../components/Nav";
 import GreenScore from "../components/GreenScore";
 import EcoBadge from "../components/EcoBadge";
 import GreenCoin from "../components/GreenCoin";
+import { UserContext } from "@/context/UserContext";
+import Link from "next/link"
 
 export default function Home() {
   const settings = {
@@ -76,6 +80,7 @@ export default function Home() {
       savings: "Saves 0.9kg CO₂"
     }
   ];
+  const updatedState = useContext(UserContext);
 
   return (
     <div className="bg-[#E3E6E6] bg-cover bg-center bg-no-repeat">
@@ -178,9 +183,9 @@ export default function Home() {
                   <div className="text-xs text-green-100">Green Coins</div>
                 </div>
               </div>
-              <button className="bg-white text-green-600 font-medium py-2 px-4 rounded text-sm hover:bg-green-50 transition-colors">
+                  <Link href="green-store"><button className="bg-white text-green-600 font-medium py-2 px-4 rounded text-sm hover:bg-green-50 transition-colors">
                 Shop Climate Pledge Friendly
-              </button>
+              </button></Link>
             </div>
             <div className="text-right">
               <div className="text-4xl mb-1">♻️</div>
@@ -309,10 +314,31 @@ export default function Home() {
             </div>
             <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">See all deals</a>
           </div>
-          <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px] justify-center items-center">
+            {updatedState?.userData?._id ?  <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px]">
+            <h2 className="text-lg font-bold mb-3">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              <div className="flex flex-col items-center">
+                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim digital edition" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">PS5 Slim digital edition</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim disc edition" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">PS5 Slim disc edition</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim Fortnite digital edition" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">PS5 Slim Fortnite digital edition</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=120&q=80" alt="PS5 DualSense Wireless Controller" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">PS5 DualSense Wireless Controller</span>
+              </div>
+            </div>
+            <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">See all deals</a>
+          </div>:<div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px] justify-center items-center">
             <h2 className="text-lg font-bold mb-3 text-left w-full">Sign in for your best experience</h2>
             <button className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-2 px-6 rounded w-full mt-2 mb-4">Sign in securely</button>
-          </div>
+          </div>}
         </div>
       </section>
     </div>

@@ -46,7 +46,7 @@ export default function Nav() {
               </svg>
               Delivering to Jaunpur 222001
             </span>
-            <span className="text-xs text-white font-bold leading-tight cursor-pointer hover:underline">
+            <span className="text-xs text-white pl-5 font-bold leading-tight cursor-pointer hover:underline">
               Update location
             </span>
           </div>
@@ -90,7 +90,7 @@ export default function Nav() {
               height={14}
               className="mr-1 rounded-sm"
             />
-            <span className="text-xs font-bold">EN</span>
+            <span className="text-xs font-bold text-gray-300">EN</span>
             <svg
               className="w-3 h-3 ml-1 text-gray-300"
               fill="currentColor"
@@ -111,9 +111,16 @@ export default function Nav() {
           </Link>
           {/* Account & Lists */}
           <div className="flex flex-col cursor-pointer text-gray-300">
-            <span className="text-xs text-gray-300">
-              Hello, {updatedState?.userData?._id ? "dear" : `sign in`}
-            </span>
+            {updatedState?.userData?._id ? (
+              <Link href="/dashboard">
+                <span className="text-xs text-gray-300"> Hello, dear</span>
+              </Link>
+            ) : (
+              <Link href="/ap/signin">
+                <span className="text-xs text-gray-300">Hello, sign in</span>
+              </Link>
+            )}
+
             <span className="font-bold text-sm leading-tight">
               Account & Lists{" "}
               <svg
@@ -159,21 +166,13 @@ export default function Nav() {
       <nav className="w-full bg-[#232f3e] text-white text-sm">
         <ul className="flex flex-wrap items-center px-6 py-2 space-x-4 overflow-x-auto">
           <li className="font-semibold">☰ All</li>
-          <li>MX Player</li>
           <li>Sell</li>
           <li>Bestsellers</li>
-          <li>Mobiles</li>
           <li>Today's Deals</li>
           <li>Prime</li>
           <li>Customer Service</li>
-          <li>Fashion</li>
           <li>New Releases</li>
           <li>Amazon Pay</li>
-          <li>Electronics</li>
-          <li>Home & Kitchen</li>
-          <li>Computers</li>
-          <li>Car & Motorbike</li>
-          <li>Books</li>
           <Link href="/green-store">
             <li className="text-green-400 font-semibold cursor-pointer hover:text-green-300">
               🌱 Green Store
