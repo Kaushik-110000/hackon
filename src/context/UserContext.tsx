@@ -28,7 +28,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         const response = await axios.get("/api/auth/getUser");
         if (response.data.status === 200) {
           setUserData(response.data.data);
-          console.log(response.data);
+          // console.log(response.data);
         } else {
           setUserData(null);
           console.log("You are not logged in ");

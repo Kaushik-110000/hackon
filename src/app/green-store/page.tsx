@@ -6,6 +6,7 @@ import GreenScore from "../../components/GreenScore";
 import EcoBadge from "../../components/EcoBadge";
 import GreenCoin from "../../components/GreenCoin";
 import axios from "axios";
+import Link from "next/link";
 
 export default function GreenStore() {
   const ecoProductsBluePrint = [
@@ -179,67 +180,70 @@ export default function GreenStore() {
               key={product._id}
               className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow border border-gray-200"
             >
-              {/* Product Image */}
-              <div className="relative h-48 bg-gray-100">
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-2 right-2">
-                  <GreenScore
-                    score={product.greenScore}
-                    carbonFootprint={Number(product.carbonFootprint)}
-                    isEcoFriendly={product.isEcoFriendly}
+              <Link href={`/product/${product._id}`}>
+                {/* Product Image */}
+                <div className="relative h-48 bg-gray-100">
+                  <img
+                    src={product.images[0]}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
                   />
+                  <div className="absolute top-2 right-2">
+                    <GreenScore
+                      score={product.greenScore}
+                      carbonFootprint={Number(product.carbonFootprint)}
+                      isEcoFriendly={product.isEcoFriendly}
+                    />
+                  </div>
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                      {Math.round(
+                        ((product.originalPrice - product.price) /
+                          product.originalPrice) *
+                          100
+                      )}
+                      % OFF
+                    </span>
+                  </div>
                 </div>
-                <div className="absolute top-2 left-2">
-                  <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                    {Math.round(
-                      ((product.originalPrice - product.price) /
-                        product.originalPrice) *
-                        100
-                    )}
-                    % OFF
-                  </span>
-                </div>
-              </div>
-
+              </Link>
               {/* Product Info */}
               <div className="p-3">
-                <h3 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">
-                  {product.name}
-                </h3>
-                <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-                  {product.description}
-                </p>
+                <Link href={`/product/${product._id}`}>
+                  <h3 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">
+                    {product.name}
+                  </h3>
+                  <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                    {product.description}
+                  </p>
 
-                {/* Eco ecoBadges */}
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {product.ecoBadges.map((badge) => (
-                    <EcoBadge key={badge} type={badge} showLabel={false} />
-                  ))}
-                </div>
-
-                {/* Carbon Savings */}
-                <div className="text-xs text-green-600 mb-2 font-medium">
-                  {product.savings}
-                </div>
-
-                {/* Price */}
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <span className="text-sm font-bold text-gray-900">
-                      ₹{product.price}
-                    </span>
-                    <span className="text-xs text-gray-500 line-through ml-1">
-                      ₹{product.originalPrice}
-                    </span>
+                  {/* Eco ecoBadges */}
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {product.ecoBadges.map((badge) => (
+                      <EcoBadge key={badge} type={badge} showLabel={false} />
+                    ))}
                   </div>
-                  <div className="text-xs text-green-600">
-                    +{Math.round(product.greenScore * 0.1)} coins
+
+                  {/* Carbon Savings */}
+                  <div className="text-xs text-green-600 mb-2 font-medium">
+                    {product.savings}
                   </div>
-                </div>
+
+                  {/* Price */}
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <span className="text-sm font-bold text-gray-900">
+                        ₹{product.price}
+                      </span>
+                      <span className="text-xs text-gray-500 line-through ml-1">
+                        ₹{product.originalPrice}
+                      </span>
+                    </div>
+                    <div className="text-xs text-green-600">
+                      +{Math.round(product.greenScore * 0.1)} coins
+                    </div>
+                  </div>
+                </Link>
 
                 {/* Action Buttons */}
                 <div className="flex gap-1">

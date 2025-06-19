@@ -31,7 +31,7 @@ export default function Page() {
   useEffect(() => {
     async function checkNumber() {
       if (decodedNumber === null) return;
-      console.log(decodedNumber);
+      // console.log(decodedNumber);
       const res = await axios.post("/api/auth/checkMobile", {
         mobile: decodedNumber,
       });

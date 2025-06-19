@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB();
     const products = await Product.find();
-    console.log(products);
+    // console.log(products);
     return NextResponse.json({ products, status: 200 }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error', status: 500 }, { status: 500 });

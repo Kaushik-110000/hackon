@@ -10,9 +10,9 @@ export async function GET(
   try {
     await connectDB();
     const { id } = await context.params;
-    console.log(id)
+    // console.log(id)
     const product = await Product.findById(id);
-    console.log(product)
+    // console.log(product)
     if (!product) {
       return NextResponse.json({ error: 'Product not found', status: 404 }, { status: 404 });
     }

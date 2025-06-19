@@ -1,13 +1,53 @@
 "use client";
 
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import GreenCoin from "./GreenCoin";
 import { UserContext } from "@/context/UserContext";
-
+import { useRouter } from "next/navigation";
 export default function Nav() {
   const updatedState = useContext(UserContext);
+  const [query, setQuery] = useState("");
+  const [tokens, setTokens] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  useEffect(() => {
+    fetch("/api/products/searchtrie")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data.tokens)) setTokens(data.tokens);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!query) {
+      setSuggestions([]);
+      return;
+    }
+    const lower = query.toLowerCase();
+    const matches = tokens.filter((t) => t.startsWith(lower)).slice(0, 5);
+    setSuggestions(matches);
+  }, [query, tokens]);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setSuggestions([]);
+      }
+    }
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push(`/search?q=${query}`);
+  };
 
   return (
     <>
@@ -52,13 +92,15 @@ export default function Nav() {
           </div>
         </div>
         {/* Search Bar */}
-        <form className="flex flex-1 mx-4 w-full">
-          <div className="flex w-full">
+        <form className="flex flex-1 mx-4 w-full" onSubmit={handleSubmit}>
+          <div className="flex w-full relative">
             <select className="rounded-l-md bg-gray-100 text-gray-700 text-sm px-2 border-r border-gray-300 focus:outline-none min-w-[60px]">
               <option>All</option>
             </select>
             <input
               type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               placeholder="Search Amazon.in"
               className="w-full px-3 py-2 text-sm text-gray-900 focus:outline-none bg-white"
             />
@@ -77,6 +119,25 @@ export default function Nav() {
                 <path d="M21 21l-4.35-4.35" />
               </svg>
             </button>
+
+            {/* Suggestions Dropdown */}
+            {suggestions.length > 0 && (
+              <ul className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-md shadow-lg max-h-60 overflow-auto z-10">
+                {suggestions.map((s, i) => (
+                  <li
+                    key={i}
+                    onClick={() => {
+                      setQuery(s);
+                      setSuggestions([]);
+                      router.push(`/search?q=${s}`);
+                    }}
+                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                  >
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </form>
         {/* Right Side: Language, Account, Orders, Cart */}
@@ -157,7 +218,7 @@ export default function Nav() {
             <span className="absolute left-5 top-0 bg-orange-400 text-xs font-bold rounded-full px-1 text-black">
               0
             </span>
-            <span className="ml-1 text-xs font-bold">Cart</span>
+            <span className="ml-1 text-xs font-bold text-gray-300">Cart</span>
           </div>
         </div>
       </header>
