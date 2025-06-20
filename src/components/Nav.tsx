@@ -51,7 +51,8 @@ export default function Nav() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?q=${query}`);
-    // setQuery("");
+    setPlaceholder(query);
+    setQuery("");
     setSuggestions([]);
   };
   const [placeholder, setPlaceholder] = useState("Search Amazon.in");
@@ -137,7 +138,7 @@ export default function Nav() {
                       setPlaceholder(s);
                       setSuggestions([]);
                       router.push(`/search?q=${s}`);
-                      // setQuery("");
+                      setQuery("");
                       setSuggestions([]);
                     }}
                     className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"

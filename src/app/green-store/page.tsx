@@ -108,11 +108,14 @@ export default function GreenStore() {
   ];
 
   const [ecoProducts, setecoProducts] = useState(ecoProductsBluePrint);
+  const [loading, setLoading] = useState(true);
   const increment = useCartCountStore((state) => state.increment);
   useEffect(() => {
     async function getProducts() {
+      setLoading(true);
       const res = await axios.get("api/products/eco");
       setecoProducts(res.data.products);
+      setLoading(false);
     }
     getProducts();
   }, []);
@@ -175,101 +178,111 @@ export default function GreenStore() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {ecoProducts.map((product) => (
-            <div
-              key={product._id}
-              className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow border border-gray-200"
-            >
-              <Link href={`/product/${product._id}`}>
-                {/* Product Image */}
-                <div className="relative h-48 bg-gray-100">
-                  <img
-                    src={product.images[0]}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-2 right-2">
-                    <GreenScore
-                      score={product.greenScore}
-                      carbonFootprint={Number(product.carbonFootprint)}
-                      isEcoFriendly={product.isEcoFriendly}
-                    />
-                  </div>
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                      {Math.round(
-                        ((product.originalPrice - product.price) /
-                          product.originalPrice) *
-                          100
-                      )}
-                      % OFF
-                    </span>
-                  </div>
-                </div>
-              </Link>
-              {/* Product Info */}
-              <div className="p-3">
+        {loading ? (
+          <div className="flex justify-center items-center min-h-[200px]">
+            <svg className="animate-spin h-10 w-10 text-green-600 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            <span className="text-green-700 font-medium">Loading eco-friendly products...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {ecoProducts.map((product) => (
+              <div
+                key={product._id}
+                className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow border border-gray-200"
+              >
                 <Link href={`/product/${product._id}`}>
-                  <h3 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-                    {product.description}
-                  </p>
-
-                  {/* Eco ecoBadges */}
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {product.ecoBadges.map((badge) => (
-                      <EcoBadge key={badge} type={badge} showLabel={false} />
-                    ))}
-                  </div>
-
-                  {/* Carbon Savings */}
-                  <div className="text-xs text-green-600 mb-2 font-medium">
-                    {product.savings}
-                  </div>
-
-                  {/* Price */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <span className="text-sm font-bold text-gray-900">
-                        ₹{product.price}
-                      </span>
-                      <span className="text-xs text-gray-500 line-through ml-1">
-                        ₹{product.originalPrice}
-                      </span>
+                  {/* Product Image */}
+                  <div className="relative h-48 bg-gray-100">
+                    <img
+                      src={product.images[0]}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-2 right-2">
+                      <GreenScore
+                        score={product.greenScore}
+                        carbonFootprint={Number(product.carbonFootprint)}
+                        isEcoFriendly={product.isEcoFriendly}
+                      />
                     </div>
-                    <div className="text-xs text-green-600">
-                      +{Math.round(product.greenScore * 0.1)} coins
+                    <div className="absolute top-2 left-2">
+                      <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                        {Math.round(
+                          ((product.originalPrice - product.price) /
+                            product.originalPrice) *
+                            100
+                        )}
+                        % OFF
+                      </span>
                     </div>
                   </div>
                 </Link>
+                {/* Product Info */}
+                <div className="p-3">
+                  <Link href={`/product/${product._id}`}>
+                    <h3 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                      {product.description}
+                    </p>
 
-                {/* Action Buttons */}
-                <div className="flex gap-1">
-                  <button
-                    className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 px-3 rounded text-xs"
-                    onClick={() => {
-                      const cart = JSON.parse(
-                        localStorage.getItem("cart") || "[]"
-                      );
-                      cart.push(product);
-                      localStorage.setItem("cart", JSON.stringify(cart));
-                      increment();
-                      alert("Product added to cart! 🛒");
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                  <button className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-1.5 px-3 rounded text-xs">
-                    Buy Now
-                  </button>
+                    {/* Eco ecoBadges */}
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {product.ecoBadges.map((badge) => (
+                        <EcoBadge key={badge} type={badge} showLabel={false} />
+                      ))}
+                    </div>
+
+                    {/* Carbon Savings */}
+                    <div className="text-xs text-green-600 mb-2 font-medium">
+                      {product.savings}
+                    </div>
+
+                    {/* Price */}
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <span className="text-sm font-bold text-gray-900">
+                          ₹{product.price}
+                        </span>
+                        <span className="text-xs text-gray-500 line-through ml-1">
+                          ₹{product.originalPrice}
+                        </span>
+                      </div>
+                      <div className="text-xs text-green-600">
+                        +{Math.round(product.greenScore * 0.1)} coins
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-1">
+                    <button
+                      className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 px-3 rounded text-xs"
+                      onClick={() => {
+                        const cart = JSON.parse(
+                          localStorage.getItem("cart") || "[]"
+                        );
+                        cart.push(product);
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        increment();
+                        alert("Product added to cart! 🛒");
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                    <button className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-1.5 px-3 rounded text-xs">
+                      Buy Now
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Group Buying Section */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mt-6">

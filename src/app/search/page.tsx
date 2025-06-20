@@ -7,6 +7,7 @@ import GreenCoin from "../../components/GreenCoin";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useCartCountStore } from "@/context/cartCountStore";
+import { FaSpinner } from "react-icons/fa";
 
 const sponsored = {
   brandLogo: "/assets/greenStore.png",
@@ -186,7 +187,7 @@ const colors = [
 
 type Props = {};
 
-export default function page({}: Props) {
+export default function page({ }: Props) {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [deliveryDay, setDeliveryDay] = useState(false);
   const [price, setPrice] = useState([125, 8400]);
@@ -201,11 +202,14 @@ export default function page({}: Props) {
   const q = searchParams.get("q")?.trim() || "";
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (!q) {
       setSearchResult([]);
       return;
     }
+    setIsLoading(true);
     fetch(`/api/products/search?q=${encodeURIComponent(q)}`)
       .then((res) => res.json())
       .then((data) => {
@@ -215,7 +219,8 @@ export default function page({}: Props) {
           window.alert("Failed to fetch results");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }, [q]);
 
   useEffect(() => {
@@ -223,6 +228,7 @@ export default function page({}: Props) {
       setSearchResult([]);
       return;
     }
+    setIsLoading(true);
     fetch(`/api/products/ecosearch?q=${encodeURIComponent(q)}`)
       .then((res) => res.json())
       .then((data) => {
@@ -232,14 +238,15 @@ export default function page({}: Props) {
           window.alert("Failed to fetch results");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }, [q]);
 
   return (
     <div className="bg-[#E3E6E6] min-h-screen">
       <Nav />
       <div className="p-2 border-b-1 border-b-gray-300 text-black bg-white">
-        1-48 of over 3,000 results for "bottel"
+        1-48 of over 3,000 results for {q}
       </div>
       <div className="mx-auto flex pt-5 bg-white">
         {/* Left Panel Filters */}
@@ -436,7 +443,7 @@ export default function page({}: Props) {
                   <p
                     className="text-blue-600 text-sm hover:underline hover:cursor-pointer"
                     onClick={() => {
-                      router.push("green-store");
+                      router.push("/green-store");
                     }}
                   >
                     Shop {q}'s best eco-friendly alternatives from our Green
@@ -480,495 +487,503 @@ export default function page({}: Props) {
             </div>
           </section>
           {/* Product Feed */}
-          <div className="mt-8">
-            <h2 className="text-xl text-black font-bold mb-2">
-              Search results
-            </h2>
-            <div className="text-sm text-gray-600 mb-4">
-              Check each product page for other buying options. Price and other
-              details may vary based on product size and colour.
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
-              {searchResult.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white rounded-lg p-4 flex flex-col h-full relative border-1 border-gray-100"
-                >
-                  {/* Badges */}
-                  <div className="flex items-center gap-2 mb-2">
-                    {product.bestSeller && (
-                      <span className="bg-[#D14900] text-white text-xs px-2 py-0.5 rounded font-semibold">
-                        Best seller
-                      </span>
-                    )}
-                    {product.sponsored && (
-                      <span className="text-xs text-gray-500 flex items-center gap-1">
-                        Sponsored{" "}
-                        <svg
-                          width="12"
-                          height="12"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="#888"
-                            strokeWidth="2"
-                          />
-                          <text
-                            x="12"
-                            y="16"
-                            textAnchor="middle"
-                            fontSize="10"
-                            fill="#888"
-                          >
-                            i
-                          </text>
-                        </svg>
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Green Score Badge */}
-                  <div className="absolute top-2 right-2 z-10">
-                    <GreenScore
-                      score={product.greenScore}
-                      carbonFootprint={product.carbonFootprint.total}
-                      isEcoFriendly={product.isEcoFriendly}
-                    />
-                  </div>
-
-                  {/* Product Image */}
-                  <Link href={`/product/${product._id}`}>
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="w-32 h-32 object-contain cursor-pointer mx-auto mb-2"
-                    />
-
-                    {/* Colors */}
-                    {product.colors > 0 && (
-                      <span className="text-xs text-blue-700 mb-1 cursor-pointer hover:underline">
-                        +{product.colors} other colors/patterns
-                      </span>
-                    )}
-
-                    {/* name */}
-                    <div className="font-medium text-sm mb-1 line-clamp-2 min-h-[2.5em] text-black">
-                      {product.name}
-                    </div>
-
-                    {/* Eco Badges */}
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {product.ecoBadges.map((badge) => (
-                        <EcoBadge key={badge} type={badge} showLabel={false} />
-                      ))}
-                    </div>
-
-                    {/* Carbon Savings */}
-                    <div className="bg-green-50 p-2 rounded mb-2">
-                      <p className="text-xs text-green-700 font-medium">
-                        {product.carbonSaved}
-                      </p>
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-1 text-xs mb-1">
-                      <span className="text-yellow-500">★</span>
-                      <span>{product.rating}</span>
-                      <span className="text-gray-500">
-                        ({product.ratingCount})
-                      </span>
-                    </div>
-
-                    {/* Bought info */}
-                    <div className="text-xs text-gray-500 mb-1">
-                      {(Number(product.rating) + 2).toFixed(1)}k+ bought in past
-                      month
-                    </div>
-
-                    {/* Deal */}
-                    {product.deal && (
-                      <span className="bg-[#CC0C39] text-white text-xs px-2 py-0.5 rounded mb-1 w-fit">
-                        {product.deal}
-                      </span>
-                    )}
-
-                    {/* Price and Green Coins */}
-                    <div className="flex items-end justify-between gap-2 mt-1">
-                      <div className="flex items-end gap-2">
-                        <span className="text-2xl font-medium text-gray-900">
-                          ₹{product.price}
-                        </span>
-                        <span className="text-xs text-gray-500 line-through">
-                          M.R.P: ₹{product.mrp}
-                        </span>
-                        <span className="text-xs text-green-700 font-semibold">
-                          ({product.discount}% off)
-                        </span>
-                      </div>
-                      <div className="text-xs text-green-600 font-medium">
-                        +{product.greenCoins} 🪙
-                      </div>
-                    </div>
-
-                    {/* Prime & Delivery */}
-                    <div className="text-xs text-gray-700 mt-1">
-                      {product.prime && (
-                        <span className="text-blue-600 font-bold mr-1">
-                          prime
-                        </span>
-                      )}
-                      FREE delivery{" "}
-                      <span className="font-semibold">{product.delivery}</span>
-                    </div>
-                  </Link>
-                  {/* Add to cart */}
-
-                  <button
-                    className="mt-3 bg-[#FFCE12] hover:bg-yellow-500 text-black font-semibold py-1 w-fit text-sm rounded-full p-2"
-                    onClick={() => {
-                      const cart = JSON.parse(
-                        localStorage.getItem("cart") || "[]"
-                      );
-                      cart.push(product);
-                      localStorage.setItem("cart", JSON.stringify(cart));
-                      increment();
-                      alert("Product added to cart! 🛒");
-                    }}
-                  >
-                    Add to cart
-                  </button>
+          {!isLoading && (
+            <>
+              <div className="mt-8">
+                <h2 className="text-xl text-black font-bold mb-2">
+                  Search results
+                </h2>
+                <div className="text-sm text-gray-600 mb-4">
+                  Check each product page for other buying options. Price and other
+                  details may vary based on product size and colour.
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-8">
-            <h2 className="text-xl text-black font-bold mb-2">
-              Eco Friendly Picks for you
-            </h2>
-            <div className="text-sm text-gray-600 mb-4">
-              Check each product page for other buying options. Price and other
-              details may vary based on product size and colour.
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
-              {ecosearchResult.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white rounded-lg p-4 flex flex-col h-full relative border-1 border-gray-100"
-                >
-                  {/* Badges */}
-                  <div className="flex items-center gap-2 mb-2">
-                    {product.bestSeller && (
-                      <span className="bg-[#D14900] text-white text-xs px-2 py-0.5 rounded font-semibold">
-                        Best seller
-                      </span>
-                    )}
-                    {product.sponsored && (
-                      <span className="text-xs text-gray-500 flex items-center gap-1">
-                        Sponsored{" "}
-                        <svg
-                          width="12"
-                          height="12"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="#888"
-                            strokeWidth="2"
-                          />
-                          <text
-                            x="12"
-                            y="16"
-                            textAnchor="middle"
-                            fontSize="10"
-                            fill="#888"
-                          >
-                            i
-                          </text>
-                        </svg>
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Green Score Badge */}
-                  <div className="absolute top-2 right-2 z-10">
-                    <GreenScore
-                      score={product.greenScore}
-                      carbonFootprint={product.carbonFootprint.total}
-                      isEcoFriendly={product.isEcoFriendly}
-                    />
-                  </div>
-                  <Link href={`/product/${product._id}`}>
-                    {/* Product Image */}
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="w-32 h-32 object-contain mx-auto mb-2"
-                    />
-
-                    {/* Colors */}
-                    {product.colors > 0 && (
-                      <span className="text-xs text-blue-700 mb-1 cursor-pointer hover:underline">
-                        +{product.colors} other colors/patterns
-                      </span>
-                    )}
-
-                    {/* name */}
-                    <div className="font-medium text-sm mb-1 line-clamp-2 min-h-[2.5em] text-black">
-                      {product.name}
-                    </div>
-
-                    {/* Eco Badges */}
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {product.ecoBadges.map((badge) => (
-                        <EcoBadge key={badge} type={badge} showLabel={false} />
-                      ))}
-                    </div>
-
-                    {/* Carbon Savings */}
-                    <div className="bg-green-50 p-2 rounded mb-2">
-                      <p className="text-xs text-green-700 font-medium">
-                        {product.carbonSaved}
-                      </p>
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-1 text-xs mb-1">
-                      <span className="text-yellow-500">★</span>
-                      <span>{product.rating}</span>
-                      <span className="text-gray-500">
-                        ({product.ratingCount})
-                      </span>
-                    </div>
-
-                    {/* Bought info */}
-                    <div className="text-xs text-gray-500 mb-1">
-                      {(Number(product.rating) + 2).toFixed(1)}k+ bought in past
-                      month
-                    </div>
-
-                    {/* Deal */}
-                    {product.deal && (
-                      <span className="bg-[#CC0C39] text-white text-xs px-2 py-0.5 rounded mb-1 w-fit">
-                        {product.deal}
-                      </span>
-                    )}
-
-                    {/* Price and Green Coins */}
-                    <div className="flex items-end justify-between gap-2 mt-1">
-                      <div className="flex items-end gap-2">
-                        <span className="text-2xl font-medium text-gray-900">
-                          ₹{product.price}
-                        </span>
-                        <span className="text-xs text-gray-500 line-through">
-                          M.R.P: ₹{product.mrp}
-                        </span>
-                        <span className="text-xs text-green-700 font-semibold">
-                          ({product.discount}% off)
-                        </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
+                  {searchResult.map((product) => (
+                    <div
+                      key={product._id}
+                      className="bg-white rounded-lg p-4 flex flex-col h-full relative border-1 border-gray-100"
+                    >
+                      {/* Badges */}
+                      <div className="flex items-center gap-2 mb-2">
+                        {product.bestSeller && (
+                          <span className="bg-[#D14900] text-white text-xs px-2 py-0.5 rounded font-semibold">
+                            Best seller
+                          </span>
+                        )}
+                        {product.sponsored && (
+                          <span className="text-xs text-gray-500 flex items-center gap-1">
+                            Sponsored{" "}
+                            <svg
+                              width="12"
+                              height="12"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="#888"
+                                strokeWidth="2"
+                              />
+                              <text
+                                x="12"
+                                y="16"
+                                textAnchor="middle"
+                                fontSize="10"
+                                fill="#888"
+                              >
+                                i
+                              </text>
+                            </svg>
+                          </span>
+                        )}
                       </div>
-                      <div className="text-xs text-green-600 font-medium">
-                        +{product.greenCoins} 🪙
-                      </div>
-                    </div>
 
-                    {/* Prime & Delivery */}
-                    <div className="text-xs text-gray-700 mt-1">
-                      {product.prime && (
-                        <span className="text-blue-600 font-bold mr-1">
-                          prime
-                        </span>
-                      )}
-                      FREE delivery{" "}
-                      <span className="font-semibold">{product.delivery}</span>
+                      {/* Green Score Badge */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <GreenScore
+                          score={product.greenScore}
+                          carbonFootprint={product.carbonFootprint.total}
+                          isEcoFriendly={product.isEcoFriendly}
+                        />
+                      </div>
+
+                      {/* Product Image */}
+                      <Link href={`/product/${product._id}`}>
+                        <img
+                          src={product.images[0]}
+                          alt={product.name}
+                          className="w-32 h-32 object-contain cursor-pointer mx-auto mb-2"
+                        />
+
+                        {/* Colors */}
+                        {product.colors > 0 && (
+                          <span className="text-xs text-blue-700 mb-1 cursor-pointer hover:underline">
+                            +{product.colors} other colors/patterns
+                          </span>
+                        )}
+
+                        {/* name */}
+                        <div className="font-medium text-sm mb-1 line-clamp-2 min-h-[2.5em] text-black">
+                          {product.name}
+                        </div>
+
+                        {/* Eco Badges */}
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {product.ecoBadges.map((badge) => (
+                            <EcoBadge key={badge} type={badge} showLabel={false} />
+                          ))}
+                        </div>
+
+                        {/* Carbon Savings */}
+                        <div className="bg-green-50 p-2 rounded mb-2">
+                          <p className="text-xs text-green-700 font-medium">
+                            {product.carbonSaved}
+                          </p>
+                        </div>
+
+                        {/* Rating */}
+                        <div className="flex items-center gap-1 text-xs mb-1">
+                          <span className="text-yellow-500">★</span>
+                          <span>{product.rating}</span>
+                          <span className="text-gray-500">
+                            ({product.ratingCount})
+                          </span>
+                        </div>
+
+                        {/* Bought info */}
+                        <div className="text-xs text-gray-500 mb-1">
+                          {(Number(product.rating) + 2).toFixed(1)}k+ bought in past
+                          month
+                        </div>
+
+                        {/* Deal */}
+                        {product.deal && (
+                          <span className="bg-[#CC0C39] text-white text-xs px-2 py-0.5 rounded mb-1 w-fit">
+                            {product.deal}
+                          </span>
+                        )}
+
+                        {/* Price and Green Coins */}
+                        <div className="flex items-end justify-between gap-2 mt-1">
+                          <div className="flex items-end gap-2">
+                            <span className="text-2xl font-medium text-gray-900">
+                              ₹{product.price}
+                            </span>
+                            <span className="text-xs text-gray-500 line-through">
+                              M.R.P: ₹{product.mrp}
+                            </span>
+                            <span className="text-xs text-green-700 font-semibold">
+                              ({product.discount}% off)
+                            </span>
+                          </div>
+                          <div className="text-xs text-green-600 font-medium">
+                            +{product.greenCoins} 🪙
+                          </div>
+                        </div>
+
+                        {/* Prime & Delivery */}
+                        <div className="text-xs text-gray-700 mt-1">
+                          {product.prime && (
+                            <span className="text-blue-600 font-bold mr-1">
+                              prime
+                            </span>
+                          )}
+                          FREE delivery{" "}
+                          <span className="font-semibold">{product.delivery}</span>
+                        </div>
+                      </Link>
+                      {/* Add to cart */}
+
+                      <button
+                        className="mt-3 bg-[#FFCE12] hover:bg-yellow-500 text-black font-semibold py-1 w-fit text-sm rounded-full p-2"
+                        onClick={() => {
+                          const cart = JSON.parse(
+                            localStorage.getItem("cart") || "[]"
+                          );
+                          cart.push(product);
+                          localStorage.setItem("cart", JSON.stringify(cart));
+                          increment();
+                          alert("Product added to cart! 🛒");
+                        }}
+                      >
+                        Add to cart
+                      </button>
                     </div>
-                  </Link>
-                  {/* Add to cart */}
-                  <button
-                    className="mt-3 bg-[#FFCE12] hover:bg-yellow-500 text-black font-semibold py-1 w-fit text-sm rounded-full p-2"
-                    onClick={() => {
-                      const cart = JSON.parse(
-                        localStorage.getItem("cart") || "[]"
-                      );
-                      cart.push(product);
-                      localStorage.setItem("cart", JSON.stringify(cart));
-                      increment();
-                      alert("Product added to cart! 🛒");
-                    }}
-                  >
-                    Add to cart
-                  </button>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-8">
-            <h2 className="text-xl text-black font-bold mb-2">More Results</h2>
-            <div className="text-sm text-gray-600 mb-4">
-              Check each product page for other buying options. Price and other
-              details may vary based on product size and colour.
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
-              {searchResult.map((product) => (
-                <div
-                  key={product._id}
-                  className="bg-white rounded-lg p-4 flex flex-col h-full relative border-1 border-gray-100"
-                >
-                  {/* Badges */}
-                  <div className="flex items-center gap-2 mb-2">
-                    {product.bestSeller && (
-                      <span className="bg-[#D14900] text-white text-xs px-2 py-0.5 rounded font-semibold">
-                        Best seller
-                      </span>
-                    )}
-                    {product.sponsored && (
-                      <span className="text-xs text-gray-500 flex items-center gap-1">
-                        Sponsored{" "}
-                        <svg
-                          width="12"
-                          height="12"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="#888"
-                            strokeWidth="2"
-                          />
-                          <text
-                            x="12"
-                            y="16"
-                            textAnchor="middle"
-                            fontSize="10"
-                            fill="#888"
-                          >
-                            i
-                          </text>
-                        </svg>
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Green Score Badge */}
-                  <div className="absolute top-2 right-2 z-10">
-                    <GreenScore
-                      score={product.greenScore}
-                      carbonFootprint={product.carbonFootprint.total}
-                      isEcoFriendly={product.isEcoFriendly}
-                    />
-                  </div>
-                  <Link href={`/product/${product._id}`}>
-                    {/* Product Image */}
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="w-32 h-32 object-contain mx-auto mb-2"
-                    />
-
-                    {/* Colors */}
-                    {product.colors > 0 && (
-                      <span className="text-xs text-blue-700 mb-1 cursor-pointer hover:underline">
-                        +{product.colors} other colors/patterns
-                      </span>
-                    )}
-
-                    {/* name */}
-                    <div className="font-medium text-sm mb-1 line-clamp-2 min-h-[2.5em] text-black">
-                      {product.name}
-                    </div>
-
-                    {/* Eco Badges */}
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {product.ecoBadges.map((badge) => (
-                        <EcoBadge key={badge} type={badge} showLabel={false} />
-                      ))}
-                    </div>
-
-                    {/* Carbon Savings */}
-                    <div className="bg-green-50 p-2 rounded mb-2">
-                      <p className="text-xs text-green-700 font-medium">
-                        {product.carbonSaved}
-                      </p>
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex items-center gap-1 text-xs mb-1">
-                      <span className="text-yellow-500">★</span>
-                      <span>{product.rating}</span>
-                      <span className="text-gray-500">
-                        ({product.ratingCount})
-                      </span>
-                    </div>
-
-                    {/* Bought info */}
-                    <div className="text-xs text-gray-500 mb-1">
-                      {(Number(product.rating) + 2).toFixed(1)}k+ bought in past
-                      month
-                    </div>
-
-                    {/* Deal */}
-                    {product.deal && (
-                      <span className="bg-[#CC0C39] text-white text-xs px-2 py-0.5 rounded mb-1 w-fit">
-                        {product.deal}
-                      </span>
-                    )}
-
-                    {/* Price and Green Coins */}
-                    <div className="flex items-end justify-between gap-2 mt-1">
-                      <div className="flex items-end gap-2">
-                        <span className="text-2xl font-medium text-gray-900">
-                          ₹{product.price}
-                        </span>
-                        <span className="text-xs text-gray-500 line-through">
-                          M.R.P: ₹{product.mrp}
-                        </span>
-                        <span className="text-xs text-green-700 font-semibold">
-                          ({product.discount}% off)
-                        </span>
-                      </div>
-                      <div className="text-xs text-green-600 font-medium">
-                        +{product.greenCoins} 🪙
-                      </div>
-                    </div>
-
-                    {/* Prime & Delivery */}
-                    <div className="text-xs text-gray-700 mt-1">
-                      {product.prime && (
-                        <span className="text-blue-600 font-bold mr-1">
-                          prime
-                        </span>
-                      )}
-                      FREE delivery{" "}
-                      <span className="font-semibold">{product.delivery}</span>
-                    </div>
-                  </Link>
-                  {/* Add to cart */}
-                  <button
-                    className="mt-3 bg-[#FFCE12] hover:bg-yellow-500 text-black font-semibold py-1 w-fit text-sm rounded-full p-2"
-                    onClick={() => {
-                      const cart = JSON.parse(
-                        localStorage.getItem("cart") || "[]"
-                      );
-                      cart.push(product);
-                      localStorage.setItem("cart", JSON.stringify(cart));
-                      increment();
-                      alert("Product added to cart! 🛒");
-                    }}
-                  >
-                    Add to cart
-                  </button>
+              </div>
+              <div className="mt-8">
+                <h2 className="text-xl text-black font-bold mb-2">
+                  Eco Friendly Picks for you
+                </h2>
+                <div className="text-sm text-gray-600 mb-4">
+                  Check each product page for other buying options. Price and other
+                  details may vary based on product size and colour.
                 </div>
-              ))}
-            </div>
-          </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
+                  {ecosearchResult.map((product) => (
+                    <div
+                      key={product._id}
+                      className="bg-white rounded-lg p-4 flex flex-col h-full relative border-1 border-gray-100"
+                    >
+                      {/* Badges */}
+                      <div className="flex items-center gap-2 mb-2">
+                        {product.bestSeller && (
+                          <span className="bg-[#D14900] text-white text-xs px-2 py-0.5 rounded font-semibold">
+                            Best seller
+                          </span>
+                        )}
+                        {product.sponsored && (
+                          <span className="text-xs text-gray-500 flex items-center gap-1">
+                            Sponsored{" "}
+                            <svg
+                              width="12"
+                              height="12"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="#888"
+                                strokeWidth="2"
+                              />
+                              <text
+                                x="12"
+                                y="16"
+                                textAnchor="middle"
+                                fontSize="10"
+                                fill="#888"
+                              >
+                                i
+                              </text>
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Green Score Badge */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <GreenScore
+                          score={product.greenScore}
+                          carbonFootprint={product.carbonFootprint.total}
+                          isEcoFriendly={product.isEcoFriendly}
+                        />
+                      </div>
+                      <Link href={`/product/${product._id}`}>
+                        {/* Product Image */}
+                        <img
+                          src={product.images[0]}
+                          alt={product.name}
+                          className="w-32 h-32 object-contain mx-auto mb-2"
+                        />
+
+                        {/* Colors */}
+                        {product.colors > 0 && (
+                          <span className="text-xs text-blue-700 mb-1 cursor-pointer hover:underline">
+                            +{product.colors} other colors/patterns
+                          </span>
+                        )}
+
+                        {/* name */}
+                        <div className="font-medium text-sm mb-1 line-clamp-2 min-h-[2.5em] text-black">
+                          {product.name}
+                        </div>
+
+                        {/* Eco Badges */}
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {product.ecoBadges.map((badge) => (
+                            <EcoBadge key={badge} type={badge} showLabel={false} />
+                          ))}
+                        </div>
+
+                        {/* Carbon Savings */}
+                        <div className="bg-green-50 p-2 rounded mb-2">
+                          <p className="text-xs text-green-700 font-medium">
+                            {product.carbonSaved}
+                          </p>
+                        </div>
+
+                        {/* Rating */}
+                        <div className="flex items-center gap-1 text-xs mb-1">
+                          <span className="text-yellow-500">★</span>
+                          <span>{product.rating}</span>
+                          <span className="text-gray-500">
+                            ({product.ratingCount})
+                          </span>
+                        </div>
+
+                        {/* Bought info */}
+                        <div className="text-xs text-gray-500 mb-1">
+                          {(Number(product.rating) + 2).toFixed(1)}k+ bought in past
+                          month
+                        </div>
+
+                        {/* Deal */}
+                        {product.deal && (
+                          <span className="bg-[#CC0C39] text-white text-xs px-2 py-0.5 rounded mb-1 w-fit">
+                            {product.deal}
+                          </span>
+                        )}
+
+                        {/* Price and Green Coins */}
+                        <div className="flex items-end justify-between gap-2 mt-1">
+                          <div className="flex items-end gap-2">
+                            <span className="text-2xl font-medium text-gray-900">
+                              ₹{product.price}
+                            </span>
+                            <span className="text-xs text-gray-500 line-through">
+                              M.R.P: ₹{product.mrp}
+                            </span>
+                            <span className="text-xs text-green-700 font-semibold">
+                              ({product.discount}% off)
+                            </span>
+                          </div>
+                          <div className="text-xs text-green-600 font-medium">
+                            +{product.greenCoins} 🪙
+                          </div>
+                        </div>
+
+                        {/* Prime & Delivery */}
+                        <div className="text-xs text-gray-700 mt-1">
+                          {product.prime && (
+                            <span className="text-blue-600 font-bold mr-1">
+                              prime
+                            </span>
+                          )}
+                          FREE delivery{" "}
+                          <span className="font-semibold">{product.delivery}</span>
+                        </div>
+                      </Link>
+                      {/* Add to cart */}
+                      <button
+                        className="mt-3 bg-[#FFCE12] hover:bg-yellow-500 text-black font-semibold py-1 w-fit text-sm rounded-full p-2"
+                        onClick={() => {
+                          const cart = JSON.parse(
+                            localStorage.getItem("cart") || "[]"
+                          );
+                          cart.push(product);
+                          localStorage.setItem("cart", JSON.stringify(cart));
+                          increment();
+                          alert("Product added to cart! 🛒");
+                        }}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-8">
+                <h2 className="text-xl text-black font-bold mb-2">More Results</h2>
+                <div className="text-sm text-gray-600 mb-4">
+                  Check each product page for other buying options. Price and other
+                  details may vary based on product size and colour.
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
+                  {searchResult.map((product) => (
+                    <div
+                      key={product._id}
+                      className="bg-white rounded-lg p-4 flex flex-col h-full relative border-1 border-gray-100"
+                    >
+                      {/* Badges */}
+                      <div className="flex items-center gap-2 mb-2">
+                        {product.bestSeller && (
+                          <span className="bg-[#D14900] text-white text-xs px-2 py-0.5 rounded font-semibold">
+                            Best seller
+                          </span>
+                        )}
+                        {product.sponsored && (
+                          <span className="text-xs text-gray-500 flex items-center gap-1">
+                            Sponsored{" "}
+                            <svg
+                              width="12"
+                              height="12"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="#888"
+                                strokeWidth="2"
+                              />
+                              <text
+                                x="12"
+                                y="16"
+                                textAnchor="middle"
+                                fontSize="10"
+                                fill="#888"
+                              >
+                                i
+                              </text>
+                            </svg>
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Green Score Badge */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <GreenScore
+                          score={product.greenScore}
+                          carbonFootprint={product.carbonFootprint.total}
+                          isEcoFriendly={product.isEcoFriendly}
+                        />
+                      </div>
+                      <Link href={`/product/${product._id}`}>
+                        {/* Product Image */}
+                        <img
+                          src={product.images[0]}
+                          alt={product.name}
+                          className="w-32 h-32 object-contain mx-auto mb-2"
+                        />
+
+                        {/* Colors */}
+                        {product.colors > 0 && (
+                          <span className="text-xs text-blue-700 mb-1 cursor-pointer hover:underline">
+                            +{product.colors} other colors/patterns
+                          </span>
+                        )}
+
+                        {/* name */}
+                        <div className="font-medium text-sm mb-1 line-clamp-2 min-h-[2.5em] text-black">
+                          {product.name}
+                        </div>
+
+                        {/* Eco Badges */}
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {product.ecoBadges.map((badge) => (
+                            <EcoBadge key={badge} type={badge} showLabel={false} />
+                          ))}
+                        </div>
+
+                        {/* Carbon Savings */}
+                        <div className="bg-green-50 p-2 rounded mb-2">
+                          <p className="text-xs text-green-700 font-medium">
+                            {product.carbonSaved}
+                          </p>
+                        </div>
+
+                        {/* Rating */}
+                        <div className="flex items-center gap-1 text-xs mb-1">
+                          <span className="text-yellow-500">★</span>
+                          <span>{product.rating}</span>
+                          <span className="text-gray-500">
+                            ({product.ratingCount})
+                          </span>
+                        </div>
+
+                        {/* Bought info */}
+                        <div className="text-xs text-gray-500 mb-1">
+                          {(Number(product.rating) + 2).toFixed(1)}k+ bought in past
+                          month
+                        </div>
+
+                        {/* Deal */}
+                        {product.deal && (
+                          <span className="bg-[#CC0C39] text-white text-xs px-2 py-0.5 rounded mb-1 w-fit">
+                            {product.deal}
+                          </span>
+                        )}
+
+                        {/* Price and Green Coins */}
+                        <div className="flex items-end justify-between gap-2 mt-1">
+                          <div className="flex items-end gap-2">
+                            <span className="text-2xl font-medium text-gray-900">
+                              ₹{product.price}
+                            </span>
+                            <span className="text-xs text-gray-500 line-through">
+                              M.R.P: ₹{product.mrp}
+                            </span>
+                            <span className="text-xs text-green-700 font-semibold">
+                              ({product.discount}% off)
+                            </span>
+                          </div>
+                          <div className="text-xs text-green-600 font-medium">
+                            +{product.greenCoins} 🪙
+                          </div>
+                        </div>
+
+                        {/* Prime & Delivery */}
+                        <div className="text-xs text-gray-700 mt-1">
+                          {product.prime && (
+                            <span className="text-blue-600 font-bold mr-1">
+                              prime
+                            </span>
+                          )}
+                          FREE delivery{" "}
+                          <span className="font-semibold">{product.delivery}</span>
+                        </div>
+                      </Link>
+                      {/* Add to cart */}
+                      <button
+                        className="mt-3 bg-[#FFCE12] hover:bg-yellow-500 text-black font-semibold py-1 w-fit text-sm rounded-full p-2"
+                        onClick={() => {
+                          const cart = JSON.parse(
+                            localStorage.getItem("cart") || "[]"
+                          );
+                          cart.push(product);
+                          localStorage.setItem("cart", JSON.stringify(cart));
+                          increment();
+                          alert("Product added to cart! 🛒");
+                        }}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+          {isLoading && <div className="flex pt-20 items-center justify-center gap-2 text-gray-700 py-4">
+            <FaSpinner className="animate-spin text-yellow-500 text-2xl" />
+            <span className="font-medium text-sm">Product is loading...</span>
+          </div>}
         </main>
       </div>
     </div>
