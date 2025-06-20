@@ -7,6 +7,7 @@ import GreenCoin from "../../components/GreenCoin";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useCartCountStore } from "@/context/cartCountStore";
+
 const sponsored = {
   brandLogo: "/assets/greenStore.png",
   brandName: "Get the best Eco friendly products at our Green Store",
@@ -147,8 +148,6 @@ const mockProducts = [
   },
 ];
 
-const increment = useCartCountStore((state) => state.increment);
-
 const materials = [
   "Plastic",
   "Aluminium",
@@ -196,7 +195,7 @@ export default function page({}: Props) {
   const [searchResult, setSearchResult] = useState(mockProducts);
   const [ecosearchResult, setecoSearchResult] = useState(mockProducts);
 
-  
+  const increment = useCartCountStore((state) => state.increment);
 
   const searchParams = useSearchParams();
   const q = searchParams.get("q")?.trim() || "";
@@ -639,7 +638,6 @@ export default function page({}: Props) {
                       increment();
                       alert("Product added to cart! 🛒");
                     }}
-                    
                   >
                     Add to cart
                   </button>
