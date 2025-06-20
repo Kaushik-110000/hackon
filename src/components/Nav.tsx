@@ -13,6 +13,7 @@ export default function Nav() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
   useEffect(() => {
     fetch("/api/products/searchtrie")
       .then((res) => res.json())
@@ -47,8 +48,10 @@ export default function Nav() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?q=${query}`);
+    // setQuery("");
+    setSuggestions([]);
   };
-
+const [placeholder,setPlaceholder] = useState("Search Amazon.in");
   return (
     <>
       {/* Header - Pixel-perfect Amazon style */}
@@ -101,7 +104,7 @@ export default function Nav() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search Amazon.in"
+              placeholder={placeholder}
               className="w-full px-3 py-2 text-sm text-gray-900 focus:outline-none bg-white"
             />
             <button
@@ -122,14 +125,17 @@ export default function Nav() {
 
             {/* Suggestions Dropdown */}
             {suggestions.length > 0 && (
-              <ul className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-md shadow-lg max-h-60 overflow-auto z-10">
+              <ul className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-md shadow-lg max-h-60 overflow-hidden z-10">
                 {suggestions.map((s, i) => (
                   <li
                     key={i}
                     onClick={() => {
                       setQuery(s);
+                      setPlaceholder(s);
                       setSuggestions([]);
                       router.push(`/search?q=${s}`);
+                      // setQuery("");
+                      setSuggestions([]);
                     }}
                     className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
                   >

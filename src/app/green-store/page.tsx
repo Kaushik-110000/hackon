@@ -253,7 +253,7 @@ export default function GreenStore() {
                       const cart = JSON.parse(
                         localStorage.getItem("cart") || "[]"
                       );
-                      cart.push(product); // assuming 'product' is in scope (map function)
+                      cart.push(product); 
                       localStorage.setItem("cart", JSON.stringify(cart));
                       alert("Product added to cart! 🛒");
                     }}
