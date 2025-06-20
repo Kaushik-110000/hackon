@@ -6,7 +6,7 @@ import EcoBadge from "../../components/EcoBadge";
 import GreenCoin from "../../components/GreenCoin";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-
+import { useCartCountStore } from "@/context/cartCountStore";
 const sponsored = {
   brandLogo: "/assets/greenStore.png",
   brandName: "Get the best Eco friendly products at our Green Store",
@@ -146,6 +146,8 @@ const mockProducts = [
     carbonSaved: "Saves 1.2kg CO₂",
   },
 ];
+
+const increment = useCartCountStore((state) => state.increment);
 
 const materials = [
   "Plastic",
@@ -634,8 +636,10 @@ export default function page({}: Props) {
                       );
                       cart.push(product);
                       localStorage.setItem("cart", JSON.stringify(cart));
+                      increment();
                       alert("Product added to cart! 🛒");
                     }}
+                    
                   >
                     Add to cart
                   </button>
@@ -796,6 +800,7 @@ export default function page({}: Props) {
                       );
                       cart.push(product);
                       localStorage.setItem("cart", JSON.stringify(cart));
+                      increment();
                       alert("Product added to cart! 🛒");
                     }}
                   >
@@ -956,6 +961,7 @@ export default function page({}: Props) {
                       );
                       cart.push(product);
                       localStorage.setItem("cart", JSON.stringify(cart));
+                      increment();
                       alert("Product added to cart! 🛒");
                     }}
                   >

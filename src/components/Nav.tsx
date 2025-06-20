@@ -6,6 +6,8 @@ import Link from "next/link";
 import GreenCoin from "./GreenCoin";
 import { UserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
+import { useCartCountStore } from "@/context/cartCountStore";
+
 export default function Nav() {
   const updatedState = useContext(UserContext);
   const [query, setQuery] = useState("");
@@ -13,6 +15,7 @@ export default function Nav() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const count = useCartCountStore((state) => state.count);
 
   useEffect(() => {
     fetch("/api/products/searchtrie")
@@ -51,7 +54,7 @@ export default function Nav() {
     // setQuery("");
     setSuggestions([]);
   };
-const [placeholder,setPlaceholder] = useState("Search Amazon.in");
+  const [placeholder, setPlaceholder] = useState("Search Amazon.in");
   return (
     <>
       {/* Header - Pixel-perfect Amazon style */}
@@ -222,7 +225,7 @@ const [placeholder,setPlaceholder] = useState("Search Amazon.in");
               <circle cx="17" cy="21" r="1" />
             </svg>
             <span className="absolute left-5 top-0 bg-orange-400 text-xs font-bold rounded-full px-1 text-black">
-              0
+              {count}
             </span>
             <span className="ml-1 text-xs font-bold text-gray-300">Cart</span>
           </div>

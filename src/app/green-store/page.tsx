@@ -7,6 +7,7 @@ import EcoBadge from "../../components/EcoBadge";
 import GreenCoin from "../../components/GreenCoin";
 import axios from "axios";
 import Link from "next/link";
+import { useCartCountStore } from "@/context/cartCountStore";
 
 export default function GreenStore() {
   const ecoProductsBluePrint = [
@@ -107,7 +108,7 @@ export default function GreenStore() {
   ];
 
   const [ecoProducts, setecoProducts] = useState(ecoProductsBluePrint);
-
+  const increment = useCartCountStore((state) => state.increment);
   useEffect(() => {
     async function getProducts() {
       const res = await axios.get("api/products/eco");
@@ -253,8 +254,9 @@ export default function GreenStore() {
                       const cart = JSON.parse(
                         localStorage.getItem("cart") || "[]"
                       );
-                      cart.push(product); 
+                      cart.push(product);
                       localStorage.setItem("cart", JSON.stringify(cart));
+                      increment();
                       alert("Product added to cart! 🛒");
                     }}
                   >
