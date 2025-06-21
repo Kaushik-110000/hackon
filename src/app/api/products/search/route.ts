@@ -20,7 +20,8 @@ export async function GET(req: NextRequest) {
           ],
         }
       : {};
-    const products = await Product.find(filter).lean();
+      
+    const products = await Product.find(filter).limit(100).lean();
 
     return NextResponse.json(
       { status: 200, query: q, count: products.length, products },

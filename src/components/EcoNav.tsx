@@ -62,7 +62,6 @@ export default function Nav() {
     }
     setQuery(query.toLowerCase());
 
-
     router.push(`/search?q=${query}`);
     setPlaceholder(query);
     setQuery("");
@@ -72,7 +71,7 @@ export default function Nav() {
   return (
     <>
       {/* Header - Pixel-perfect Amazon style */}
-      <header className="w-full bg-[#131921] flex items-center px-4 py-3">
+      <header className="w-full bg-green-900 flex items-center px-4 py-3 text-white">
         {/* Logo and Location */}
         <div className="flex items-center min-w-[270px]">
           <Link href="/">
@@ -85,7 +84,7 @@ export default function Nav() {
             />
           </Link>
           <div className="ml-2 flex flex-col justify-center">
-            <span className="flex items-center text-xs text-gray-200">
+            <span className="flex items-center text-xs text-white">
               <svg
                 className="w-4 h-4 mr-1 text-white"
                 fill="none"
@@ -114,7 +113,7 @@ export default function Nav() {
         {/* Search Bar */}
         <form className="flex flex-1 mx-4 w-full" onSubmit={handleSubmit}>
           <div className="flex w-full relative">
-            <select className="rounded-l-md bg-gray-100 text-gray-700 text-sm px-2 border-r border-gray-300 focus:outline-none min-w-[60px]">
+            <select className="rounded-l-md bg-green-200 text-black text-sm px-2 border-r border-green-400 focus:outline-none min-w-[60px]">
               <option>All</option>
             </select>
             <input
@@ -122,11 +121,11 @@ export default function Nav() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={placeholder}
-              className="w-full px-3 py-2 text-sm text-gray-900 focus:outline-none bg-white"
+              className="w-full px-3 py-2 text-sm text-black focus:outline-none bg-green-100"
             />
             <button
               type="submit"
-              className="bg-[#febd69] rounded-r-md px-4 flex items-center justify-center"
+              className="bg-green-400 rounded-r-md px-4 flex items-center justify-center text-black"
             >
               <svg
                 className="w-5 h-5 text-gray-800"
@@ -142,7 +141,7 @@ export default function Nav() {
 
             {/* Suggestions Dropdown */}
             {suggestions.length > 0 && (
-              <ul className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-b-md shadow-lg max-h-60 overflow-hidden z-10">
+              <ul className="absolute top-full left-0 right-0 bg-green-100 border border-green-300 rounded-b-md shadow-lg max-h-60 overflow-hidden z-10 text-black">
                 {suggestions.map((s, i) => (
                   <li
                     key={i}
@@ -154,7 +153,7 @@ export default function Nav() {
                       setQuery("");
                       setSuggestions([]);
                     }}
-                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
+                    className="px-3 py-2 hover:bg-green-200 cursor-pointer text-sm"
                   >
                     {s}
                   </li>
@@ -164,7 +163,7 @@ export default function Nav() {
           </div>
         </form>
         {/* Right Side: Language, Account, Orders, Cart */}
-        <div className="flex items-center space-x-6 min-w-[420px] justify-end">
+        <div className="flex items-center space-x-6 min-w-[420px] justify-end text-black">
           {/* Language */}
           <div className="flex items-center cursor-pointer">
             <Image
@@ -174,9 +173,9 @@ export default function Nav() {
               height={14}
               className="mr-1 rounded-sm"
             />
-            <span className="text-xs font-bold text-gray-300">EN</span>
+            <span className="text-xs font-bold text-white">EN</span>
             <svg
-              className="w-3 h-3 ml-1 text-gray-300"
+              className="w-3 h-3 ml-1 text-white"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -194,21 +193,21 @@ export default function Nav() {
             </div>
           </Link>
           {/* Account & Lists */}
-          <div className="flex flex-col cursor-pointer text-gray-300">
+          <div className="flex flex-col cursor-pointer text-white">
             {updatedState?.userData?._id ? (
               <Link href="/dashboard">
-                <span className="text-xs text-gray-300"> Hello, dear</span>
+                <span className="text-xs text-white"> Hello, dear</span>
               </Link>
             ) : (
               <Link href="/ap/signin">
-                <span className="text-xs text-gray-300">Hello, sign in</span>
+                <span className="text-xs text-white">Hello, sign in</span>
               </Link>
             )}
 
-            <span className="font-bold text-sm leading-tight">
+            <span className="font-bold text-sm leading-tight text-white">
               Account & Lists{" "}
               <svg
-                className="inline w-3 h-3 text-gray-300"
+                className="inline w-3 h-3 text-white"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -221,7 +220,7 @@ export default function Nav() {
             </span>
           </div>
           {/* Orders */}
-          <div className="flex flex-col cursor-pointer text-gray-300">
+          <div className="flex flex-col cursor-pointer text-white">
             <span className="text-xs">Returns</span>
             <span className="font-bold text-sm leading-tight">& Orders</span>
           </div>
@@ -229,7 +228,7 @@ export default function Nav() {
           <Link href={"/myCart"}>
             <div className="flex items-center cursor-pointer relative" >
               <svg
-                className="w-8 h-8 text-white"
+                className="w-8 h-8 text-black"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -239,17 +238,17 @@ export default function Nav() {
                 <circle cx="7" cy="21" r="1" />
                 <circle cx="17" cy="21" r="1" />
               </svg>
-              <span className="absolute left-5 top-0 bg-orange-400 text-xs font-bold rounded-full px-1 text-black">
+              <span className="absolute left-5 top-0 bg-green-300 text-xs font-bold rounded-full px-1 text-black">
                 {count}
               </span>
-              <span className="ml-1 text-xs font-bold text-gray-300">Cart</span>
+              <span className="ml-1 text-xs font-bold text-white">Cart</span>
             </div>
           </Link>
         </div>
       </header>
 
       {/* Navigation Bar */}
-      <nav className="w-full bg-[#232f3e] text-white text-sm">
+      <nav className="w-full bg-green-500 text-black text-sm">
         <ul className="flex flex-wrap items-center px-6 py-2 space-x-4 overflow-x-auto">
           <li className="font-semibold">☰ All</li>
           <li>Sell</li>
@@ -260,22 +259,22 @@ export default function Nav() {
           <li>New Releases</li>
           <li>Amazon Pay</li>
           <Link href="/green-store">
-            <li className="text-green-400 font-semibold cursor-pointer hover:text-green-300">
+            <li className="text-black font-bold cursor-pointer hover:text-green-900">
               🌱 Green Store
             </li>
           </Link>
           <Link href="/dashboard">
-            <li className="text-green-400 cursor-pointer hover:text-green-300">
+            <li className="text-black font-bold  cursor-pointer hover:text-green-900">
               📊 Eco Dashboard
             </li>
           </Link>
           <Link href="/rewards">
-            <li className="text-green-400 cursor-pointer hover:text-green-300">
+            <li className="text-black font-bold  cursor-pointer hover:text-green-900">
               🪙 Rewards
             </li>
           </Link>
           <Link href="/group-buy">
-            <li className="text-green-400 cursor-pointer hover:text-green-300">
+            <li className="text-black font-bold cursor-pointer hover:text-green-900">
               📦 Group Buy
             </li>
           </Link>
