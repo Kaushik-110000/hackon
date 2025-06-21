@@ -7,8 +7,6 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const { mobile }: { mobile: number } = await req.json();
-    // console.log(mobile);
-    // console.log(typeof mobile);
     const user = await User.findOne({ mobile: mobile });
 
     if (!user) {
