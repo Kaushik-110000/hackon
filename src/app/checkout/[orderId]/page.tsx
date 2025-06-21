@@ -33,7 +33,7 @@ export default function OrderPage() {
 
     const [joinId, setJoinId] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('');
-
+    const [generatedGid, setGeneratedId] = useState('');
     const [shareLink, setShareLink] = useState("");
     const [showShareModal, setShowShareModal] = useState(false);
     const [copied, setCopied] = useState(false);
@@ -63,6 +63,7 @@ export default function OrderPage() {
             try {
                 const res = await axios.post("/api/group", { orderId, shippingAddress: order.shippingAddress });
                 const groupId = res.data.newGroup._id;
+                setGeneratedId(groupId)
                 // Generate full shareable URL with current domain and query parameter
                 const currentUrl = window.location.origin;
                 const shareableUrl = `${currentUrl}?grp_id=${groupId}`;
@@ -129,6 +130,7 @@ export default function OrderPage() {
         try {
             const res = await axios.post(`/api/group/${joinId}`, { orderId })
             console.log(res.data);
+            router.push(`/groupCheckOut/${joinId}`)
         } catch (error) {
             console.log(error);
             window.alert("Failed joining the group");
@@ -344,7 +346,7 @@ export default function OrderPage() {
                             <button
                                 onClick={() => {
                                     setShowShareModal(false)
-                                    router.push(`/groupCheckOut/${shareLink}`)
+                                    router.push(`/groupCheckOut/${generatedGid}`)
                                 }}
                                 className="text-gray-500 hover:text-gray-700"
                             >
