@@ -14,6 +14,7 @@ import type { FC } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ChatBotWidget from "../../components/ChatBotWidget";
 
 interface Product {
   _id: string;
@@ -687,6 +688,8 @@ export default function GreenStore() {
           </div>
         </div>
       </div>
+       {/* Sprout */}
+        <ChatBotWidget />
     </div>
   );
 }
