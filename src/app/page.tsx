@@ -12,6 +12,7 @@ import GreenCoin from "../components/GreenCoin";
 import { UserContext } from "@/context/UserContext";
 import Link from "next/link"
 import { useEffect } from "react";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const settings = {
@@ -345,7 +346,10 @@ export default function Home() {
           </div>}
         </div>
       </section>
+                <Footer />
+
     </div>
+
   );
 }
 
