@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,7 +11,6 @@ import EcoBadge from "../components/EcoBadge";
 import GreenCoin from "../components/GreenCoin";
 import { UserContext } from "@/context/UserContext";
 import Link from "next/link"
-import { useEffect } from "react";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -26,6 +25,21 @@ export default function Home() {
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
   };
+
+  // Check for group ID in URL and save to session storage
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const groupId = urlParams.get('grp_id');
+    
+    if (groupId) {
+      // Save group ID to session storage for checkout auto-fill
+      sessionStorage.setItem('pendingGroupId', groupId);
+      console.log('Group ID detected and saved to session storage:', groupId);
+      
+      // Optionally show a notification to the user
+      // You can add a toast notification here if needed
+    }
+  }, []);
 
   // Mock eco-friendly products for the home page
   const ecoProducts = [

@@ -37,8 +37,19 @@ export default function OrderPage() {
     const [shareLink, setShareLink] = useState("");
     const [showShareModal, setShowShareModal] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [isAutoFilled, setIsAutoFilled] = useState(false);
 
-
+    // Check for pending group ID from session storage
+    useEffect(() => {
+        const pendingGroupId = sessionStorage.getItem('pendingGroupId');
+        if (pendingGroupId) {
+            setJoinId(pendingGroupId);
+            setIsAutoFilled(true);
+            // Clear from session storage after auto-filling
+            sessionStorage.removeItem('pendingGroupId');
+            console.log('Auto-filled group ID from session storage:', pendingGroupId);
+        }
+    }, []);
 
     //basically generated a group and add my order to the group
     const generateShareLink = async () => {
@@ -51,8 +62,11 @@ export default function OrderPage() {
         if (shareLink == "") {
             try {
                 const res = await axios.post("/api/group", { orderId, shippingAddress: order.shippingAddress });
-                const link = res.data.newGroup._id;
-                setShareLink(link);
+                const groupId = res.data.newGroup._id;
+                // Generate full shareable URL with current domain and query parameter
+                const currentUrl = window.location.origin;
+                const shareableUrl = `${currentUrl}?grp_id=${groupId}`;
+                setShareLink(shareableUrl);
                 setShowShareModal(true);
             } catch (error) {
                 console.log(error)
@@ -65,6 +79,17 @@ export default function OrderPage() {
     const copyToClipboard = async () => {
         try {
             await navigator.clipboard.writeText(shareLink);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            console.error('Failed to copy: ', err);
+        }
+    };
+
+    const copyCodeAndLink = async () => {
+        try {
+            const codeAndLink = `Group ID: ${shareLink.split('=')[1]}\nShare Link: ${shareLink}`;
+            await navigator.clipboard.writeText(codeAndLink);
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
@@ -256,11 +281,16 @@ export default function OrderPage() {
                             </div>
 
                             <h2 className="text-lg font-semibold mb-4 mt-7">Join your friend's group</h2>
+                            {isAutoFilled && (
+                                <div className="mb-3 p-2 bg-green-50 border border-green-200 rounded text-sm text-green-700">
+                                    ✅ Group ID auto-filled from shared link
+                                </div>
+                            )}
                             <form onSubmit={handleJoinGroup} className="flex gap-2">
                                 <input
                                     value={joinId} onChange={e => setJoinId(e.target.value)}
                                     placeholder="Enter group ID"
-                                    className="flex-1 border p-2 rounded"
+                                    className={`flex-1 border p-2 rounded ${isAutoFilled ? 'border-green-300 bg-green-50' : ''}`}
                                 />
                                 <button type="submit" className="bg-green-600 text-white px-4 rounded">
                                     Join group
@@ -326,7 +356,7 @@ export default function OrderPage() {
                             <p className="text-sm text-gray-600 mb-3">
                                 Share this link with friends to combine orders and reduce packaging waste:
                             </p>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 mb-3">
                                 <input
                                     type="text"
                                     value={shareLink}
@@ -337,7 +367,21 @@ export default function OrderPage() {
                                     onClick={copyToClipboard}
                                     className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm"
                                 >
-                                    {copied ? 'Copied!' : 'Copy'}
+                                    {copied ? 'Copied!' : 'Copy Link'}
+                                </button>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input
+                                    type="text"
+                                    value={`Group ID: ${shareLink.split('=')[1]}`}
+                                    readOnly
+                                    className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm"
+                                />
+                                <button
+                                    onClick={copyCodeAndLink}
+                                    className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded text-sm"
+                                >
+                                    {copied ? 'Copied!' : 'Copy Both'}
                                 </button>
                             </div>
                         </div>
@@ -362,7 +406,8 @@ export default function OrderPage() {
                             <button
                                 onClick={() => {
                                     // Share via WhatsApp
-                                    const text = `Hey! I'm ordering some eco-friendly products. Want to join and save on shipping? ${shareLink}`;
+                                    const groupId = shareLink.split('=')[1];
+                                    const text = `Hey! I'm ordering some eco-friendly products. Want to join and save on shipping?\n\nGroup ID: ${groupId}\nShare Link: ${shareLink}`;
                                     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
                                 }}
                                 className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm"
