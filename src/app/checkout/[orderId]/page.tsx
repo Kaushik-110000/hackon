@@ -5,8 +5,9 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import Order from '@/models/orderModel';
 import mongoose from 'mongoose';
-
+import { useRouter } from 'next/navigation';
 interface OrderProduct { _id: string; quantity: number; }
+
 interface Order {
     _id: string;
     products: OrderProduct[];
@@ -16,19 +17,18 @@ interface Order {
     totalCost: number;
     ecoStats?: { totalGreenCoins: number; totalCarbonSaved: number };
     createdAt: string;
+    groupId: string;
 }
 
-interface Member {
-    _id: mongoose.Types.ObjectId;
-    userName: string;
-    mobile: number;
-}
 
 export default function OrderPage() {
+    const router = useRouter();
     const params = useParams();
     const orderId = params.orderId as string;
+
     const [order, setOrder] = useState<Order | null>(null);
     const [loading, setLoading] = useState(true);
+
     const [error, setError] = useState<string | null>(null);
 
     const [joinId, setJoinId] = useState('');
@@ -37,10 +37,10 @@ export default function OrderPage() {
     const [shareLink, setShareLink] = useState("");
     const [showShareModal, setShowShareModal] = useState(false);
     const [copied, setCopied] = useState(false);
-    const [groupId, setGroupId] = useState("")
 
-    const [membersOfGroup, setMembersOfGroup] = useState<Member[]>([])
 
+
+    //basically generated a group and add my order to the group
     const generateShareLink = async () => {
 
         if (!order?.shippingAddress) {
@@ -50,7 +50,7 @@ export default function OrderPage() {
 
         if (shareLink == "") {
             try {
-                const res = await axios.post("/api/group", { orderIds: [orderId], shippingAddress: order.shippingAddress });
+                const res = await axios.post("/api/group", { orderId, shippingAddress: order.shippingAddress });
                 const link = res.data.newGroup._id;
                 setShareLink(link);
                 setShowShareModal(true);
@@ -58,6 +58,7 @@ export default function OrderPage() {
                 console.log(error)
             }
         }
+
         setShowShareModal(true);
     };
 
@@ -71,15 +72,14 @@ export default function OrderPage() {
         }
     };
 
-
+    //simple fetching of order
     useEffect(() => {
         async function fetchOrder() {
             try {
                 setLoading(true);
-                const { data } = await axios.get<{ order: Order; membersOfGroup: Member[] }>(`/api/order/${encodeURIComponent(orderId)}`);
+                const { data } = await axios.get<{ order: Order }>(`/api/order/${encodeURIComponent(orderId)}`);
                 setOrder(data.order);
                 setPaymentMethod(data.order.paymentInfo?.method || '');
-                setMembersOfGroup(data.membersOfGroup);
             } catch (err: any) {
                 setError(err.response?.data?.error || 'Failed to fetch order');
             } finally {
@@ -110,6 +110,8 @@ export default function OrderPage() {
         }
 
     };
+
+    //simple working
     const handlePaymentChange = (e: React.ChangeEvent<HTMLSelectElement>) => setPaymentMethod(e.target.value);
     const savePaymentMethod = async () => {
         try {
@@ -171,6 +173,7 @@ export default function OrderPage() {
 
             <div className="max-w-6xl mx-auto flex gap-6 py-8">
                 {/* Left column */}
+
                 <div className="w-2/3 space-y-6">
                     {/* Shipping Address Form */}
                     <div className="bg-white p-6 rounded shadow">
@@ -219,6 +222,7 @@ export default function OrderPage() {
 
                     {/* Create / Join Group */}
                     {order.type === 'normal' && (
+
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                             <h2 className="text-lg font-semibold mb-4">Create a group with your friends</h2>
                             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -265,39 +269,20 @@ export default function OrderPage() {
                         </div>
                     )}
 
-                {order.type === 'group' && (
-                    <div className="bg-green-50 rounded-lg shadow-sm border border-green-200 p-6 mb-8">
-                        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                            <span className="text-green-700">👥</span>
-                            Grouped with
-                        </h2>
-                        <div className="flex flex-wrap gap-3">
-                            {membersOfGroup.length === 0 ? (
-                                <span className="text-gray-500 text-sm">No group members found.</span>
-                            ) : (
-                                membersOfGroup.map(member => (
-                                    <div
-                                        key={member._id.toString()}
-                                        className="bg-white border border-green-200 rounded-full px-4 py-2 flex items-center gap-2 shadow-sm"
-                                    >
-                                        <span className="text-green-600 font-bold text-base">
-                                            {member.userName}
-                                        </span>
-                                        <span className="text-xs text-gray-400">
-                                            {member.mobile}
-                                        </span>
-                                    </div>
-                                ))
-                            )}
+                    {order.type === 'group' && (
+                        <div className="bg-green-50 rounded-lg shadow-sm border border-green-200 p-6 mb-8">
+                            <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                                <span className="text-green-700">👥</span>
+                                Grouped with
+                            </h2>
                         </div>
-                    </div>
-                )}
+                    )}
                 </div>
 
                 {/* Right column */}
                 <div className="w-1/3 space-y-6">
                     <div className="bg-white p-6 rounded shadow sticky top-24">
-                        <h2 className="text-lg font-medium mb-4 font-extrabold">Your order summary</h2>
+                        <h2 className="text-lg mb-4 font-extrabold">Your order summary</h2>
                         <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
                                 <span>Items ({itemCount})</span>
@@ -327,7 +312,10 @@ export default function OrderPage() {
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold">Share order with friends</h3>
                             <button
-                                onClick={() => setShowShareModal(false)}
+                                onClick={() => {
+                                    setShowShareModal(false)
+                                    router.push(`/groupCheckOut/${shareLink}`)
+                                }}
                                 className="text-gray-500 hover:text-gray-700"
                             >
                                 ✕

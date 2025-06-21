@@ -4,7 +4,7 @@ import { connectDB } from '@/dbConfig/dbConfig';
 import User from "@/models/userModel"
 import jwt from "jsonwebtoken";
 
-
+//create a new normal order
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
 }
 
 
-
+//get all orders of a user
 export async function GET(req: NextRequest) {
   try {
     await connectDB();

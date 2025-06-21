@@ -10,6 +10,11 @@ export interface IGroup extends Document {
         country: string;
         phone: string;
     };
+    admin: mongoose.Types.ObjectId;
+    collaborators: {
+        _id: mongoose.Types.ObjectId[];
+        name: string;
+    }
     createdAt: Date;
     updatedAt: Date;
 }
@@ -18,6 +23,13 @@ export interface IGroup extends Document {
 const GroupSchema = new Schema<IGroup>({
     orders: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Order', required: true }
+    ],
+    admin: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    collaborators: [
+        {
+            _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+            name: { type: String }
+        }
     ],
     shippingAddress: {
         name: { type: String },

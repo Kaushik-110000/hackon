@@ -4,12 +4,13 @@ import Group from '@/models/groupModel';
 import { connectDB } from '@/dbConfig/dbConfig';
 import User from '@/models/userModel';
 import jwt from 'jsonwebtoken';
+import Order from '@/models/orderModel';
 
+//code for creation of group
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    // 1) Auth check
     const token = req.cookies.get('logtok')?.value;
     if (!token) {
       return NextResponse.json(
@@ -30,7 +31,6 @@ export async function POST(req: NextRequest) {
       return resp;
     }
 
-    // 2) Find user
     const theUser = await User.findOne({ mobile: decoded.mobile });
     if (!theUser) {
       return NextResponse.json(
@@ -39,23 +39,25 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3) Parse body
-    const { orderIds, shippingAddress } = await req.json();
-    if (!Array.isArray(orderIds) || orderIds.length === 0) {
-      return NextResponse.json(
-        { error: 'orderIds array is required', status: 400 },
-        { status: 400 }
-      );
-    }
+    const { orderId, shippingAddress } = await req.json();
+
+
     const { name, address, city, country, phone } = shippingAddress || {};
- 
-    // 4) Create group
+
     const newGroup = await Group.create({
-      orders: orderIds,
+      orders: [orderId],
       shippingAddress: { name, address, city, country, phone },
+      admin: theUser._id,
+      collaborators: [{ _id: theUser._id, name: theUser.userName }]
     });
 
+    const order = await Order.findById(orderId);
+    order.type = 'group';
+    order.groupId = newGroup._id;
+    order.save();
+
     return NextResponse.json({ newGroup, status: 201 }, { status: 201 });
+
   } catch (err: any) {
     console.error(err);
     return NextResponse.json(

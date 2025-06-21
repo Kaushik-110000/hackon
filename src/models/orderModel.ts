@@ -8,7 +8,7 @@ export interface IOrder extends Document {
     quantity: number;
   }
   type: 'normal' | 'group';
-  
+
   shippingAddress: {
     name: string;
     address: string;
@@ -22,6 +22,7 @@ export interface IOrder extends Document {
     status: string;
     transactionId?: string;
   };
+  groupId: mongoose.Types.ObjectId;
   ecoStats?: {
     totalGreenCoins: number;
     totalCarbonSaved: number;
@@ -40,14 +41,14 @@ const OrderSchema = new Schema<IOrder>({
     _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
     quantity: { type: Number, default: 1 },
   }],
-  
+  groupId: { type: mongoose.Schema.Types.ObjectId, ref: 'Group' },
   type: { type: String, enum: ['normal', 'group'], default: 'normal' },
   shippingAddress: {
     name: { type: String },
     address: { type: String },
     city: { type: String },
     country: { type: String },
-    phone: { type: String },
+    phone: { type: String }, 
   },
   status: { type: String, enum: ['pending', 'paid', 'shipped', 'delivered', 'cancelled'], default: 'pending' },
   paymentInfo: {

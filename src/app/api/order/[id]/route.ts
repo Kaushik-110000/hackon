@@ -1,64 +1,68 @@
-import { NextRequest, NextResponse } from 'next/server';
-import Order from '@/models/orderModel';
-import { connectDB } from '@/dbConfig/dbConfig';
-import Group from '@/models/groupModel';
-import User from '@/models/userModel';
-import mongoose from 'mongoose';
+import { NextRequest, NextResponse } from "next/server";
+import Order from "@/models/orderModel";
+import { connectDB } from "@/dbConfig/dbConfig";
+import Group from "@/models/groupModel";
+import User from "@/models/userModel";
+import mongoose from "mongoose";
+import Product from "@/models/productModel";
 
 
-interface Member {
-  _id: mongoose.Types.ObjectId;
-  userName: string;
-  mobile: number;
-}
-
-
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+//get a single order details
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     await connectDB();
-    const order = await Order.findById(params.id)
-      .populate('user', 'userName mobile')                
+    const { id } = await context.params;
+    const order = await Order.findById(id)
+      .populate("user", "userName mobile")
+      .populate("products._id");
 
     if (!order) {
-      return NextResponse.json({ error: 'Order not found', status: 404 }, { status: 404 });
-    }
-
-    let membersOfGroup: Member[] = [];
-
-    if (order.type === 'group') {
-      const group = await Group.findOne({ orders: order._id });
-      if (group) {
-        const agg = await Order.aggregate([
-          { $match: { _id: { $in: group.orders } } },
-          { $group: { _id: null, members: { $addToSet: '$user' } } }
-        ]);
-
-        const memberIds: mongoose.Types.ObjectId[] = agg.length > 0 ? agg[0].members : [];
-
-        membersOfGroup = await User.find(
-          { _id: { $in: memberIds } },
-          { userName: 1, mobile: 1 }
-        );
-      }
-    }
-
-    return NextResponse.json({ order, membersOfGroup, status: 200 }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error', status: 500 }, { status: 500 });
-  }
-}
-
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  try {
-    await connectDB();
-    const update = await req.json();
-    const order = await Order.findByIdAndUpdate(params.id, update, { new: true });
-    if (!order) {
-      return NextResponse.json({ error: 'Order not found', status: 404 }, { status: 404 });
+      return NextResponse.json(
+        { error: "Order not found", status: 404 },
+        { status: 404 }
+      );
     }
     return NextResponse.json({ order, status: 200 }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error', status: 500 }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error", status: 500 },
+      { status: 500 }
+    );
+  }
+}
+
+//update the details of the product
+export async function PUT(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    await connectDB();
+    const { id } = await context.params;
+    const update = await req.json();
+    const theorder = await Order.findByIdAndUpdate(id, update, {
+      new: true,
+    });
+
+    if (!theorder) {
+      return NextResponse.json(
+        { error: "Order not found", status: 404 },
+        { status: 404 }
+      );
+    }
+    const order = await Order.findById(id)
+      .populate("user", "userName mobile")
+      .populate("products._id");
+
+    return NextResponse.json({ order, status: 200 }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Internal Server Error", status: 500 },
+      { status: 500 }
+    );
   }
 }
 
@@ -70,4 +74,4 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 //   } catch (error) {
 //     return NextResponse.json({ error: 'Internal Server Error', status: 500 }, { status: 500 });
 //   }
-// } 
+// }

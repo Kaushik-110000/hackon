@@ -106,11 +106,19 @@ export default function page() {
           (sum, item) => sum + Number(item.price) * Number(item.quantity),
           0
         )
+        const greenCoinsEarned = cartItems.reduce(
+          (sum, item) => sum + Number(item.greenCoins) * Number(item.quantity),
+          0
+        )
 
         const orderData: any = {
           products: productsPayload,
           type: 'normal',
-          totalCost
+          totalCost,
+          ecoStats: {
+            totalGreenCoins: greenCoinsEarned,
+            totalCarbonSaved
+          }
         }
 
         const resp = await axios.post('/api/order', orderData)
