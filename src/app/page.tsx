@@ -12,7 +12,6 @@ import GreenCoin from "../components/GreenCoin";
 import { UserContext } from "@/context/UserContext";
 import Link from "next/link"
 import { useEffect } from "react";
-import { useCartCountStore } from "@/context/cartCountStore";
 
 export default function Home() {
   const settings = {
@@ -85,13 +84,6 @@ export default function Home() {
   const updatedState = useContext(UserContext);
 
   
- const setCount = useCartCountStore((state) => state.setCount);
-
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCount(cart.length);
-  }, []);
-
 
 
   return (

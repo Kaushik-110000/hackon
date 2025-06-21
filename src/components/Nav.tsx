@@ -16,7 +16,12 @@ export default function Nav() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const count = useCartCountStore((state) => state.count);
+  const setCount = useCartCountStore((state) => state.setCount);
 
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCount(cart.length);
+  }, [])
   useEffect(() => {
     fetch("/api/products/searchtrie")
       .then((res) => res.json())
@@ -47,6 +52,8 @@ export default function Nav() {
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
   }, []);
+
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -213,23 +220,25 @@ export default function Nav() {
             <span className="font-bold text-sm leading-tight">& Orders</span>
           </div>
           {/* Cart */}
-          <div className="flex items-center cursor-pointer relative">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M3 3h2l.4 2M7 13h10l4-8H5.4" />
-              <circle cx="7" cy="21" r="1" />
-              <circle cx="17" cy="21" r="1" />
-            </svg>
-            <span className="absolute left-5 top-0 bg-orange-400 text-xs font-bold rounded-full px-1 text-black">
-              {count}
-            </span>
-            <span className="ml-1 text-xs font-bold text-gray-300">Cart</span>
-          </div>
+          <Link href={"/myCart"}>
+            <div className="flex items-center cursor-pointer relative" >
+              <svg
+                className="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4" />
+                <circle cx="7" cy="21" r="1" />
+                <circle cx="17" cy="21" r="1" />
+              </svg>
+              <span className="absolute left-5 top-0 bg-orange-400 text-xs font-bold rounded-full px-1 text-black">
+                {count}
+              </span>
+              <span className="ml-1 text-xs font-bold text-gray-300">Cart</span>
+            </div>
+          </Link>
         </div>
       </header>
 

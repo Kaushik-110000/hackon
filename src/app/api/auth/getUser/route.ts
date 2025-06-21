@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     await connectDB();
 
     const token = req.cookies.get("logtok")?.value;
-    if (!token) {
+    if (!token) { 
       return NextResponse.json(
         {
           message: "Login token missing, no user",
