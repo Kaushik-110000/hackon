@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -13,7 +13,28 @@ import { UserContext } from "@/context/UserContext";
 import Link from "next/link"
 import Footer from "@/components/Footer";
 
+interface EcoProduct {
+  _id: string;
+  name: string;
+  price: number;
+  originalPrice: number;
+  greenScore: number;
+  carbonFootprint: number;
+  isEcoFriendly: boolean;
+  ecoBadges: string[];
+  images: string[];
+  description?: string;
+  carbonSaved?: string;
+  greenCoins: number;
+}
+
 export default function Home() {
+  const [ecoProducts, setEcoProducts] = useState<EcoProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -41,61 +62,41 @@ export default function Home() {
     }
   }, []);
 
-  // Mock eco-friendly products for the home page
-  const ecoProducts = [
-    {
-      id: 1,
-      name: "Bamboo Water Bottle - 1L",
-      price: 899,
-      originalPrice: 1299,
-      greenScore: 95,
-      carbonFootprint: 0.8,
-      isEcoFriendly: true,
-      badges: ['recycled', 'biodegradable'] as const,
-      image: "/assests/mockProducts_images/copper_bottle.webp",
-      description: "Made from sustainable bamboo, BPA-free",
-      savings: "Saves 2.1kg CO₂"
-    },
-    {
-      id: 2,
-      name: "Organic Cotton T-Shirt",
-      price: 599,
-      originalPrice: 899,
-      greenScore: 88,
-      carbonFootprint: 1.2,
-      isEcoFriendly: true,
-      badges: ['organic', 'sustainable-packaging'] as const,
-      image: "/assests/mockProducts_images/hyv.webp",
-      description: "100% organic cotton, fair trade certified",
-      savings: "Saves 1.8kg CO₂"
-    },
-    {
-      id: 3,
-      name: "Solar Power Bank 10000mAh",
-      price: 1499,
-      originalPrice: 1999,
-      greenScore: 92,
-      carbonFootprint: 0.5,
-      isEcoFriendly: true,
-      badges: ['energy-efficient', 'carbon-neutral'] as const,
-      image: "/assests/mockProducts_images/milton_super.webp",
-      description: "Solar charging capability, recycled materials",
-      savings: "Saves 3.2kg CO₂"
-    },
-    {
-      id: 4,
-      name: "Bamboo Toothbrush Set (4 pcs)",
-      price: 299,
-      originalPrice: 499,
-      greenScore: 96,
-      carbonFootprint: 0.3,
-      isEcoFriendly: true,
-      badges: ['biodegradable', 'sustainable-packaging'] as const,
-      image: "/assests/mockProducts_images/pigeon.webp",
-      description: "100% biodegradable bamboo handles",
-      savings: "Saves 0.9kg CO₂"
-    }
-  ];
+  // Fetch eco-friendly products from API
+  useEffect(() => {
+    const fetchEcoProducts = async () => {
+      try {
+        setLoading(true);
+        console.log('Fetching eco products for page:', currentPage);
+        const response = await fetch(`/api/products/eco?page=${currentPage}&limit=4`);
+        const data = await response.json();
+        
+        console.log('API response:', data);
+        
+        if (data.status === 200) {
+          setEcoProducts(data.products);
+          setHasMore(data.hasMore);
+          setTotalPages(data.totalPages);
+          console.log('Updated pagination state:', { 
+            hasMore: data.hasMore, 
+            totalPages: data.totalPages, 
+            currentPage 
+          });
+        } else {
+          console.error('Failed to fetch eco products:', data.error);
+          // Don't reset pagination state on error
+        }
+      } catch (error) {
+        console.error('Error fetching eco products:', error);
+        // Don't reset pagination state on error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEcoProducts();
+  }, [currentPage]);
+
   const updatedState = useContext(UserContext);
 
   
@@ -114,71 +115,111 @@ export default function Home() {
           <p className="text-sm text-gray-600">Sustainable products with environmental benefits</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {ecoProducts.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow border border-gray-200">
-              {/* Product Image */}
-              <div className="relative h-48 bg-gray-100">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute top-2 right-2">
-                  <GreenScore 
-                    score={product.greenScore} 
-                    carbonFootprint={product.carbonFootprint}
-                    isEcoFriendly={product.isEcoFriendly}
-                  />
-                </div>
-                <div className="absolute top-2 left-2">
-                  <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                    {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-                  </span>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 animate-pulse">
+                <div className="h-48 bg-gray-200"></div>
+                <div className="p-3">
+                  <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-3 bg-gray-200 rounded w-2/3"></div>
                 </div>
               </div>
-
-              {/* Product Info */}
-              <div className="p-3">
-                <h3 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">{product.name}</h3>
-                <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
-                
-                {/* Eco Badges - More compact */}
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {product.badges.map((badge) => (
-                    <EcoBadge key={badge} type={badge} showLabel={false} />
-                  ))}
-                </div>
-
-                {/* Carbon Savings - Subtle */}
-                <div className="text-xs text-green-600 mb-2 font-medium">
-                  {product.savings}
-                </div>
-
-                {/* Price */}
-                <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <span className="text-sm font-bold text-gray-900">₹{product.price}</span>
-                    <span className="text-xs text-gray-500 line-through ml-1">₹{product.originalPrice}</span>
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {ecoProducts.map((product) => (
+                <div key={product._id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow border border-gray-200">
+                  {/* Product Image */}
+                  <div className="relative h-48 bg-gray-100">
+                    <img 
+                      src={product.images[0]} 
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-2 right-2">
+                      <GreenScore 
+                        score={product.greenScore} 
+                        carbonFootprint={product.carbonFootprint}
+                        isEcoFriendly={product.isEcoFriendly}
+                      />
+                    </div>
+                    <div className="absolute top-2 left-2">
+                      <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+                        {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-xs text-green-600">
-                    +{Math.round(product.greenScore * 0.1)} coins
+
+                  {/* Product Info */}
+                  <div className="p-3">
+                    <h3 className="font-medium text-gray-900 mb-1 text-sm line-clamp-2">{product.name}</h3>
+                    <p className="text-xs text-gray-600 mb-2 line-clamp-2">{product.description}</p>
+                    
+                    {/* Eco Badges - More compact */}
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {product.ecoBadges.slice(0, 2).map((badge) => (
+                        <EcoBadge key={badge} type={badge as any} showLabel={false} />
+                      ))}
+                    </div>
+
+                    {/* Carbon Savings - Subtle */}
+                    <div className="text-xs text-green-600 mb-2 font-medium">
+                      {product.carbonSaved || `Saves ${product.carbonFootprint}kg CO₂`}
+                    </div>
+
+                    {/* Price */}
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <span className="text-sm font-bold text-gray-900">₹{product.price}</span>
+                        <span className="text-xs text-gray-500 line-through ml-1">₹{product.originalPrice}</span>
+                      </div>
+                      <div className="text-xs text-green-600">
+                        +{Math.round(product.greenCoins)} coins
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-1">
+                      <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 px-3 rounded text-xs">
+                        Add to Cart
+                      </button>
+                      <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-1.5 px-3 rounded text-xs">
+                        Buy Now
+                      </button>
+                    </div>
                   </div>
                 </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-1">
-                  <button className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-1.5 px-3 rounded text-xs">
-                    Add to Cart
-                  </button>
-                  <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-1.5 px-3 rounded text-xs">
-                    Buy Now
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+
+            {/* Pagination Controls */}
+            {(totalPages > 1 || hasMore) && (
+              <div className="flex justify-center items-center gap-2 mt-6">
+                <button
+                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 bg-gray-200 text-gray-700 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
+                >
+                  Previous
+                </button>
+                <span className="text-sm text-gray-600">
+                  Page {currentPage} of {totalPages || '?'}
+                </span>
+                <button
+                  onClick={() => setCurrentPage(prev => Math.min(totalPages || prev + 1, prev + 1))}
+                  disabled={!hasMore && currentPage >= (totalPages || 1)}
+                  className="px-3 py-1 bg-gray-200 text-gray-700 rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-300"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </section>
 
       {/* Green Store Banner - More Amazon-like */}
