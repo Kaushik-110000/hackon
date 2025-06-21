@@ -62,7 +62,7 @@ export default function GreenStore() {
     setLoadingMore(true);
     try {
       const nextPage = page + 1;
-      const res = await axios.get(`/api/products/eco?page=${nextPage}&limit=200`);
+      const res = await axios.get(`/api/products/eco?page=${nextPage}&limit=50`);
       setEcoProducts((prev) => [...prev, ...res.data.products]);
       setPage(nextPage);
       setHasMore(res.data.hasMore);
