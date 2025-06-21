@@ -4,6 +4,7 @@ from typing import List, Dict, Any
 import json
 from dotenv import load_dotenv
 import os
+import re
 
 # Load environment variables
 load_dotenv()
@@ -11,13 +12,17 @@ MONGO_URI = os.getenv("MONGO_URI")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # MongoDB setup
-DB_NAME = ''
-PRODUCT_COLLECTION = ""
+DB_NAME = 'test'
+PRODUCT_COLLECTION = 'products'
 
 # Configure Gemini API
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('models/gemini-2.0-flash')
 
+def extract_keywords(text: str) -> list:
+    stopwords = {"what", "is", "the", "can", "you", "show", "me", "for", "eco", "product", "recommend"}
+    words = re.findall(r'\w+', text.lower())
+    return [w for w in words if len(w) > 2 and w not in stopwords]
 
 class EcoProductBot:
     def __init__(self):
@@ -29,82 +34,74 @@ class EcoProductBot:
     def classify_query_type(self, user_query: str) -> str:
         prompt = f"""
 You are a smart assistant for an eco-friendly e-commerce platform.
-
 Classify the following user query as either:
 - "product" → if the user is asking about a product (e.g., recommend, buy, alternatives).
 - "general" → if the user is asking about environmental topics, benefits, cost justification, sustainability, etc.
-
-Only respond with exactly one word: "product" or "general" (no extra text).
-
+Only respond with exactly one word: "product" or "general"
 Query: "{user_query}"
 """
         try:
             response = model.generate_content(prompt, generation_config={"temperature": 0})
             result = response.text.strip().lower()
-
-            # print(f"[DEBUG] Query classification: '{result}'")  
-
-            # fallback keyword rule
             if result not in ['product', 'general']:
                 if any(kw in user_query.lower() for kw in ['why', 'benefit', 'costly', 'important', 'sustainable', 'eco']):
                     return "general"
                 return "product"
-
             return result
-        except Exception as e:
-            print(f"[ERROR] Classification failed: {e}")
+        except:
             return 'general'
 
     def process_query(self, user_query: str) -> Dict[str, Any]:
         try:
             query_type = self.classify_query_type(user_query)
-
             if query_type == "product":
-                all_products = list(self.collection.find({}))
+                keywords = extract_keywords(user_query)
+                search_regex = '|'.join([re.escape(word) for word in keywords])
+                matched_products = list(self.collection.find({
+                    "$or": [
+                        {"name": {"$regex": search_regex, "$options": "i"}},
+                        {"description": {"$regex": search_regex, "$options": "i"}},
+                        {"category": {"$regex": search_regex, "$options": "i"}},
+                    ]
+                }).limit(100))
+
+                if not matched_products:
+                    return {"summary": "I couldn't find any products matching your query.", "products": []}
+
+                sorted_products = sorted(matched_products, key=lambda x: x.get("greenScore", 0), reverse=True)
+
                 product_info = [
                     {
                         "productName": p.get("name", ""),
-                        "ecoScore": p.get("ecoScore", ""),
-                        "co2Impact": p.get("carbonFootprint", {}).get("total", "N/A"),
+                        "ecoScore": p.get("greenScore", 0),
+                        "greenCoins": p.get("greenCoins", 0),
                         "material": ", ".join([m.get("type", "") for m in p.get("materials", [])]),
                         "category": p.get("category", ""),
                         "description": p.get("description", "No description provided."),
-                        "price": p.get("price", ""),
-                    } for p in all_products
+                        "price": p.get("price", "")
+                    } for p in sorted_products
                 ]
 
                 llm_prompt = f"""
-You are Bitmit, an expert eco-conscious shopping assistant for a green e-commerce platform 🌍.
-
-Your mission is to help users discover **eco-friendly alternatives** to everyday products by analyzing their query and matching relevant items from the catalog below.
-
-Be smart, precise, and human-friendly. Use insights like ecoScore, material, category, and CO2 impact to explain *why* the product fits the query and is sustainable.
-
+You are Bitmit, an expert eco-conscious shopping assistant 🌿.
 User Query: "{user_query}"
-
 Product Catalog:
-{json.dumps(product_info, indent=2)}
+{json.dumps(product_info[:20], indent=2)}
 
-Return only an array like:
+Return up to 5 most relevant eco-friendly products like:
 [
   {{
     "productName": "...",
     "material": "...",
-    "ecoScore": ...,
-    "co2Impact": "...",
-    "price": ...,
-    "reason": "Explain why this product is eco-friendly and suitable for the user query in 1–2 lines."
+    "ecoScore": ..., 
+    "greenCoins": ...,
+    "price": ..., 
+    
   }}
 ]
-
-Important:
-- Recommend up to 5 relevant products only
-- Choose the *most sustainable* alternatives based on query
-- If the catalog is empty or no fit, return an empty array []
 """
                 response = model.generate_content(llm_prompt)
                 response_text = response.text.strip()
-
                 try:
                     result_json = json.loads(response_text)
                 except json.JSONDecodeError:
@@ -116,35 +113,14 @@ Important:
                     "summary": f"Here are some top eco-friendly product suggestions for your query: '{user_query}' 🌿",
                     "products": result_json
                 }
-
             else:
                 friendly_prompt = f"""
-You are Bitmit 🛒 — a warm, friendly, and informative AI assistant for a sustainable e-commerce platform.
-
-The user just asked: "{user_query}"
-
-Please respond in a supportive and natural tone (like a helpful friend) in **3–5 complete sentences**. Use simple, empathetic language.
-
-Your goal is to:
-- Encourage eco-friendly choices positively 🌱
-- Share helpful, real info (not vague platitudes)
-- Gently motivate action, without guilt-tripping
-- Include relatable, human-like tone and optional emojis
-
-Avoid:
-- Robotic tone
-- Bullet points
-- Technical jargon
-
-End your reply with a thoughtful or friendly question to keep the conversation going.
-Only return the final conversational message.
+You are Bitmit 🛒 — a friendly AI assistant for a green e-commerce platform.
+User: "{user_query}"
+Respond in 3–5 complete sentences using a friendly tone. End with a question.
 """
                 general_response = model.generate_content(friendly_prompt).text.strip()
-
-                return {
-                    "summary": general_response,
-                    "products": []
-                }
+                return {"summary": general_response, "products": []}
 
         except Exception as e:
             return {"summary": f"Error: {str(e)}", "products": []}
@@ -152,12 +128,9 @@ Only return the final conversational message.
     def get_suggestions(self, user_query: str) -> List[str]:
         suggestion_prompt = f"""
 Suggest 3 eco-product related follow-up questions based on:
-
 Current Query: {user_query}
-
 History:
 {json.dumps(self.conversation_history[-3:], indent=2)}
-
 Return 3 questions, one per line.
 """
         try:
@@ -165,7 +138,6 @@ Return 3 questions, one per line.
             return response.text.strip().split('\n')[:3]
         except:
             return []
-
 
 def main():
     bot = EcoProductBot()
@@ -181,7 +153,7 @@ def main():
 
         print(f"\n📣 {output['summary']}")
         if output["products"]:
-            print("\n🧾 Products:")
+            print("\n📟 Products:")
             print(json.dumps(output["products"], indent=2))
 
         suggestions = bot.get_suggestions(user_input)
@@ -189,7 +161,6 @@ def main():
             print("\n💡 Related Questions:")
             for i, s in enumerate(suggestions, 1):
                 print(f". {s}")
-
 
 if __name__ == "__main__":
     main()
