@@ -3,8 +3,13 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useRouter } from "next/navigation";
+
+
 
 const ImageCarousel = () => {
+
+     const router = useRouter();
     const settings = {
         dots: true,
         infinite: true,
@@ -33,9 +38,16 @@ const ImageCarousel = () => {
                     <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/MA2025/GW/BAU/Unrec/PC/934044814._CB551384116_.jpg" alt="" className="w-full" />
                 </div>
             </Slider>
-
+        
             <div className="relative -mt-[40vh] grid grid-cols-4 grid-rows-2 gap-4 p-2 w-full bg-gradient-to-b from-transparent via-[#E3E6E6] via-20% to-[#E3E6E6] to-100%">
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                
+
+                
+                 
+                <div  
+                 onClick={() => router.push('/search?q=led%20tv')}
+                   className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Get your desired TV screen size | Starting ₹6,999</h2>
                     </div>
@@ -54,19 +66,30 @@ const ImageCarousel = () => {
                     <div className="flex flex-col items-center">
                         <img src="/assests/ultra_premium_tvs.jpg" alt="Ultra Premium TVs | Up to 50% off" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Ultra Premium TVs | Up to 50% off</span>
+                        
                     </div>
                     <div className="col-span-2 mt-2">
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
+                       
+                     
                     </div>
                 </div>
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+
+                
+                
+                <div   onClick={() => router.push('/search?q=appliances')}
+                className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
                     </div>
+
+                     
                     <div className="flex flex-col items-center">
                         <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08RDL6H79._SY116_CB667322346_.jpg" alt="Air conditioners" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Air conditioners</span>
                     </div> 
+                 
+
                     <div className="flex flex-col items-center">
                         <img src="https://images-eu.ssl-images-amazon.com/images/G/31/IMG15/Irfan/GATEWAY/MSO/Appliances-QC-PC-186x116--B08345R1ZW._SY116_CB667322346_.jpg" alt="Refrigerators" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Refrigerators</span>
@@ -83,7 +106,10 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                <div 
+                 onClick={() => router.push('/search?q=home')}
+                
+                className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Revamp your home in style</h2>
                     </div>
@@ -107,7 +133,8 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                <div  onClick={() => router.push('/search?q=games')}
+                 className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
                     </div>
@@ -131,7 +158,8 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                <div   onClick={() => router.push('/search?q=bathroom%20accessories')}
+                className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Under ₹499 | Deals on home improvement essentials</h2>
                     </div>
@@ -155,7 +183,8 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                <div  onClick={() => router.push('/search?q=earbuds')}
+                 className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Starting ₹149 | Headphones</h2>
                     </div>
@@ -179,7 +208,9 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div className="w-full bg-white p-5 grid grid-cols-2 gap-4">
+                <div 
+                 onClick={() => router.push('/search?q=automotive')}
+                className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Automotive essentials | Up to 60% off</h2>
                     </div>
@@ -207,7 +238,9 @@ const ImageCarousel = () => {
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Starting ₹199 | Amazon Brands & more</h2>
                     </div>
-                    <div className="flex flex-col items-center">
+                    <div  
+                     onClick={() => router.push('/search?q=homedecor')}
+                     className="flex flex-col items-center">
                         <img src="/assests/bedsheets.jpg" alt="Starting ₹199 | Bedsheets" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Starting ₹199 | Bedsheets</span>
                     </div>
