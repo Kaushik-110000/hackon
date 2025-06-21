@@ -275,7 +275,7 @@ export default function GreenStore() {
                   </div>
                   
                   {/* Image */}
-                  <div className="hidden lg:block flex-1 flex justify-end">
+                  <div className="lg:block flex-1 flex justify-end">
                     <div className="relative">
                       <img 
                         src={slide.image} 
