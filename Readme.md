@@ -230,12 +230,9 @@ This project leverages a wide range of modern technologies across frontend, back
 ### ☁️ DevOps & Deployment:
 
 - **AWS (Amazon Web Services)**
-- **Docker**
-- **Kubernetes**
 
 ### 🤖 AI / ML Technologies:
 
-- **Python Flask**
 - **LLM Models (e.g., GEMINI)**
 
 ---
