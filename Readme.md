@@ -104,7 +104,7 @@ The Green Store is a curated marketplace showcasing only **eco-friendly products
 - 🪙 **Green Coin Rewards** – Earn Green Coins with every purchase
 
 ![Our Green Store](https://res.cloudinary.com/dj24ptooq/image/upload/v1750598301/image_rymhsp.png)
- [Greenstore](https://res.cloudinary.com/dj24ptooq/image/upload/v1750598349/image-1_v55z9t.png)
+ ![Greenstore](https://res.cloudinary.com/dj24ptooq/image/upload/v1750598349/image-1_v55z9t.png)
 
 ---
 
