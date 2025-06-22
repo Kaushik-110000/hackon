@@ -21,7 +21,7 @@ export default function Nav() {
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCount(cart.length);
-  }, [])
+  }, []);
   useEffect(() => {
     fetch("/api/products/searchtrie")
       .then((res) => res.json())
@@ -53,15 +53,12 @@ export default function Nav() {
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query || !query.trim()) {
       setQuery("eco");
     }
     setQuery(query.toLowerCase());
-
 
     router.push(`/search?q=${query}`);
     setPlaceholder(query);
@@ -227,7 +224,7 @@ export default function Nav() {
           </div>
           {/* Cart */}
           <Link href={"/myCart"}>
-            <div className="flex items-center cursor-pointer relative" >
+            <div className="flex items-center cursor-pointer relative">
               <svg
                 className="w-8 h-8 text-white"
                 fill="none"
@@ -277,6 +274,11 @@ export default function Nav() {
           <Link href="/group-buy">
             <li className="text-green-400 cursor-pointer hover:text-green-300">
               📦 Group Buy
+            </li>
+          </Link>
+          <Link href="/info">
+            <li className="text-green-400  cursor-pointer hover:text-green-300 ">
+              ℹ️ Info
             </li>
           </Link>
         </ul>
