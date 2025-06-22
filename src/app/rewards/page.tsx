@@ -4,7 +4,7 @@ import GreenCoin from '../../components/GreenCoin';
 
 export default function Rewards() {
   // Mock data
-  const userCoins = 1250;
+  const userCoins = 420;
   
   const availableRewards = [
     {
@@ -24,6 +24,7 @@ export default function Rewards() {
       originalValue: 199,
       description: 'Free delivery on all orders for 1 month',
       category: 'Shipping',
+      popular: true,
       image: '🚚'
     },
     {
@@ -178,19 +179,19 @@ export default function Rewards() {
               <h3 className="font-medium text-gray-900 mb-3">Your Impact</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Total Earned</span>
+                  <span className="text-sm text-gray-600">Total Earned 🪙</span>
                   <span className="text-sm font-medium text-green-600">2,450 coins</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Total Redeemed</span>
+                  <span className="text-sm text-gray-600">Total Redeemed ✅</span>
                   <span className="text-sm font-medium text-gray-900">1,200 coins</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">CO₂ Saved</span>
+                  <span className="text-sm text-gray-600">CO₂ Saved 🌿</span>
                   <span className="text-sm font-medium text-green-600">45.2 kg</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Eco Purchases</span>
+                  <span className="text-sm text-gray-600">Eco Purchases 🛒</span>
                   <span className="text-sm font-medium text-gray-900">23 items</span>
                 </div>
               </div>

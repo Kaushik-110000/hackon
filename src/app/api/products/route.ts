@@ -5,7 +5,7 @@ import { connectDB } from '@/dbConfig/dbConfig';
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
-    const products = await Product.find().limit(100);
+    const products = await Product.find().limit(50);
     // console.log(products);
     return NextResponse.json({ products, status: 200 }, { status: 200 });
   } catch (error) {

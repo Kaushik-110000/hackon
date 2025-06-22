@@ -56,11 +56,12 @@ export default function page() {
   // const totalCarbonSaved = cartItems.reduce((sum, item) => sum + (parseFloat(item.savings.match(/\d+\.?\d*/)?.[0] || '0') * item.quantity), 0);
 
   const totalCarbonSaved = cartItems.reduce((sum, item) => {
-    const m = item.carbonSaved.match(/([\d]+(?:\.\d+)?)(?=\s*kg\s*CO₂)/);
+    const carbonSavedStr = String(item.carbonSaved || '');
+    const m = carbonSavedStr.match(/([\d]+(?:\.\d+)?)(?=\s*kg\s*CO₂)/);
     const value = parseFloat(m?.[1] || '0');
-    return sum + value * Number(item.quantity);
+    return sum + value * Number(item.quantity || 1);
   }, 0);
-
+  
   // Helper to update localStorage and state
   const updateCart = useCallback((updatedItems: typeof cartItems) => {
     setCartItems(updatedItems);
