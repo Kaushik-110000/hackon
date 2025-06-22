@@ -13,7 +13,7 @@
 
 ## 🔗 Links
 
-- **Deployed Website**:[Click here to view our website](https://amazon-eco.vercel.app/)
+- **Deployed Website**:[Click here to view our website](https://eco-amazon.vercel.app/)
 - **Idea Submission (PPT)**: [Click here to view the presentation](https://docs.google.com/viewerng/viewer?url=https://d8it4huxumps7.cloudfront.net/uploads/submissions/files/1204485/6847196b50047_webcoders_national_institute_of_technology_nit_jamshedpur.pdf)
 
 ---
