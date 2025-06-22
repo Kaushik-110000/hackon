@@ -24,8 +24,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-
-
+import Nav from '@/components/Nav';
+import Footer from '@/components/Footer';
 
 const HeroSection = () => (
   <section className="relative overflow-hidden bg-gradient-to-br from-[#00A76F] via-[#00A76F] to-[#008A5C] text-white">
@@ -381,11 +381,13 @@ const CTASection = () => {
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
+      <Nav/>
       <HeroSection />
       <HowItWorksSection />
       <FeaturesHighlight />
       <FAQSection />
       <CTASection />
+      <Footer/>
     </main>
   );
 }
