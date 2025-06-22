@@ -12,16 +12,21 @@ export async function GET(req: NextRequest) {
 
     const filter = q
       ? {
-          $or: [
-            { name: { $regex: q, $options: "i" } },
-            { category: { $regex: q, $options: "i" } },
-            { brand: { $regex: q, $options: "i" } },
-            { description: { $regex: q, $options: "i" } },
+          $and: [ 
+            {
+              $or: [
+                { name: { $regex: q, $options: "i" } },
+                { category: { $regex: q, $options: "i" } },
+                { brand: { $regex: q, $options: "i" } },
+                { description: { $regex: q, $options: "i" } },
+              ],
+            },
+            { isEcoFriendly: false },
           ],
         }
       : {};
       
-    const products = await Product.find(filter).limit(100).lean();
+    const products = await Product.find(filter).limit(10).lean();
 
     return NextResponse.json(
       { status: 200, query: q, count: products.length, products },
