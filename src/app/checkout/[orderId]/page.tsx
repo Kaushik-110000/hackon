@@ -409,7 +409,12 @@ export default function OrderPage() {
                                 onClick={() => {
                                     // Share via WhatsApp
                                     const groupId = shareLink.split('=')[1];
-                                    const text = `Hey! I'm ordering some eco-friendly products. Want to join and save on shipping?\n\nGroup ID: ${groupId}\nShare Link: ${shareLink}`;
+                                    let addressText = '';
+                                    if (order && order.shippingAddress) {
+                                        const addr = order.shippingAddress;
+                                        addressText = `Delivery Address:\nName: ${addr.name}\nAddress: ${addr.address}\nCity: ${addr.city}\nCountry: ${addr.country}\nPhone: ${addr.phone}`;
+                                    }
+                                    const text = `Hey! I'm ordering some eco-friendly products. Want to join and save on shipping?\n\nGroup ID: ${groupId}\nShare Link: ${shareLink}\n\n${addressText}`;
                                     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
                                 }}
                                 className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm"

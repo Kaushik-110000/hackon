@@ -449,7 +449,7 @@ export default function OrderPage() {
                 </div>
 
                 {/* Group Stats */}
-                <div className="w-full bg-gradient-to-br from-green-50 to-blue-50 border border-green-200 rounded-xl p-6 shadow-lg">
+                <div className="w-full bg-gradient-to-br from-green-50 to-blue-50 border border-green-200 rounded-xl p-6 shadow-lg max-h-[650px] overflow-auto">
                     <div className="text-center mb-6">
                         <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-3">
                             <span className="text-lg">🌱</span>
@@ -574,9 +574,19 @@ export default function OrderPage() {
                             </div>
                         </div>
                     </div>
+                    <button
+                    className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg text-lg shadow"
+                    onClick={() => {
+                        alert('Your order successfully placed');
+                        window.location.href = '/returnsAndOrders';
+                    }}
+                >
+                    Place Order
+                </button>
                 </div>
-
+             
             </div>
+
             {showShareModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
