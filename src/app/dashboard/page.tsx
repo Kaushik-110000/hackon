@@ -7,7 +7,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Image from 'next/image';
 import { useState,useEffect } from 'react';
-
+import Footer from "@/components/Footer"
 import AnimatedCircularProgress from "../../components/animation/animatedCircularProgress";
 
 
@@ -78,7 +78,7 @@ export default function EcoDashboard() {
     <div className="bg-white min-h-screen">
       <Nav />
 
-      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      <div className="max-w-6xl mx-auto px-4 mt-10 py-6 space-y-6">
 
         {/* Row 1: Badges + Progress */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -189,6 +189,7 @@ export default function EcoDashboard() {
         </div>
 
       </div>
+      <Footer/>
     </div>
   );
 }

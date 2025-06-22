@@ -172,7 +172,7 @@ export default function OrderPage() {
                     shippingAddress,
                 };
             });
-            
+
             window.alert("Address successfully updated")
         } catch (error) {
             console.error('Failed to update address:', error);
@@ -327,7 +327,7 @@ export default function OrderPage() {
                     {/* Products Section */}
                     <div className="bg-white p-6 rounded shadow">
                         <h2 className="text-lg font-medium mb-4">Group Products</h2>
-                        
+
                         {/* Products added by current user */}
                         <div className="mb-6">
                             <h3 className="font-medium text-gray-700 mb-3 flex items-center gap-2">
@@ -340,8 +340,8 @@ export default function OrderPage() {
                                         {order.products.map((product, productIndex) => (
                                             <div key={product._id._id} className="flex items-center gap-4 py-2">
                                                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                                                    <img 
-                                                        src={product._id.images[0]} 
+                                                    <img
+                                                        src={product._id.images[0]}
                                                         alt={product._id.name}
                                                         className="w-full h-full object-cover"
                                                         onError={(e) => {
@@ -390,8 +390,8 @@ export default function OrderPage() {
                                         {order.products.map((product, productIndex) => (
                                             <div key={product._id._id} className="flex items-center gap-4 py-2">
                                                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                                                    <img 
-                                                        src={product._id.images[0]} 
+                                                    <img
+                                                        src={product._id.images[0]}
                                                         alt={product._id.name}
                                                         className="w-full h-full object-cover"
                                                         onError={(e) => {
@@ -431,7 +431,7 @@ export default function OrderPage() {
                                 <div>
                                     <p className="text-sm text-gray-500">Total Products</p>
                                     <p className="font-medium">
-                                        {groupOrder?.orders?.reduce((total, order) => 
+                                        {groupOrder?.orders?.reduce((total, order) =>
                                             total + order.products.length, 0
                                         ) || 0} items
                                     </p>
@@ -523,7 +523,7 @@ export default function OrderPage() {
                                     <p className="text-sm font-medium text-gray-800">Carbon Saved</p>
                                     <p className="text-lg font-bold text-emerald-600">
                                         {groupOrder?.orders?.reduce((total, order) =>
-                                            total + (order.ecoStats?.totalCarbonSaved || 0), 0
+                                            total + ((order.ecoStats?.totalCarbonSaved) || 0), 0
                                         ) || 0} kg CO₂
                                     </p>
                                 </div>

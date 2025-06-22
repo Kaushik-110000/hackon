@@ -279,6 +279,11 @@ export default function Nav() {
               📦 Group Buy
             </li>
           </Link>
+          <Link href="/info">
+            <li className="text-green-400 cursor-pointer hover:text-green-300">
+              📗 Know More
+            </li>
+          </Link>
         </ul>
       </nav>
     </>
