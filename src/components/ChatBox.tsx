@@ -4,8 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import { ChatBubble } from "./ChatBubble";
 import { ProductCard } from "./ProductCard";
 import { X, Send, Leaf, Sparkles, ThumbsUp, ThumbsDown } from "lucide-react";
+import mongoose from "mongoose";
 
 interface ProductInfo {
+  _id:mongoose.Types.ObjectId;
   productName: string;
   ecoScore: number;
   greenCoins: number;

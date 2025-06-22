@@ -153,9 +153,14 @@ export default function GreenStore() {
         console.log('Green store API response:', res.data);
         
         if (res.data.status === 200 && res.data.products) {
-          setEcoProducts(res.data.products);
+          // Remove any potential duplicates from API response
+          const uniqueProducts = res.data.products.filter((product: Product, index: number, self: Product[]) => 
+            index === self.findIndex((p: Product) => p._id === product._id)
+          );
+          
+          setEcoProducts(uniqueProducts);
           setHasMore(res.data.hasMore);
-          console.log('Products loaded:', res.data.products.length);
+          console.log('Products loaded:', uniqueProducts.length);
         } else {
           console.error('Invalid API response:', res.data);
         }
@@ -214,11 +219,15 @@ export default function GreenStore() {
       const res = await axios.get(`/api/products/eco?page=${nextPage}&limit=12`);
       
       if (res.data.status === 200 && res.data.products) {
-        const newProducts = [...ecoProducts, ...res.data.products];
-        setEcoProducts(newProducts);
+        // Remove duplicates by _id before merging
+        const existingIds = new Set(ecoProducts.map(product => product._id));
+        const newProducts = res.data.products.filter((product: Product) => !existingIds.has(product._id));
+        
+        const mergedProducts = [...ecoProducts, ...newProducts];
+        setEcoProducts(mergedProducts);
         setPage(nextPage);
         setHasMore(res.data.hasMore);
-        console.log('More products loaded:', res.data.products.length);
+        console.log('More products loaded:', newProducts.length);
         
         // Reset filter to 'all' when loading more products
         setActiveFilter('all');
@@ -501,8 +510,8 @@ export default function GreenStore() {
 
                     {/* Eco Badges */}
                     <div className="flex flex-wrap gap-1 mb-2">
-                      {product.ecoBadges.map((badge) => (
-                        <EcoBadge key={badge} type={badge} showLabel={false} />
+                      {product.ecoBadges.map((badge, index) => (
+                        <EcoBadge key={`${product._id}-${badge}-${index}`} type={badge} showLabel={false} />
                       ))}
                     </div>
 

@@ -1,8 +1,10 @@
 "use client";
 
 import { Leaf, Star, Coins, ExternalLink } from "lucide-react";
-
+import mongoose from "mongoose";
+import { useRouter } from "next/navigation";
 interface ProductInfo {
+  _id:mongoose.Types.ObjectId;
   productName: string;
   ecoScore: number;
   greenCoins: number;
@@ -17,6 +19,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const router = useRouter()
   const getEcoScoreColor = (score: number) => {
     if (score >= 90) return "text-green-600 bg-green-100";
     if (score >= 70) return "text-yellow-600 bg-yellow-100";
@@ -30,7 +33,9 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg border border-green-100 p-4 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white rounded-lg border border-green-100 p-4 hover:shadow-md transition-shadow duration-200"
+      onClick={() => { router.push(`/product/${product._id}`) }}
+    >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <h4 className="font-semibold text-gray-800 text-sm mb-1 line-clamp-2">
@@ -84,7 +89,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
       </div>
 
-     
+
     </div>
   );
 }

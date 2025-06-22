@@ -1,10 +1,11 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { NextResponse, NextRequest } from "next/server";
+import mongoose from "mongoose";
 
 // Load environment variables
 const MONGO_URL = process.env.MONGO_URL!;
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY!;
+const GOOGLE_API_KEY = process.env.GEMINI_KEY!;
 
 // Gemini setup
 const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
@@ -27,6 +28,7 @@ interface Product {
 }
 
 interface ProductInfo {
+  _id:mongoose.Types.ObjectId;
   productName: string;
   ecoScore: number;
   greenCoins: number;
@@ -69,6 +71,7 @@ Query: "${userQuery}"
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
+
   try {
     const { userQuery, offset = 0 } = await req.json();
 
@@ -91,6 +94,7 @@ Your job is to:
 2. Prepare a MongoDB-compatible JSON query using $regex for matching "name", "description", or "category".
 3. Return only a JSON object for MongoDB find().
 Example output:
+
 {
   "$or": [
     { "name": { "$regex": "stainless steel bottle", "$options": "i" } },
@@ -111,6 +115,7 @@ Example output:
           .replace(/^[^{]*({[\s\S]+})[^}]*$/g, "$1");
 
         const parsed = JSON.parse(text);
+        
         if (parsed && parsed.$or) {
           mongoQuery = parsed;
         } else {
@@ -140,6 +145,7 @@ Example output:
       }
 
       const topProducts: ProductInfo[] = matched.map((p) => ({
+        _id:p._id,
         productName: p.name || "",
         ecoScore: p.greenScore || 0,
         greenCoins: p.greenCoins || 0,
