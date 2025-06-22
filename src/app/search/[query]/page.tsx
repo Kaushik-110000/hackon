@@ -197,9 +197,9 @@ export default function Page({}: Props) {
   const router = useRouter();
   // params.query will be the string, possibly with ?q= prefix
   let q = params.query as string;
-  if (q.startsWith("?q=")) {
-    q = q.slice(3);
-  }
+  // if (q.startsWith("?q=")) {
+    // q = q.slice(3);
+  // }
   q = decodeURIComponent(q);
 
   const [isLoading, setIsLoading] = useState(true);

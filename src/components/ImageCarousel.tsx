@@ -45,7 +45,7 @@ const ImageCarousel = () => {
                 
                  
                 <div  
-                 onClick={() => router.push('/search?q=led%20tv')}
+                 onClick={() => router.push('/search/led%20tv')}
                    className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                 
                     <div className="col-span-2 mb-2">
@@ -77,7 +77,7 @@ const ImageCarousel = () => {
 
                 
                 
-                <div   onClick={() => router.push('/search?q=appliances')}
+                <div   onClick={() => router.push('/search/appliances')}
                 className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Appliances for your home | Up to 55% off</h2>
@@ -107,7 +107,7 @@ const ImageCarousel = () => {
                     </div>
                 </div>
                 <div 
-                 onClick={() => router.push('/search?q=home')}
+                 onClick={() => router.push('/search/home')}
                 
                 className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
@@ -133,7 +133,7 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div  onClick={() => router.push('/search?q=games')}
+                <div  onClick={() => router.push('/search/games')}
                  className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
@@ -158,7 +158,7 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div   onClick={() => router.push('/search?q=bathroom%20accessories')}
+                <div   onClick={() => router.push('/search/bathroom%20accessories')}
                 className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Under ₹499 | Deals on home improvement essentials</h2>
@@ -183,7 +183,7 @@ const ImageCarousel = () => {
                         <a href="#" className="text-blue-600 text-sm hover:underline">See more</a>
                     </div>
                 </div>
-                <div  onClick={() => router.push('/search?q=earbuds')}
+                <div  onClick={() => router.push('/search/earbuds')}
                  className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Starting ₹149 | Headphones</h2>
@@ -209,7 +209,7 @@ const ImageCarousel = () => {
                     </div>
                 </div>
                 <div 
-                 onClick={() => router.push('/search?q=automotive')}
+                 onClick={() => router.push('/search/automotive')}
                 className="w-full bg-white p-5 grid grid-cols-2 gap-4">
                     <div className="col-span-2 mb-2">
                         <h2 className="text-xl font-bold leading-tight text-black">Automotive essentials | Up to 60% off</h2>
@@ -239,7 +239,7 @@ const ImageCarousel = () => {
                         <h2 className="text-xl font-bold leading-tight text-black">Starting ₹199 | Amazon Brands & more</h2>
                     </div>
                     <div  
-                     onClick={() => router.push('/search?q=homedecor')}
+                     onClick={() => router.push('/search/homedecor')}
                      className="flex flex-col items-center">
                         <img src="/assests/bedsheets.jpg" alt="Starting ₹199 | Bedsheets" className="w-32 h-20 object-cover rounded mb-1" />
                         <span className="text-xs text-gray-800 text-left w-32">Starting ₹199 | Bedsheets</span>

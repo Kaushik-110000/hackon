@@ -63,7 +63,7 @@ export default function Nav() {
     setQuery(query.toLowerCase());
 
 
-    router.push(`/search?q=${query}`);
+    router.push(`/search/${query}`);
     setPlaceholder(query);
     setQuery("");
     setSuggestions([]);
@@ -150,7 +150,7 @@ export default function Nav() {
                       setQuery(s);
                       setPlaceholder(s);
                       setSuggestions([]);
-                      router.push(`/search?q=${s}`);
+                      router.push(`/search/${s}`);
                       setQuery("");
                       setSuggestions([]);
                     }}
