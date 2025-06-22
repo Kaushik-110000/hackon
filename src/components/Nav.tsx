@@ -280,7 +280,6 @@ export default function Nav() {
             </li>
           </Link>
           <Link href="/info">
-<<<<<<< HEAD
             <li className="text-green-400 cursor-pointer hover:text-green-300">
               📗 Know More
             </li>
