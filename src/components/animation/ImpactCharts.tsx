@@ -14,8 +14,25 @@ import {
   Cell,
 } from 'recharts';
 
+// Type definitions
+interface ChartDataPoint {
+  month: string;
+  value: number;
+}
+
+interface ImpactChartsProps {
+  animate: boolean;
+}
+
+interface DotProps {
+  cx?: number;
+  cy?: number;
+  payload: ChartDataPoint;
+  index: number;
+}
+
 // Chart Data
-const carbonData = [
+const carbonData: ChartDataPoint[] = [
   { month: 'Apr', value: 300 },
   { month: 'May', value: 350 },
   { month: 'Jun', value: 450 },
@@ -23,7 +40,7 @@ const carbonData = [
   { month: 'Sep', value: 620 },
 ];
 
-const productData = [
+const productData: ChartDataPoint[] = [
   { month: 'Jan', value: 3 },
   { month: 'Feb', value: 10 },
   { month: 'Mar', value: 7 },
@@ -33,7 +50,7 @@ const productData = [
 ];
 
 // Green shades
-const tailwindShades = [
+const tailwindShades: string[] = [
   '#86efac', // green-300
   '#4ade80', // green-400
   '#22c55e', // green-500
@@ -41,12 +58,10 @@ const tailwindShades = [
   '#15803d', // green-700
   '#166534', // green-800
   '#052e16'  // green-900 
-  
-
 ];
 
-export default function ImpactCharts({ animate }) {
-  const [animateCharts, setAnimateCharts] = useState(false);
+export default function ImpactCharts({ animate }: ImpactChartsProps) {
+  const [animateCharts, setAnimateCharts] = useState<boolean>(false);
 
   useEffect(() => {
     if (animate) {
@@ -55,9 +70,9 @@ export default function ImpactCharts({ animate }) {
   }, [animate]);
 
   // Generate value → color mapping
-  const getShadeMap = (data) => {
+  const getShadeMap = (data: ChartDataPoint[]): Record<number, string> => {
     const sorted = [...data].sort((a, b) => a.value - b.value);
-    const map = {};
+    const map: Record<number, string> = {};
     sorted.forEach((item, i) => {
       const shadeIndex = Math.min(i, tailwindShades.length - 1);
       map[item.value] = tailwindShades[shadeIndex];
@@ -106,8 +121,9 @@ export default function ImpactCharts({ animate }) {
               dataKey="value"
               stroke="#16a34a"
               strokeWidth={2}
-              dot={({ cx, cy, payload }) => (
+              dot={({ cx, cy, payload, index }: DotProps) => (
                 <circle
+                  key={`dot-${index}-${payload.value}`}
                   cx={cx}
                   cy={cy}
                   r={5}

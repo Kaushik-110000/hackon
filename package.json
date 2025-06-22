@@ -12,22 +12,14 @@
     "@google/generative-ai": "^0.24.1",
     "@tailwindcss/vite": "^4.1.10",
     "axios": "^1.10.0",
-<<<<<<< HEAD
-=======
     "class-variance-authority": "^0.7.1",
-    "framer-motion": "^12.18.1",
->>>>>>> 3221b463844cc273bfcb145e58ad5e73c3383e11
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.517.0",
     "mongoose": "^8.16.0",
     "next": "15.3.3",
     "radix-ui": "^1.4.2",
     "react": "^19.0.0",
-<<<<<<< HEAD
     "react-circular-progressbar": "^2.2.0",
-=======
-    "react-accordion": "^0.3.0",
->>>>>>> 3221b463844cc273bfcb145e58ad5e73c3383e11
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
     "react-slick": "^0.30.3",
