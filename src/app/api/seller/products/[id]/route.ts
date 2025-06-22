@@ -20,15 +20,16 @@ export async function GET(
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
+    const { id } = await params;
     const body = await req.json();
     const { sellerId, ...updateFields } = body;
     if (!sellerId) {
       return NextResponse.json({ error: 'sellerId required', status: 400 }, { status: 400 });
     }
-    const product = await Product.findById(params.id);
+    const product = await Product.findById(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found', status: 404 }, { status: 404 });
     }
@@ -43,22 +44,23 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     await connectDB();
+    const { id } = await params;
     const { sellerId } = await req.json();
     if (!sellerId) {
       return NextResponse.json({ error: 'sellerId required', status: 400 }, { status: 400 });
     }
-    const product = await Product.findById(params.id);
+    const product = await Product.findById(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found', status: 404 }, { status: 404 });
     }
     if (product.seller.toString() !== sellerId) {
       return NextResponse.json({ error: 'Not allowed', status: 403 }, { status: 403 });
     }
-    await Product.deleteOne({ _id: params.id });
-    await Seller.findByIdAndUpdate(sellerId, { $pull: { products: params.id } });
+    await Product.deleteOne({ _id: id });
+    await Seller.findByIdAndUpdate(sellerId, { $pull: { products: id } });
     return NextResponse.json({ message: 'Product deleted', status: 200 }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error', status: 500 }, { status: 500 });

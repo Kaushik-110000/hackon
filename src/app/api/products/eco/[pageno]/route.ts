@@ -4,13 +4,14 @@ import { connectDB } from '@/dbConfig/dbConfig';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { pageno: string } }
+  { params }: { params: Promise<{ pageno: string }> }
 ) {
   try {
     await connectDB();
     
     // Get page number from URL parameter
-    const page = parseInt(params.pageno, 10);
+    const { pageno } = await params;
+    const page = parseInt(pageno, 10);
     const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get('limit') || '12', 10); // Default 12 items per page
     

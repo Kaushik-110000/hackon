@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Nav from "../../components/Nav";
 import GreenScore from "../../components/GreenScore";
 import EcoBadge from "../../components/EcoBadge";
@@ -185,9 +185,7 @@ const colors = [
   "#808000",
 ];
 
-type Props = {};
-
-export default function page({ }: Props) {
+function SearchContent() {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [deliveryDay, setDeliveryDay] = useState(false);
   const [price, setPrice] = useState([125, 8400]);
@@ -987,5 +985,27 @@ export default function page({ }: Props) {
         </main>
       </div>
     </div>
+  );
+}
+
+function LoadingFallback() {
+  return (
+    <div className="bg-[#E3E6E6] min-h-screen">
+      <Nav />
+      <div className="flex pt-20 items-center justify-center gap-2 text-gray-700 py-4">
+        <FaSpinner className="animate-spin text-yellow-500 text-2xl" />
+        <span className="font-medium text-sm">Loading search results...</span>
+      </div>
+    </div>
+  );
+}
+
+type Props = {};
+
+export default function page({ }: Props) {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <SearchContent />
+    </Suspense>
   );
 }
