@@ -298,8 +298,8 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-end h-full pr-8">
-            <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750616386/Artboard_1__3_-removebg-preview_dzybpe.png" alt="Earbuds" className="w-32 h-32 object-contain -mb-8" />
-            <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750616441/715jcYvT9pL_fv0xvf.jpg" alt="Headphones" className="w-28 h-28 object-contain -mb-4 ml-[-30px]" />
+            <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=180&q=80" alt="Earbuds" className="w-32 h-32 object-contain -mb-8" />
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" alt="Headphones" className="w-28 h-28 object-contain -mb-4 ml-[-30px]" />
           </div>
           <button className="pointer-events-auto bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center shadow-md mt-32 mr-[-20px] border border-gray-200">
             <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
