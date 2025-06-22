@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState, useContext } from "react";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";

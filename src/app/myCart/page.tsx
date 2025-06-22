@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState, useCallback, useContext } from 'react'
 import Nav from '../../components/Nav'
 import GreenScore from '../../components/GreenScore'
