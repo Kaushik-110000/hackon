@@ -220,11 +220,13 @@ export default function Nav() {
               </svg>
             </span>
           </div>
-          {/* Orders */}
-          <div className="flex flex-col cursor-pointer text-gray-300">
-            <span className="text-xs">Returns</span>
-            <span className="font-bold text-sm leading-tight">& Orders</span>
-          </div>
+          <Link href={"/returnsAndOrders"}>
+            {/* Orders */}
+            <div className="flex flex-col cursor-pointer text-gray-300">
+              <span className="text-xs">Returns</span>
+              <span className="font-bold text-sm leading-tight">& Orders</span>
+            </div></Link>
+
           {/* Cart */}
           <Link href={"/myCart"}>
             <div className="flex items-center cursor-pointer relative" >
