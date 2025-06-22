@@ -50,6 +50,8 @@ Sustainability shouldn’t be a chore. With our platform, it becomes a habit.
 - 📊 **Personal Dashboard** – Visualize your contributions — coins earned, CO₂ saved, badges, and streaks.
 - 🤝 **Group Buying** – Form or join eco-groups to buy sustainable products collectively.
 - 🔁 **Box Return System** – Incentivize returning packaging boxes for reuse or recycling.
+- 📦 **Producer Upload Panel** – Sellers can upload product details (materials, transport, packaging, etc.) to get real-time carbon footprint analysis, green score, and eco-badge verification.
+  
 
 ---
 
@@ -186,6 +188,23 @@ Group Buy not only promotes collective action but also rewards users for making 
 ![Share Order](https://res.cloudinary.com/dj24ptooq/image/upload/v1750598449/image-6_hppfpy.png) 
 ![Grouped People Dashboard](https://res.cloudinary.com/dj24ptooq/image/upload/v1750598464/image-7_glddzv.png)
 
+
+---
+
+## 🏭 Producer Upload Panel
+   **Producer Upload Panel** is a dedicated interface where sellers can submit product details to get real-time sustainability insights. It enables transparent carbon tracking, automated Green Score generation,       and  eco-badge verification — empowering producers to highlight their commitment to the planet.
+   
+### Key Features
+- **📥 Smart Product Form** – Upload details like material type, energy usage, transport distance, packaging,disposal method and product details like name,description,category,price,etc.
+- **📊 Instant Carbon Analysis** – Automatically calculates the estimated carbon footprint of the product.
+- **🌱 Eco Score Feedback** – Receives a Green Score of product.
+
+### How It Works
+- **Input**: Producer submits ProductData through a guided form or API.
+
+- **Processing**: Our **CarbonFootprint Estimator** estimates lifecycle emissions using standard emission factors.
+
+- **Output**: Returns total carbon footprint, green score, coin eligibility, and optional eco-badge.
 
 ---
 
