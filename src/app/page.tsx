@@ -298,8 +298,8 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-end h-full pr-8">
-            <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=180&q=80" alt="Earbuds" className="w-32 h-32 object-contain -mb-8" />
-            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=120&q=80" alt="Headphones" className="w-28 h-28 object-contain -mb-4 ml-[-30px]" />
+            <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750616386/Artboard_1__3_-removebg-preview_dzybpe.png" alt="Earbuds" className="w-32 h-32 object-contain -mb-8" />
+            <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750616441/715jcYvT9pL_fv0xvf.jpg" alt="Headphones" className="w-28 h-28 object-contain -mb-4 ml-[-30px]" />
           </div>
           <button className="pointer-events-auto bg-white bg-opacity-70 rounded-full w-10 h-10 flex items-center justify-center shadow-md mt-32 mr-[-20px] border border-gray-200">
             <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -312,19 +312,19 @@ export default function Home() {
             <h2 className="text-lg font-bold mb-3">Appliances for your home | Up to 55% off</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=120&q=80" alt="Air conditioners" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750614988/images_uoimjo.jpg" alt="Air conditioners" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Air conditioners</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=120&q=80" alt="Refrigerators" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615043/shopping_r5lxct.webp" alt="Refrigerators" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Refrigerators</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=120&q=80" alt="Microwaves" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615120/MC28A5025VS4_kcr65h.jpg" alt="Microwaves" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Microwaves</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=120&q=80" alt="Washing machines" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615169/21433238_WG34A20PIN_PGA4_def_akaqlt.webp" alt="Washing machines" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Washing machines</span>
               </div>
             </div>
@@ -334,19 +334,19 @@ export default function Home() {
             <h2 className="text-lg font-bold mb-3">Revamp your home in style</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1503389152951-9c3d0c6b7a5a?auto=format&fit=crop&w=120&q=80" alt="Cushion covers, bedsheets" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615301/71qxW9Ty1-L_ndzpq2.jpg" alt="Cushion covers, bedsheets" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Cushion covers, bedsheets & more</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=120&q=80" alt="Figurines, vases" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615360/n2zzc_512_tagyji.jpg" alt="Figurines, vases" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Figurines, vases & more</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=120&q=80" alt="Home storage" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615402/images_trje1y.jpg" alt="Home storage" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Home storage</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=120&q=80" alt="Lighting solutions" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615454/images_f7tvcg.jpg" alt="Lighting solutions" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">Lighting solutions</span>
               </div>
             </div>
@@ -356,42 +356,42 @@ export default function Home() {
             <h2 className="text-lg font-bold mb-3">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim digital edition" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615500/51afJC92cgL_zizxxp.jpg" alt="PS5 Slim digital edition" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">PS5 Slim digital edition</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim disc edition" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615538/sony_20psd5_1_gz0pgg.jpg" alt="PS5 Slim disc edition" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">PS5 Slim disc edition</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim Fortnite digital edition" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615595/images_aynhxp.jpg" alt="PS5 Slim Fortnite digital edition" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">PS5 Slim Fortnite digital edition</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=120&q=80" alt="PS5 DualSense Wireless Controller" className="w-24 h-16 object-cover rounded mb-1" />
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615666/images_cq6xmj.jpg" alt="PS5 DualSense Wireless Controller" className="w-24 h-16 object-cover rounded mb-1" />
                 <span className="text-xs text-gray-700">PS5 DualSense Wireless Controller</span>
               </div>
             </div>
             <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">See all deals</a>
           </div>
             {updatedState?.userData?._id ?  <div className="bg-white rounded shadow-md p-4 flex flex-col min-h-[300px]">
-            <h2 className="text-lg font-bold mb-3">PlayStation 5 Slim & Accessories | No Cost EMI*</h2>
+            <h2 className="text-lg font-bold mb-3">Appliances for your home | Up to 55% offPlayStation 5 Slim & Accessories | No Cost EMI*</h2>
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim digital edition" className="w-24 h-16 object-cover rounded mb-1" />
-                <span className="text-xs text-gray-700">PS5 Slim digital edition</span>
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750614988/images_uoimjo.jpg" alt="Air conditioners" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">Air conditioners</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim disc edition" className="w-24 h-16 object-cover rounded mb-1" />
-                <span className="text-xs text-gray-700">PS5 Slim disc edition</span>
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615043/shopping_r5lxct.webp" alt="Refrigerators" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">Refrigerators</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1606813909355-684e1bdc1b47?auto=format&fit=crop&w=120&q=80" alt="PS5 Slim Fortnite digital edition" className="w-24 h-16 object-cover rounded mb-1" />
-                <span className="text-xs text-gray-700">PS5 Slim Fortnite digital edition</span>
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615120/MC28A5025VS4_kcr65h.jpg" alt="Microwaves" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">Microwaves</span>
               </div>
               <div className="flex flex-col items-center">
-                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=120&q=80" alt="PS5 DualSense Wireless Controller" className="w-24 h-16 object-cover rounded mb-1" />
-                <span className="text-xs text-gray-700">PS5 DualSense Wireless Controller</span>
+                <img src="https://res.cloudinary.com/dj24ptooq/image/upload/v1750615169/21433238_WG34A20PIN_PGA4_def_akaqlt.webp" alt="Washing machines" className="w-24 h-16 object-cover rounded mb-1" />
+                <span className="text-xs text-gray-700">Washing machines</span>
               </div>
             </div>
             <a href="#" className="text-blue-600 text-sm mt-auto hover:underline">See all deals</a>
