@@ -23,6 +23,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../components/ui/accordian';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+
+
 
 const HeroSection = () => (
   <section className="relative overflow-hidden bg-gradient-to-br from-[#00A76F] via-[#00A76F] to-[#008A5C] text-white">
@@ -31,18 +34,18 @@ const HeroSection = () => (
       <div className="text-center max-w-4xl mx-auto">
         <div className="flex justify-center mb-6">
           <Badge className="bg-white/20 text-white border-white/30 px-4 py-2 text-sm font-medium">
-            🌱 Sustainable E-commerce Revolution
+            🧠 + 🌿 + 💚 = Welcome to the Future of Shopping
           </Badge>
         </div>
         
         <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-          Welcome to the
-          <span className="block text-green-200">Green Store</span>
+          🌱 Get Ready for the
+          <span className="block text-green-200">Eco-Adventure of a Lifetime</span>
         </h1>
         
         <p className="text-xl lg:text-2xl mb-8 text-green-100 leading-relaxed">
-          Where sustainability meets technology. Discover eco-friendly products, 
-          track your environmental impact, and join a community committed to saving our planet.
+          This isn't the Green Store... yet. But you're about to step into a world where AI meets sustainability, 
+          and every product tells an eco-story. Ready to shop green, chat smart, and earn rewards for saving the planet?
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
@@ -51,29 +54,30 @@ const HeroSection = () => (
               <Leaf className="h-8 w-8 text-green-200" />
             </div>
             <h3 className="font-semibold text-lg mb-2">100% Eco-Verified</h3>
-            <p className="text-green-100">Every product undergoes carbon footprint verification</p>
+            <p className="text-green-100">Every item is checked, carbon-calculated, and Earth-approved</p>
           </div>
           
           <div className="text-center">
             <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <Bot className="h-8 w-8 text-green-200" />
             </div>
-            <h3 className="font-semibold text-lg mb-2">AI-Powered Guidance</h3>
-            <p className="text-green-100">Sprout chatbot helps you make sustainable choices</p>
+            <h3 className="font-semibold text-lg mb-2">Chat with Sprout 🌿</h3>
+            <p className="text-green-100">Your AI buddy for guilt-free, planet-friendly purchases</p>
           </div>
           
           <div className="text-center">
             <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
               <Award className="h-8 w-8 text-green-200" />
             </div>
-            <h3 className="font-semibold text-lg mb-2">Rewarding Impact</h3>
-            <p className="text-green-100">Earn Green Coins and Eco Badges for sustainable shopping</p>
+            <h3 className="font-semibold text-lg mb-2">Earn While You Save</h3>
+            <p className="text-green-100">Score Green Coins & Eco Badges every time you shop responsibly</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 );
+
 
 const HowItWorksSection = () => {
   const steps = [
@@ -317,54 +321,62 @@ const FAQSection = () => {
   );
 };
 
-const CTASection = () => (
-  <section className="py-20 bg-gradient-to-r from-[#00A76F] to-[#008A5C] text-white">
-    <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-        Ready to Start Your Sustainable Journey?
-      </h2>
-      <p className="text-xl text-green-100 mb-8">
-        Join thousands of eco-conscious shoppers making a positive impact on our planet.
-      </p>
-      
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button 
-          size="lg" 
-          className="bg-white text-[#00A76F] hover:bg-gray-100 font-semibold px-8 py-3"
-        >
-          Start Shopping Green
-          <ShoppingCart className="ml-2 h-5 w-5" />
-        </Button>
-        <Button 
-          size="lg" 
-          variant="outline" 
-          className="border-white text-white hover:bg-white hover:text-[#00A76F] font-semibold px-8 py-3"
-        >
-          Chat with Sprout
-          <MessageCircle className="ml-2 h-5 w-5" />
-        </Button>
+const CTASection = () => {
+  const router = useRouter();
+
+  return (
+    <section className="py-20 bg-gradient-to-r from-[#00A76F] to-[#008A5C] text-white">
+      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+          Ready to Start Your Sustainable Journey?
+        </h2>
+        <p className="text-xl text-green-100 mb-8">
+          Join thousands of eco-conscious shoppers making a positive impact on our planet.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            size="lg" 
+            className="bg-white text-[#00A76F] hover:bg-gray-100 font-semibold px-8 py-3"
+            onClick={() => router.push('/green-store')}
+          >
+            Start Shopping Green
+            <ShoppingCart className="ml-2 h-5 w-5" />
+          </Button>
+
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="border-white text-[#00A76F] hover:bg-gray-100 font-semibold px-8 py-3"
+            onClick={() => router.push('/green-store')}
+          >
+            Chat with Sprout
+            <MessageCircle className="ml-2 h-5 w-5" />
+          </Button>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div>
+            <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-200" />
+            <div className="font-semibold">Free Account</div>
+            <div className="text-green-100 text-sm">No subscription fees</div>
+          </div>
+          <div>
+            <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-200" />
+            <div className="font-semibold">Instant Green Coins</div>
+            <div className="text-green-100 text-sm">Start earning rewards</div>
+          </div>
+          <div>
+            <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-200" />
+            <div className="font-semibold">AI Guidance</div>
+            <div className="text-green-100 text-sm">Personalized recommendations</div>
+          </div>
+        </div>
       </div>
-      
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-        <div>
-          <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-200" />
-          <div className="font-semibold">Free Account</div>
-          <div className="text-green-100 text-sm">No subscription fees</div>
-        </div>
-        <div>
-          <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-200" />
-          <div className="font-semibold">Instant Green Coins</div>
-          <div className="text-green-100 text-sm">Start earning rewards</div>
-        </div>
-        <div>
-          <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-200" />
-          <div className="font-semibold">AI Guidance</div>
-          <div className="text-green-100 text-sm">Personalized recommendations</div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
+
 
 export default function Home() {
   return (
