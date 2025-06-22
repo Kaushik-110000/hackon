@@ -222,7 +222,7 @@ Group Buy not only promotes collective action but also rewards users for making 
 
 Reduce waste, support reuse, and get rewarded for it!
 
-![Retur Box Feature] (https://res.cloudinary.com/dj24ptooq/image/upload/v1750609437/e2cc3b67-0b34-4a82-be4d-507bc2b5aadc.png)
+![Return Box Feature](https://res.cloudinary.com/dj24ptooq/image/upload/v1750609437/e2cc3b67-0b34-4a82-be4d-507bc2b5aadc.png)
 
 ## 🛠️ Tech Stack
 
