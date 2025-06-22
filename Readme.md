@@ -213,8 +213,8 @@ This project leverages a wide range of modern technologies across frontend, back
 
 - **HTML5**
 - **CSS3**
-- **JavaScript (ES6+)**
-- **React.js**
+- **TypeScript**
+- **Next JS**
 
 ### 🛠️ APIs & Integration:
 
