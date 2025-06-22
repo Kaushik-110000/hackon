@@ -15,7 +15,7 @@ const ImpactCharts = dynamic(() => import('../../components/animation/ImpactChar
 
 
 
-const badgeIcons = {
+const badgeIcons: Record<string, string> = {
   'Eco Warrior': '/assests/seeding_18144243.png',
   'Green Shopper': '/assests/eco-bag_13323431.png',
   'Carbon Conscious': '/assests/think-eco_2962134.png'
@@ -42,13 +42,36 @@ export default function EcoDashboard() {
     currentMonth: 25.5,
     badges: ['Eco Warrior', 'Green Shopper', 'Carbon Conscious'],
     recentPurchases: [
-      { name: 'Bamboo Water Bottle', greenScore: 95, carbonSaved: 2.1, date: '2024-01-15' },
-      { name: 'Organic Cotton T-Shirt', greenScore: 88, carbonSaved: 1.8, date: '2024-01-12' },
-      { name: 'Solar Power Bank', greenScore: 92, carbonSaved: 3.2, date: '2024-01-10' },
+      { id: 1, name: 'Bamboo Water Bottle', greenScore: 95, carbonSaved: 2.1, date: '2024-01-15' },
+      { id: 2, name: 'Organic Cotton T-Shirt', greenScore: 88, carbonSaved: 1.8, date: '2024-01-12' },
+      { id: 3, name: 'Solar Power Bank', greenScore: 92, carbonSaved: 3.2, date: '2024-01-10' },
     ]
   };
 
   const progressPercentage = (userStats.currentMonth / userStats.monthlyGoal) * 100;
+
+  const tips = [
+    {
+      id: 1,
+      title: '🌱 Choose eco-friendly products',
+      desc: 'Look for products with high green scores (80+) to maximize your environmental impact.'
+    },
+    {
+      id: 2,
+      title: '📦 Opt for sustainable packaging',
+      desc: 'Select products with minimal or recyclable packaging to reduce waste.'
+    },
+    {
+      id: 3,
+      title: '🤝 Join group buying',
+      desc: 'Participate in group purchases to reduce shipping emissions and save money.'
+    },
+    {
+      id: 4,
+      title: '💚 Use green coins',
+      desc: 'Redeem your green coins for exclusive eco-friendly products and discounts.'
+    }
+  ];
 
   return (
     <div className="bg-white min-h-screen">
@@ -64,7 +87,7 @@ export default function EcoDashboard() {
             <div className="flex gap-4">
                   {userStats.badges.map((badge, index) => (
         <div
-          key={index}
+          key={`badge-${index}-${badge}`}
           className="flex h-50 w-50 flex-col items-center bg-emerald-50 p-3 rounded-lg w-24 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer"
         >
           <Image
@@ -108,17 +131,17 @@ export default function EcoDashboard() {
         <div className="grid  grid-cols-1  md:grid-cols-2 gap-6">
           {/* Stats Boxes */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className=" rounded-xl bg-emerald-50 h-55 shadow-md p-3 border border-gray-100 flex flex-col items-center justify-center h-28  transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer">
+            <div key="green-coins" className=" rounded-xl bg-emerald-50 h-55 shadow-md p-3 border border-gray-100 flex flex-col items-center justify-center h-28  transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer">
               <span className="text-blue-600  mb-1"><img src="/assests/eco-friendly_5184273.png" alt="green coin" className="w-13 h-13 mb-1" /></span>
               <p className="text-lg font-bold  text-gray-900">{userStats.greenCoins.toLocaleString()}</p>
               <p className="text-xs text-2xl text-gray-600">Green Coins</p>
             </div>
-            <div className=" rounded-xl bg-emerald-50  h-55 shadow-md p-3 border border-gray-100 flex flex-col items-center justify-center h-28  transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer">
+            <div key="savings" className=" rounded-xl bg-emerald-50  h-55 shadow-md p-3 border border-gray-100 flex flex-col items-center justify-center h-28  transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer">
               <span className="text-yellow-600 text-6xl mb-1">💰</span>
               <p className="text-lg font-bold text-gray-900">₹{userStats.totalSavings.toFixed(2)}</p>
               <p className="text-xs text-gray-600">Saved</p>
             </div>
-            <div className=" rounded-xl bg-emerald-50 h-55 shadow-md p-3 border border-gray-100 flex flex-col items-center justify-center h-28  transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer">
+            <div key="eco-products" className=" rounded-xl bg-emerald-50 h-55 shadow-md p-3 border border-gray-100 flex flex-col items-center justify-center h-28  transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer">
               <span className="text-green-600 text-6xl mb-1">♻️</span>
               <p className="text-lg  font-bold text-gray-900">{userStats.ecoProductsPurchased}</p>
               <p className="text-xs text-semibold text-gray-600">Eco Products</p>
@@ -138,8 +161,8 @@ export default function EcoDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {userStats.recentPurchases.map((item, i) => (
-                  <tr key={i} className="border-b text-gray-800 ">
+                {userStats.recentPurchases.map((item) => (
+                  <tr key={`purchase-${item.id}`} className="border-b text-gray-800 ">
                     <td className="py-2">{item.name}</td>
                     <td className="py-2">{item.greenScore}</td>
                     <td className="py-2">{item.carbonSaved} kg</td>
@@ -155,20 +178,8 @@ export default function EcoDashboard() {
         <div className="bg-white rounded-xl shadow-md p-5 border border-gray-100">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Tips to Increase Your Green Impact 🌿</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[{
-              title: '🌱 Choose eco-friendly products',
-              desc: 'Look for products with high green scores (80+) to maximize your environmental impact.'
-            }, {
-              title: '📦 Opt for sustainable packaging',
-              desc: 'Select products with minimal or recyclable packaging to reduce waste.'
-            }, {
-              title: '🤝 Join group buying',
-              desc: 'Participate in group purchases to reduce shipping emissions and save money.'
-            }, {
-              title: '💚 Use green coins',
-              desc: 'Redeem your green coins for exclusive eco-friendly products and discounts.'
-            }].map((tip, i) => (
-              <div key={i} className="bg-green-100 border border-green-200 rounded-lg p-4 hover:shadow-md transition">
+            {tips.map((tip) => (
+              <div key={`tip-${tip.id}`} className="bg-green-100 border border-green-200 rounded-lg p-4 hover:shadow-md transition">
                 <h3 className="text-green-800 font-semibold mb-1 text-sm">{tip.title}</h3>
                 <p className="text-xs text-gray-700">{tip.desc}</p>
               </div>
