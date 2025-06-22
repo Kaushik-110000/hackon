@@ -200,7 +200,7 @@ Group Buy not only promotes collective action but also rewards users for making 
 - **🌱 Eco Score Feedback** – Receives a Green Score of product.
 
 ### How It Works
-- **Input**: Producer submits ProductData through a guided form or API.
+- **Input**: Producer submits ProductData through a guided form.
 
 - **Processing**: Our **CarbonFootprint Estimator** estimates lifecycle emissions using standard emission factors.
 
