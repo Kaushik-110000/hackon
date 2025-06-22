@@ -3,7 +3,6 @@
 import React from 'react';
 import Nav from '../../components/Nav';
 import dynamic from 'next/dynamic';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Image from 'next/image';
 import { useState,useEffect } from 'react';
